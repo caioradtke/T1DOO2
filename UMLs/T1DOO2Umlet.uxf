@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>490</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Paciente
+--
+-nomeCompleto : String
+-cpf : String
+-peso: double
+-altura : double
+-imc : double
+-telefone : String
+-observacoes : String
+-consultas&lt;Consulta&gt; : List
+-aplicacoes&lt;Aplicacao&gt; : List</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>350</x>
+      <y>300</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Aplicacao
+--
+-medicamento: Medicamento
+-dose: double
+-data : LocalDate</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>490</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Consulta
+--
+-id : String
+-data : LocalDate
+-paciente : Paciente
+-observacao : String 
+-pesoPaciente : double
+-pressaoPaciente : String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>300</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Medicamento
+--
+-id : String
+-nome : String
+-valorCompra : double
+-valorAplicacao : double
+-estoque: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>600</x>
+      <y>110</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Agenda
+--
+-data : LocalDate
+-consultas &lt;Consulta&gt; : List
+-aplicacoes &lt;Aplicacao&gt; : List</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>920</x>
+      <y>280</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Entrada
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1030</x>
+      <y>40</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>/MovimentacaoFinanceira/
+--
+-id : String
+-descricao : String
+-valor : double
+-data : LocalDate</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1170</x>
+      <y>280</y>
+      <w>240</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Despesa
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1050</x>
+      <y>210</y>
+      <w>70</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1190</x>
+      <y>210</y>
+      <w>100</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
