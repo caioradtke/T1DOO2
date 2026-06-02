@@ -1,4 +1,4 @@
-package udesc.br.app;
+package main.java.udesc.br.app;
 
 public class Sistema {
 }

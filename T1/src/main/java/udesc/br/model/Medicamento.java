@@ -1,4 +1,4 @@
-package udesc.br.model;
+package main.java.udesc.br.model;
 
 public class Medicamento {
     private String id;

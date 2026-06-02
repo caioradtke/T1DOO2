@@ -1,4 +1,6 @@
-package udesc.br.dao;
+package main.java.udesc.br.dao;
 
-public class PacienteDAO {
+import main.java.udesc.br.repository.PacienteRepositorio;
+
+public class PacienteDAO implements PacienteRepositorio {
 }

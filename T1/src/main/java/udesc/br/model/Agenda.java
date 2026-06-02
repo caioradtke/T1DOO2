@@ -1,4 +1,4 @@
-package udesc.br.model;
+package main.java.udesc.br.model;
 
 import java.time.LocalDate;
 import java.util.List;

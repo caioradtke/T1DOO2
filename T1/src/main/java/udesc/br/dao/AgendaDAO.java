@@ -1,4 +1,6 @@
-package udesc.br.dao;
+package main.java.udesc.br.dao;
 
-public class AgendaDAO {
+import main.java.udesc.br.repository.AgendaRepositorio;
+
+public class AgendaDAO implements AgendaRepositorio {
 }

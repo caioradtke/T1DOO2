@@ -1,4 +1,4 @@
-package udesc.br.repository;
+package main.java.udesc.br.repository;
 
 public interface MovimentacaoFinanceiraRepositorio {
 }

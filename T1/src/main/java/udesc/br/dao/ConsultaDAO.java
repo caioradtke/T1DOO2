@@ -1,4 +1,6 @@
-package udesc.br.dao;
+package main.java.udesc.br.dao;
 
-public class ConsultaDAO {
+import main.java.udesc.br.repository.ConsultaRepositorio;
+
+public class ConsultaDAO implements ConsultaRepositorio {
 }
