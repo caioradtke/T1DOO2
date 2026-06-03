@@ -1,4 +1,4 @@
-package main.java.udesc.br.controller;
+package udesc.br.controller;
 
 public class MedicamentoControlador {
 }

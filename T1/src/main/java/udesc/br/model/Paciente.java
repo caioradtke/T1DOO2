@@ -1,4 +1,4 @@
-package main.java.udesc.br.model;
+package udesc.br.model;
 
 public class Paciente {
     private String nomeCompleto;

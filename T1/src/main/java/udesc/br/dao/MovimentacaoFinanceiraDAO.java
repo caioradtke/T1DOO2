@@ -1,6 +1,6 @@
-package main.java.udesc.br.dao;
+package udesc.br.dao;
 
-import main.java.udesc.br.repository.MovimentacaoFinanceiraRepositorio;
+import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 
 public class MovimentacaoFinanceiraDAO implements MovimentacaoFinanceiraRepositorio {
 }

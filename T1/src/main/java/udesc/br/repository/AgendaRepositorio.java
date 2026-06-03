@@ -1,4 +1,4 @@
-package main.java.udesc.br.repository;
+package udesc.br.repository;
 
 public interface AgendaRepositorio {
 }
