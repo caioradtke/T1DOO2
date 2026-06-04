@@ -3,7 +3,25 @@ package udesc.br.model;
 import java.time.LocalDate;
 
 public class Despesa extends MovimentaFinanceira{
-    public Despesa(String id, String descricao, double valor, LocalDate data) {
-        super(id, descricao, valor, data);
+    private int quantidade;
+    private Medicamento medicamento;
+    private double valorUnitario;
+    public Despesa(String id, String descricao, LocalDate data, int quantidade, double valorUnitario, Medicamento medicamento) {
+        super(id, descricao, data);
+        this.quantidade = quantidade;
+        this.valorUnitario = valorUnitario;
+        this.medicamento = medicamento;
+    }
+
+    @Override
+    public double calcularValor(){
+        return this.valorUnitario * this.quantidade;
+    }
+
+    public double getValorUnitario() {
+        return valorUnitario;
+    }
+    public int  getQuantidade() {
+        return quantidade;
     }
 }
