@@ -7,7 +7,7 @@ import java.util.List;
 
 public class PacienteDAO implements PacienteRepositorio {
     @Override
-    public boolean salvarProduto(Paciente produto) {
+    public boolean salvarPaciente(Paciente produto) {
         return false;
     }
 
