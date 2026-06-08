@@ -1,15 +1,15 @@
 package udesc.br.model;
 
 public class Paciente {
-    private String nomeCompleto;
+    private String nome;
     private String cpf;
     private double peso;
     private double altura;
     private double imc;
     private String telefone;
 
-    public Paciente(String nomeCompleto, String cpf, double peso, double altura, String telefone) {
-        this.nomeCompleto = nomeCompleto;
+    public Paciente(String nome, String cpf, double peso, double altura, String telefone) {
+        this.nome = nome;
         this.cpf = cpf;
         this.peso = peso;
         this.altura = altura;
