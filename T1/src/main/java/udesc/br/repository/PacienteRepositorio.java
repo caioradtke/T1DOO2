@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface PacienteRepositorio {
 
-    boolean salvarPaciente(Paciente produto);
+    void salvarPaciente(Paciente produto);
     List<Paciente> buscarTodosPacientes();
-    boolean apagar(Paciente paciente);
+    void apagar(Paciente paciente);
 
 }

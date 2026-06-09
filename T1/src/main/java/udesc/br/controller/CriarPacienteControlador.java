@@ -12,9 +12,9 @@ public class CriarPacienteControlador {
     private Paciente modelo;
     private PacienteRepositorio pacienteRepositorio;
 
-    public CriarPacienteControlador(CriarPacienteVisao visao, PacienteRepositorio produtoRepositorio){
+    public CriarPacienteControlador(CriarPacienteVisao visao, PacienteRepositorio pacienteRepositorio){
         this.visao = visao;
-        this.pacienteRepositorio = produtoRepositorio;
+        this.pacienteRepositorio = pacienteRepositorio;
         initTela();
     }
 
@@ -50,7 +50,8 @@ public class CriarPacienteControlador {
 
         } catch (PacienteException ex){
             visao.apresentarMensagem(ex.getMessage());
+        } catch (Exception ex) {
+            visao.apresentarMensagem("Erro ao salvar no banco: " + ex.getMessage());
         }
-
     }
 }

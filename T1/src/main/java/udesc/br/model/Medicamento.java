@@ -2,7 +2,6 @@ package udesc.br.model;
 
 public class Medicamento {
     private int id;
-    private
     private String nome;
     private double valorCompra;
     private double valorAplicacao;
