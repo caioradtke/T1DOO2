@@ -16,4 +16,35 @@ public class Paciente {
         this.imc = peso / altura;
         this.telefone = telefone;
     }
+    
+    @Override
+    public String toString() {
+      return "Paciente nome=" + nome + ", cpf=" + cpf + ", peso=" + peso + ", altura= " +altura+ ", imc=" + imc + ", telefone=" + telefone;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+
+    public double getImc() {
+        return imc;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+    
+    
 }

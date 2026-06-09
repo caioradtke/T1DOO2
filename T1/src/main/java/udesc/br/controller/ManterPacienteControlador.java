@@ -1,56 +1,35 @@
 package udesc.br.controller;
 
-import exception.PacienteException;
+import java.util.List;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
-import vision.ManterPacienteVisao;
-
+import udesc.br.vision.ManterPacienteVisao;
 
 public class ManterPacienteControlador {
-
+   
     private ManterPacienteVisao visao;
-    private Paciente modelo;
-    private PacienteRepositorio pacienteRepositorio;
-
-    public ManterPacienteControlador(ManterPacienteVisao visao, PacienteRepositorio produtoRepositorio){
+    private PacienteRepositorio repositorio;
+    private Paciente pacienteModelo;
+    
+    public ManterPacienteControlador(ManterPacienteVisao manterPacienteVisaoPaciente, PacienteRepositorio produtoRepositorio){
         this.visao = visao;
-        this.pacienteRepositorio = produtoRepositorio;
+        this.repositorio = repositorio;
         initTela();
     }
-
+    
+   
+    
     public void initTela(){
-        adicionarAcoes();
-        visao.apresentarPacientes(pacienteRepositorio.buscarTodosPacientes());
-        this.visao.apresentarTela();
-    }
-
-    public void adicionarAcoes(){
+        //Acão
         
-        visao.adicionarAcaoBtnSalvar(e -> salvarPaciente());
+        
+        //Inicializar combobox
+        List<Paciente> pacientes = repositorio.buscarTodosPacientes();
+        visao.initCbProdutos(pacientes);
+        
+        this.visao.apresentarTela();
+        
     }
-
-
-
-    //Fluxo principal
-    public void salvarPaciente(){
-        try {
-            String nome = visao.getPacienteNome();
-            String cpf = visao.getPacienteCpf();
-            String telefone = visao.getPacienteTelefone();
-            Double altura = visao.getPacienteAltura();
-            Double peso = visao.getPacienteAltura();
-
-            modelo = new Paciente(nome, cpf, peso, altura, telefone);
-
-            pacienteRepositorio.salvarPaciente(modelo);
-
-            visao.apresentarPacientes(pacienteRepositorio.buscarTodosPacientes());
-            visao.apresentarMensagem(modelo.toString() + " Salvo com sucesso");
-            visao.limparTela();
-
-        } catch (PacienteException ex){
-            visao.apresentarMensagem(ex.getMessage());
-        }
-
-    }
+    
+    
 }
