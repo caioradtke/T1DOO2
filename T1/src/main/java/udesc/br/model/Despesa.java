@@ -2,7 +2,7 @@ package udesc.br.model;
 
 import java.time.LocalDate;
 
-public class Despesa extends MovimentaFinanceira{
+public class Despesa extends MovimentacaoFinanceira{
     private int quantidade;
     private Medicamento medicamento;
     private double valorUnitario;

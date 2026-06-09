@@ -2,14 +2,14 @@ package udesc.br.model;
 
 import java.time.LocalDate;
 
-public abstract class MovimentaFinanceira {
+public abstract class MovimentacaoFinanceira {
     private int id;
     private static int geraID = 0;
     private Paciente paciente;
     private String descricao;
     private LocalDate data;
 
-    public MovimentaFinanceira(String descricao, LocalDate data) {
+    public MovimentacaoFinanceira(String descricao, LocalDate data) {
         this.id = geraID++;
         this.descricao = descricao;
         this.data = data;

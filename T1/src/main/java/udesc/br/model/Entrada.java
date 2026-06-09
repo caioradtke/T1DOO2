@@ -2,7 +2,7 @@ package udesc.br.model;
 
 import java.time.LocalDate;
 
-public class Entrada extends MovimentaFinanceira {
+public class Entrada extends MovimentacaoFinanceira {
     private Paciente paciente;
     private double valor;
     public Entrada(String descricao, LocalDate data, Paciente paciente, double valor) {
