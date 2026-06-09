@@ -3,7 +3,7 @@ package udesc.br.controller;
 import exception.PacienteException;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
-import vision.CriarPacienteVisao;
+import udesc.br.vision.CriarPacienteVisao;
 
 
 public class CriarPacienteControlador {
@@ -37,10 +37,11 @@ public class CriarPacienteControlador {
             String nome = visao.getPacienteNome();
             String cpf = visao.getPacienteCpf();
             String telefone = visao.getPacienteTelefone();
-            Double altura = visao.getPacienteAltura();
-            Double peso = visao.getPacienteAltura();
+            double altura = visao.getPacienteAltura();
+            double peso = visao.getPacientePeso();
+            int idade = visao.getPacienteIdade();
 
-            modelo = new Paciente(nome, cpf, peso, altura, telefone);
+            modelo = new Paciente(nome, cpf, peso, altura, idade, telefone);
 
             pacienteRepositorio.salvarPaciente(modelo);
 

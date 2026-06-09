@@ -22,13 +22,16 @@ public class Paciente {
     @Column(name = "altura")
     private double altura;
 
+    @Column(name = "idade")
+    private int idade;
+
     @Transient // JPA nao vai criar esse campo (é um valor que é calculado de outros dois valores ent melhor so ficar no java)
     private double imc;
 
     @Column(length = 20)
     private String telefone;
 
-    public Paciente(String nome, String cpf, double peso, double altura, String telefone) {
+    public Paciente(String nome, String cpf, double peso, double altura, int idade, String telefone) {
         this.nome = nome;
         this.cpf = cpf;
         this.peso = peso;
