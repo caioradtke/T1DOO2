@@ -1,6 +1,8 @@
 package udesc.br.dao;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import udesc.br.jpa.JPAConnector;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
@@ -25,7 +27,16 @@ public class PacienteDAO implements PacienteRepositorio {
     }
 
     @Override
-    public List<Paciente> buscarTodosPacientes() {return List.of();
+    public List<Paciente> buscarTodosPacientes() {
+        EntityManager em = JPAConnector.getEntityManager();
+        try {
+            TypedQuery<Paciente> query = em.createQuery("FROM Paciente", Paciente.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            em.close();
+        }
     }
 
     @Override

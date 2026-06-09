@@ -49,10 +49,9 @@ public class CriarPacienteControlador {
             visao.apresentarMensagem(modelo.toString() + " Salvo com sucesso");
             visao.limparTela();
 
-        } catch (PacienteException ex){
-            visao.apresentarMensagem(ex.getMessage());
         } catch (Exception ex) {
-            visao.apresentarMensagem("Erro ao salvar no banco: " + ex.getMessage());
+            System.err.println("Erro ao salvar no banco: " + ex.getMessage());
+            visao.apresentarMensagem("Erro ao salvar no banco de dados");
         }
     }
 }

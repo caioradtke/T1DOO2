@@ -17,12 +17,12 @@
         <class>udesc.br.model.Paciente</class>
 
         <properties>
-            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/clinica_db" />
-            <property name="jakarta.persistence.jdbc.user" value="postgres" />
-            <property name="jakarta.persistence.jdbc.password" value="PGCEAVI" />
+            <property name="jakarta.persistence.jdbc.driver" value="org.sqlite.JDBC" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlite:banco.db" />
+<!--            <property name="jakarta.persistence.jdbc.user" value="postgres" />-->
+<!--            <property name="jakarta.persistence.jdbc.password" value="PGCEAVI" />-->
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+            <property name="hibernate.dialect" value="org.hibernate.community.dialect.SQLiteDialect" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />
 
