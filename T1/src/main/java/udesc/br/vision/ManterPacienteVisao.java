@@ -1,6 +1,7 @@
 package udesc.br.vision;
 
 import java.awt.event.ActionListener;
+import java.util.HashSet;
 import java.util.List;
 import javax.swing.JOptionPane;
 import udesc.br.model.Paciente;
@@ -30,6 +31,13 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
         btnExcluirPaciente.addActionListener(acao);
     }
     
+    public void adicionarAcaoBtnBuscar(ActionListener acao){
+        btnBuscarPaciente.addActionListener(acao);
+    }
+    
+    public void adicionarAcaoBtnAlterar(ActionListener acao){
+        btnAlterarPaciente.addActionListener(acao);
+    }
     
     public Paciente getPacienteSelecionado(){
         return (Paciente) cbPacientes.getSelectedItem();
@@ -38,10 +46,20 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
     public void preencherCampos (Paciente pacienteModelo){
         txtNome.setText(pacienteModelo.getNome());
         txtCpf.setText(pacienteModelo.getCpf());
+        txtTelefone.setText(pacienteModelo.getTelefone());
         txtIdade.setText(String.valueOf(pacienteModelo.getIdade()));
         txtPeso.setText(String.valueOf(pacienteModelo.getPeso()));
         txtAltura.setText(String.valueOf(pacienteModelo.getAltura()));
         txtImc.setText(String.valueOf(pacienteModelo.getImc()));
+    }
+    
+    public void alterarAtributos(Paciente pacienteModelo) {
+        pacienteModelo.setNome(txtNome.getText());
+        pacienteModelo.setPeso(Double.parseDouble(txtPeso.getText()));
+        pacienteModelo.setAltura(Double.parseDouble(txtAltura.getText()));
+        pacienteModelo.setTelefone(txtTelefone.getText());
+        pacienteModelo.setCpf(txtCpf.getText());
+        pacienteModelo.setIdade(Integer.parseInt(txtTelefone.getText()));
     }
     
     public void apresentarMensagem(String msg){
@@ -71,8 +89,9 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtImc = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        btnBuscarPaciente = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnExcluirPaciente.setText("Excluir Paciente");
 
@@ -113,19 +132,28 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(40, 40, 40))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addGap(35, 35, 35)
+                                    .addComponent(jLabel2)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtAltura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3)))
-                            .addComponent(jLabel8))
-                        .addGap(40, 40, 40)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtAltura)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel3))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtObservacoes)
@@ -135,15 +163,17 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
                                     .addComponent(jLabel6)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5))
-                                        .addGap(28, 28, 28)
+                                            .addComponent(jLabel5)
+                                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel7)
-                                            .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 63, Short.MAX_VALUE))))
+                                            .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 32, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExcluirPaciente)
                         .addGap(14, 14, 14))))
@@ -154,9 +184,11 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnExcluirPaciente))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnExcluirPaciente, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cbPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
@@ -195,6 +227,7 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarPaciente;
+    private javax.swing.JButton btnBuscarPaciente;
     private javax.swing.JButton btnExcluirPaciente;
     private javax.swing.JComboBox<Paciente> cbPacientes;
     private javax.swing.JLabel jLabel1;

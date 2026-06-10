@@ -78,10 +78,6 @@ public class Paciente {
         return telefone;
     }
 
-    public int getIdade() {
-        return idade;
-    }
-
     public boolean setIdade(int idade) {
         if (idade > 0) {
             this.idade = idade;
@@ -89,6 +85,26 @@ public class Paciente {
         }
 
         return false;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public void setAltura(double altura) {
+        this.altura = altura;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public Long getId() {
