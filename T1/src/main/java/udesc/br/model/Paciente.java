@@ -37,6 +37,7 @@ public class Paciente {
         this.peso = peso;
         this.altura = altura;
         this.imc = peso / altura;
+        this.idade = idade;
         this.telefone = telefone;
     }
 
@@ -45,7 +46,7 @@ public class Paciente {
 
     @Override
     public String toString() {
-      return "Paciente nome=" + nome + ", cpf=" + cpf + ", peso=" + peso + ", altura= " +altura+ ", imc=" + imc + ", telefone=" + telefone;
+      return "Paciente nome=" + nome + ", cpf=" + cpf + ", peso=" + peso + ", altura= " +altura+ ", imc=" + imc + ", telefone=" + telefone+ ", idade=" + idade;
     }
 
     public String getNome() {
@@ -66,6 +67,10 @@ public class Paciente {
 
     public double getImc() {
         return imc;
+    }
+    
+    public int getIdade() {
+        return idade;
     }
 
     public String getTelefone() {

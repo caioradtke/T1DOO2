@@ -123,7 +123,6 @@ public class CriarPacienteVisao extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnCadastrarPaciente.setText("Cadastrar Paciente");
-        btnCadastrarPaciente.addActionListener(this::btnCadastrarPacienteActionPerformed);
 
         txtPacientes.setEditable(false);
         txtPacientes.setColumns(20);
@@ -244,10 +243,6 @@ public class CriarPacienteVisao extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPacienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCadastrarPacienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarPaciente;

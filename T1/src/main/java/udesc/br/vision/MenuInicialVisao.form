@@ -27,7 +27,7 @@
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnCriarPaciente" alignment="0" max="32767" attributes="0"/>
-                  <Component id="btnCriarPaciente1" alignment="1" pref="348" max="32767" attributes="0"/>
+                  <Component id="btnManterPaciente" alignment="1" pref="348" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
@@ -39,7 +39,7 @@
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="btnCriarPaciente" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnCriarPaciente1" min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="btnManterPaciente" min="-2" pref="38" max="-2" attributes="0"/>
               <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -55,7 +55,7 @@
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnCriarPaciente1">
+    <Component class="javax.swing.JButton" name="btnManterPaciente">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>

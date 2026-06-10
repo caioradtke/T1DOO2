@@ -21,7 +21,7 @@ public class ManterPacienteControlador {
     
     public void initTela(){
         //Acão
-        
+        alterarPaciente();
         
         //Inicializar combobox
         List<Paciente> pacientes = repositorio.buscarTodosPacientes();
@@ -31,5 +31,9 @@ public class ManterPacienteControlador {
         
     }
     
+    public void alterarPaciente() {
+        pacienteModelo = visao.getPacienteSelecionado(); // ta errado aq ó, corrigir
+        visao.preencherCampos(pacienteModelo);
+    }
     
 }
