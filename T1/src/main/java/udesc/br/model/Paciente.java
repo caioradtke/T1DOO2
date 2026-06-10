@@ -36,6 +36,7 @@ public class Paciente {
         this.cpf = cpf;
         this.peso = peso;
         this.altura = altura;
+        this.idade = idade;
         this.imc = peso / altura;
         this.idade = idade;
         this.telefone = telefone;
@@ -77,5 +78,29 @@ public class Paciente {
         return telefone;
     }
 
+    public int getIdade() {
+        return idade;
+    }
 
+    public boolean setIdade(int idade) {
+        if (idade > 0) {
+            this.idade = idade;
+            return true;
+        }
+
+        return false;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public boolean setId(Long id) {
+        if (id > 0) {
+            this.id = id;
+            return true;
+        }
+
+        return false;
+    }
 }
