@@ -25,7 +25,7 @@ public class Paciente {
     @Column(name = "idade")
     private int idade;
 
-    @Transient // JPA nao vai criar esse campo (é um valor que é calculado de outros dois valores ent melhor so ficar no java)
+    @Column (name ="IMC")
     private double imc;
 
     @Column(length = 20)
@@ -37,7 +37,7 @@ public class Paciente {
         this.peso = peso;
         this.altura = altura;
         this.idade = idade;
-        this.imc = peso / altura;
+        this.imc = peso / (altura * altura)* 10000;
         this.idade = idade;
         this.telefone = telefone;
     }
@@ -47,8 +47,9 @@ public class Paciente {
 
     @Override
     public String toString() {
-      return "Paciente nome=" + nome + ", cpf=" + cpf + ", peso=" + peso + ", altura= " +altura+ ", imc=" + imc + ", telefone=" + telefone+ ", idade=" + idade;
-    }
+      String imcFormatado = String.format("%.2f",imc);
+      return "Paciente ID: " + id + "| Nome:" + nome + "| CPF:" + cpf;
+    }   
 
     public String getNome() {
         return nome;
@@ -67,7 +68,7 @@ public class Paciente {
     }
 
     public double getImc() {
-        return imc;
+        return this.imc;
     }
     
     public int getIdade() {
@@ -105,6 +106,10 @@ public class Paciente {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+    
+    public void setImc (double peso, double altura) {
+        this.imc = (peso / (altura * altura))* 10000;
     }
 
     public Long getId() {

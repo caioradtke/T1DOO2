@@ -16,7 +16,7 @@ public class PacienteDAO implements PacienteRepositorio {
         EntityManager em = JPAConnector.getEntityManager();
         try {
             em.getTransaction().begin(); // comeca a transacao
-            em.persist(paciente); // JPA salva o paciente no postgres
+            em.merge(paciente); // JPA salva o paciente no postgres
             em.getTransaction().commit(); // aplica/confirma a transacao
         } catch (Exception e) {
             em.getTransaction().rollback(); // desfaz a transacao

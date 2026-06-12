@@ -4,6 +4,7 @@ import exception.PacienteException;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import udesc.br.model.Paciente;
 
 public class CriarPacienteVisao extends javax.swing.JFrame {
@@ -78,9 +79,20 @@ public class CriarPacienteVisao extends javax.swing.JFrame {
     }
     
     public void apresentarPacientes(List<Paciente> pacientes){
-        txtPacientes.setText("");
-        for(Paciente p: pacientes){
-            txtPacientes.append(p + "\n");
+        
+        DefaultTableModel tabela = (DefaultTableModel) tabPacientes.getModel();
+        
+          for (Paciente p : pacientes) {
+                tabela.addRow(new Object[]{
+                p.getId(),
+                p.getNome(),
+                p.getCpf(),
+                p.getPeso(),
+                p.getAltura(),
+                p.getTelefone(),
+                p.getIdade(),
+                p.getImc(),
+        });
         }
     }
     
@@ -99,8 +111,6 @@ public class CriarPacienteVisao extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCadastrarPaciente = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtPacientes = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -119,15 +129,12 @@ public class CriarPacienteVisao extends javax.swing.JFrame {
         txtIdade = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtObservacao = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabPacientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnCadastrarPaciente.setText("Cadastrar Paciente");
-
-        txtPacientes.setEditable(false);
-        txtPacientes.setColumns(20);
-        txtPacientes.setRows(5);
-        jScrollPane1.setViewportView(txtPacientes);
 
         jLabel4.setText("Observações");
 
@@ -209,6 +216,24 @@ public class CriarPacienteVisao extends javax.swing.JFrame {
         txtObservacao.setRows(5);
         jScrollPane2.setViewportView(txtObservacao);
 
+        tabPacientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nome", "CPF", "Peso", "Altura", "Telefone", "Idade", "IMC"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tabPacientes);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,16 +245,16 @@ public class CriarPacienteVisao extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
                     .addComponent(btnCadastrarPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane2))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -238,7 +263,7 @@ public class CriarPacienteVisao extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -256,14 +281,14 @@ public class CriarPacienteVisao extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable tabPacientes;
     private javax.swing.JTextField txtAltura;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextArea txtObservacao;
-    private javax.swing.JTextArea txtPacientes;
     private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

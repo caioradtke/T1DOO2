@@ -17,9 +17,7 @@ public class ManterPacienteControlador {
         this.repositorio = repositorio;
         initTela();
     }
-    
-   
-    
+
     public void initTela(){
         //Acão
         adicionarAcoes();
@@ -44,8 +42,9 @@ public class ManterPacienteControlador {
     
     public void alterarPaciente() {
         visao.alterarAtributos(pacienteModelo);
+        repositorio.salvarPaciente(pacienteModelo);
         visao.apresentarMensagem(pacienteModelo.toString() + " Alterações salvas com sucesso");
     }
 }
 
-//Está funcionando, porém, IMC ainda está zerado e ComboBox esta usando toString (ver se da pra mudar)
+

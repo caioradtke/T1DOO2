@@ -23,7 +23,7 @@ public class MenuInicialVisao extends javax.swing.JFrame {
     public void acaoCriarPaciente(){
         CriarPacienteVisao visao = new CriarPacienteVisao();
         PacienteRepositorio repositorio = new PacienteDAO();
-         CriarPacienteControlador controlador = new CriarPacienteControlador(visao, repositorio);
+        CriarPacienteControlador controlador = new CriarPacienteControlador(visao, repositorio);
     }
     
     public void acaoManterPaciente(){

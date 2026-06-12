@@ -50,7 +50,8 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
         txtIdade.setText(String.valueOf(pacienteModelo.getIdade()));
         txtPeso.setText(String.valueOf(pacienteModelo.getPeso()));
         txtAltura.setText(String.valueOf(pacienteModelo.getAltura()));
-        txtImc.setText(String.valueOf(pacienteModelo.getImc()));
+        String imcFormatado = String.format("%.2f",pacienteModelo.getImc());
+        txtImc.setText(imcFormatado);
     }
     
     public void alterarAtributos(Paciente pacienteModelo) {
@@ -59,7 +60,8 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
         pacienteModelo.setAltura(Double.parseDouble(txtAltura.getText()));
         pacienteModelo.setTelefone(txtTelefone.getText());
         pacienteModelo.setCpf(txtCpf.getText());
-        pacienteModelo.setIdade(Integer.parseInt(txtTelefone.getText()));
+        pacienteModelo.setIdade(Integer.parseInt(txtIdade.getText()));
+        pacienteModelo.setImc(Double.parseDouble(txtPeso.getText()), Double.parseDouble(txtAltura.getText()));
     }
     
     public void apresentarMensagem(String msg){
@@ -101,17 +103,15 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
 
         jLabel2.setText("CPF");
 
-        jLabel3.setText("Altura");
+        jLabel3.setText("Altura (Cm)");
 
-        jLabel4.setText("Peso");
+        jLabel4.setText("Peso (Kg)");
 
         jLabel5.setText("Telefone");
 
         jLabel6.setText("Observações");
 
         jLabel7.setText("Idade");
-
-        txtImc.setEditable(false);
 
         jLabel8.setText("IMC");
 
@@ -127,13 +127,10 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtImc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtImc, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addGap(40, 40, 40))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -144,17 +141,25 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtAltura)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel4)
                                             .addComponent(jLabel3))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtAltura, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtPeso, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(cbPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnExcluirPaciente)
+                                .addGap(14, 14, 14))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtObservacoes)
                                 .addContainerGap())
@@ -169,14 +174,7 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel7)
                                             .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 32, Short.MAX_VALUE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExcluirPaciente)
-                        .addGap(14, 14, 14))))
+                                .addGap(0, 170, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +214,7 @@ public class ManterPacienteVisao extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtImc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(btnAlterarPaciente)
                 .addGap(31, 31, 31))
         );
