@@ -1,4 +1,4 @@
-package exception;
+package udesc.br.exception;
 
 public class PacienteException extends Exception {
 

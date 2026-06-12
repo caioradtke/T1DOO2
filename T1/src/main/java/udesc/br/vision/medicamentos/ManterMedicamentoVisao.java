@@ -1,19 +1,17 @@
-    /*
+/*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package udesc.br.vision;
+package udesc.br.vision.medicamentos;
 
 /**
  *
- * @author mayur
+ * @author andre
  */
-public class ManterMedicamentoVisao extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ManterMedicamentoVisao.class.getName());
+public class ManterMedicamentoVisao extends javax.swing.JPanel {
 
     /**
-     * Creates new form ManterMedicamentoVisao
+     * Creates new form ManterMedicamentoVisa
      */
     public ManterMedicamentoVisao() {
         initComponents();
@@ -33,8 +31,6 @@ public class ManterMedicamentoVisao extends javax.swing.JFrame {
         btnAdicionarEstoque = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMedicamentos = new javax.swing.JTable();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnCadastrar.setText("Cadastrar");
 
@@ -70,8 +66,8 @@ public class ManterMedicamentoVisao extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblMedicamentos);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -85,7 +81,7 @@ public class ManterMedicamentoVisao extends javax.swing.JFrame {
                         .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAdicionarEstoque)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(312, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,15 +93,9 @@ public class ManterMedicamentoVisao extends javax.swing.JFrame {
                     .addComponent(btnCadastrar)
                     .addComponent(btnEditar)
                     .addComponent(btnAdicionarEstoque))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

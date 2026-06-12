@@ -1,19 +1,17 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package udesc.br.vision;
+package udesc.br.vision.medicamentos;
 
 /**
  *
- * @author mayur
+ * @author andre
  */
-public class CadastrarMedicamentoVisao extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastrarMedicamentoVisao.class.getName());
+public class CadastrarMedicamentoVisao extends javax.swing.JPanel {
 
     /**
-     * Creates new form CadastrarMedicamentoVisao
+     * Creates new form CadastrarMedicamentoVisa
      */
     public CadastrarMedicamentoVisao() {
         initComponents();
@@ -36,7 +34,7 @@ public class CadastrarMedicamentoVisao extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(770, 300));
 
         btnSalvar.setText("Salvar Medicamento");
 
@@ -46,8 +44,8 @@ public class CadastrarMedicamentoVisao extends javax.swing.JFrame {
 
         jLabel3.setText("Valor Venda");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -60,7 +58,7 @@ public class CadastrarMedicamentoVisao extends javax.swing.JFrame {
                     .addComponent(txtValorCompra)
                     .addComponent(txtValorAplicacao)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(615, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,15 +77,10 @@ public class CadastrarMedicamentoVisao extends javax.swing.JFrame {
                 .addComponent(txtValorAplicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(btnSalvar)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;

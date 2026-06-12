@@ -1,18 +1,20 @@
 package udesc.br.controller;
 
-import exception.PacienteException;
+import udesc.br.exception.PacienteException;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
-import udesc.br.vision.CriarPacienteVisao;
+import udesc.br.vision.paciente.CadastrarPacienteVisao;
+
+import java.util.List;
 
 
-public class CriarPacienteControlador {
+public class CadastrarPacienteControlador implements  Controlador{
 
-    private CriarPacienteVisao visao;
+    private CadastrarPacienteVisao visao;
     private Paciente modelo;
     private PacienteRepositorio pacienteRepositorio;
 
-    public CriarPacienteControlador(CriarPacienteVisao visao, PacienteRepositorio pacienteRepositorio){
+    public CadastrarPacienteControlador(CadastrarPacienteVisao visao, PacienteRepositorio pacienteRepositorio){
         this.visao = visao;
         this.pacienteRepositorio = pacienteRepositorio;
         initTela();
@@ -21,7 +23,11 @@ public class CriarPacienteControlador {
     public void initTela(){
         adicionarAcoes();
         visao.apresentarPacientes(pacienteRepositorio.buscarTodosPacientes());
-        this.visao.apresentarTela();
+    }
+
+    public void atualizarTela(){
+        visao.limparTela();
+        visao.apresentarPacientes(pacienteRepositorio.buscarTodosPacientes());
     }
 
     public void adicionarAcoes(){
@@ -34,6 +40,7 @@ public class CriarPacienteControlador {
     //Fluxo principal
     public void salvarPaciente(){
         try {
+            System.out.println("Salvando Paciente");
             String nome = visao.getPacienteNome();
             String cpf = visao.getPacienteCpf();
             String telefone = visao.getPacienteTelefone();

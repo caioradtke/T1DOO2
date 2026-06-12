@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Set;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
-import udesc.br.vision.ManterPacienteVisao;
+import udesc.br.vision.paciente.ManterPacienteVisao;
 
-public class ManterPacienteControlador {
+public class ManterPacienteControlador implements Controlador {
    
     private ManterPacienteVisao visao;
     private PacienteRepositorio repositorio;
@@ -24,10 +24,13 @@ public class ManterPacienteControlador {
         
         //Inicializar combobox
         List<Paciente> pacientes = repositorio.buscarTodosPacientes();
-        visao.initCbProdutos(pacientes);
+        visao.initCbPacientes(pacientes);
         
-        this.visao.apresentarTela();
-        
+    }
+
+    public void atualizarTela(){
+        List<Paciente> pacientes = repositorio.buscarTodosPacientes();
+        visao.initCbPacientes(pacientes);
     }
     
     public void adicionarAcoes() {
