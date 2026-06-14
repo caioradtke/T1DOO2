@@ -45,6 +45,10 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
         btnAlterarPaciente.addActionListener(acao);
     }
     
+    public void adicionarAcaoBtnExcluir (ActionListener acao){
+        btnExcluirPaciente.addActionListener(acao);
+    }
+    
     public Paciente getPacienteSelecionado(){
         return (Paciente) cbPacientes.getSelectedItem();
     }
@@ -58,6 +62,7 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
         txtAltura.setText(String.valueOf(pacienteModelo.getAltura()));
         String imcFormatado = String.format("%.2f",pacienteModelo.getImc());
         txtImc.setText(imcFormatado);
+        txtObservacao.setText(pacienteModelo.getObservacao());
     }
     
     public void alterarAtributos(Paciente pacienteModelo) {
@@ -68,10 +73,22 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
         pacienteModelo.setCpf(txtCpf.getText());
         pacienteModelo.setIdade(Integer.parseInt(txtIdade.getText()));
         pacienteModelo.setImc(Double.parseDouble(txtPeso.getText()), Double.parseDouble(txtAltura.getText()));
+        pacienteModelo.setObservacao(txtObservacao.getText());
     }
     
     public void apresentarMensagem(String msg){
         JOptionPane.showMessageDialog(null, msg);
+    }
+    
+    public void limparTela(){
+        txtNome.setText("");
+        txtCpf.setText("");
+        txtIdade.setText("");
+        txtTelefone.setText("");
+        txtObservacao.setText("");
+        txtPeso.setText("");
+        txtAltura.setText("");
+        txtImc.setText("");
     }
 
     /**
@@ -89,7 +106,7 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
         txtAltura = new javax.swing.JTextField();
         txtPeso = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JTextField();
-        txtObservacoes = new javax.swing.JTextField();
+        txtObservacao = new javax.swing.JTextField();
         btnExcluirPaciente = new javax.swing.JButton();
         btnAlterarPaciente = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -163,7 +180,7 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
                                 .addComponent(btnExcluirPaciente)
                                 .addGap(14, 14, 14))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtObservacoes)
+                                .addComponent(txtObservacao)
                                 .addContainerGap())
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +233,7 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtObservacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtObservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,7 +263,7 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtImc;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtObservacoes;
+    private javax.swing.JTextField txtObservacao;
     private javax.swing.JTextField txtPeso;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables

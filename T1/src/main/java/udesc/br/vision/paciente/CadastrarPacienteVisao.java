@@ -110,6 +110,11 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     public void limparTela(){
         txtNome.setText("");
         txtCpf.setText("");
+        txtIdade.setText("");
+        txtTelefone.setText("");
+        txtObservacao.setText("");
+        txtPeso.setText("");
+        txtAltura.setText("");
     }
 
     /**
@@ -180,14 +185,14 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel6);
 
-        jLabel5.setText("Altura");
+        jLabel5.setText("Altura (Cm)");
 
-        jLabel6.setText("Peso");
+        jLabel6.setText("Peso (Kg)");
 
         jLabel7.setText("Idade");
 
@@ -216,7 +221,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtIdade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2);
@@ -272,7 +277,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

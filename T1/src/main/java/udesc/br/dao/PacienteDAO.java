@@ -41,5 +41,11 @@ public class PacienteDAO implements PacienteRepositorio {
 
     @Override
     public void apagar(Paciente paciente) {
+        EntityManager em = JPAConnector.getEntityManager();
+        em.getTransaction().begin();
+        Paciente p = em.find(Paciente.class, 1);
+        em.remove(p);
+        em.getTransaction().commit(); 
+        em.close();
     }
 }

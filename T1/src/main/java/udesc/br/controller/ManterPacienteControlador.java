@@ -29,6 +29,7 @@ public class ManterPacienteControlador implements Controlador {
     }
 
     public void atualizarTela(){
+        visao.limparTela();
         List<Paciente> pacientes = repositorio.buscarTodosPacientes();
         visao.initCbPacientes(pacientes);
     }
@@ -36,6 +37,7 @@ public class ManterPacienteControlador implements Controlador {
     public void adicionarAcoes() {
         visao.adicionarAcaoBtnBuscar(e-> buscarPaciente());
         visao.adicionarAcaoBtnAlterar(e -> alterarPaciente());
+        visao.adicionarAcaoBtnExcluir(e ->excluirPaciente());
     }
     
     public void buscarPaciente() {
@@ -47,6 +49,15 @@ public class ManterPacienteControlador implements Controlador {
         visao.alterarAtributos(pacienteModelo);
         repositorio.salvarPaciente(pacienteModelo);
         visao.apresentarMensagem(pacienteModelo.toString() + " Alterações salvas com sucesso");
+        visao.limparTela();
+    }
+    
+    public void excluirPaciente() {
+        pacienteModelo = visao.getPacienteSelecionado();
+        repositorio.apagar(pacienteModelo);
+        visao.apresentarMensagem("Paciente removido: " + pacienteModelo.toString());
+        visao.initCbPacientes(repositorio.buscarTodosPacientes());
+        visao.limparTela();
     }
 }
 

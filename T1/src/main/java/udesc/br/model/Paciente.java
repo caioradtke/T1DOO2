@@ -30,6 +30,9 @@ public class Paciente {
 
     @Column(length = 20)
     private String telefone;
+    
+    @Column (name = "Observações")
+    private String observacao;
 
     public Paciente(String nome, String cpf, double peso, double altura, int idade, String telefone) {
         this.nome = nome;
@@ -40,6 +43,7 @@ public class Paciente {
         this.imc = peso / (altura * altura)* 10000;
         this.idade = idade;
         this.telefone = telefone;
+        // Observação não pode ser obrigatoria, arrumar depois.
     }
 
     // JPA EXIGE CONSTRUTOR VAZIO
@@ -59,6 +63,10 @@ public class Paciente {
         return cpf;
     }
 
+    public String getObservacao() {
+        return observacao;
+    }
+    
     public double getPeso() {
         return peso;
     }
@@ -94,6 +102,10 @@ public class Paciente {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 
     public void setPeso(double peso) {
