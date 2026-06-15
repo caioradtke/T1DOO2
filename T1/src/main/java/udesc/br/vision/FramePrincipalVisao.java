@@ -39,8 +39,8 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         layout = (CardLayout) cardLayout.getLayout();
 
         // Pacientes
-        ManterPacienteVisao manterPacienteVisao = new ManterPacienteVisao();
-        CadastrarPacienteVisao cadastrarPacienteVisao = new CadastrarPacienteVisao();
+        ManterPacienteVisao manterPacienteVisao = new ManterPacienteVisao(this);
+        CadastrarPacienteVisao cadastrarPacienteVisao = new CadastrarPacienteVisao(this);
 
         PacienteRepositorio pacienteRepositorio = new PacienteDAO();
         CadastrarPacienteControlador cadPacienteControlador = new CadastrarPacienteControlador(cadastrarPacienteVisao, pacienteRepositorio);

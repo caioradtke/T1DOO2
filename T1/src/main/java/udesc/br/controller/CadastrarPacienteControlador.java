@@ -53,7 +53,7 @@ public class CadastrarPacienteControlador implements  Controlador{
             pacienteRepositorio.salvarPaciente(modelo);
 
             visao.apresentarPacientes(pacienteRepositorio.buscarTodosPacientes());
-            visao.apresentarMensagem(modelo.toString() + " Salvo com sucesso");
+            visao.apresentarMensagem("Paciente salvo com sucesso");
             visao.limparTela();
 
         } catch (Exception ex) {
