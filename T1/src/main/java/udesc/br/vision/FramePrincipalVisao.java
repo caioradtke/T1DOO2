@@ -6,9 +6,14 @@ package udesc.br.vision;
 
 import udesc.br.controller.CadastrarPacienteControlador;
 import udesc.br.controller.Controlador;
+import udesc.br.controller.ManterAgendaControlador;
 import udesc.br.controller.ManterPacienteControlador;
+import udesc.br.dao.AgendaDAO;
 import udesc.br.dao.PacienteDAO;
+import udesc.br.model.Agenda;
+import udesc.br.repository.AgendaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
+import udesc.br.vision.agenda.ManterAgendaVisao;
 import udesc.br.vision.components.TreeButton;
 import udesc.br.vision.despesas.ManterDespesasVisao;
 import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
@@ -39,8 +44,8 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         layout = (CardLayout) cardLayout.getLayout();
 
         // Pacientes
-        ManterPacienteVisao manterPacienteVisao = new ManterPacienteVisao(this);
-        CadastrarPacienteVisao cadastrarPacienteVisao = new CadastrarPacienteVisao(this);
+        ManterPacienteVisao manterPacienteVisao = new ManterPacienteVisao();
+        CadastrarPacienteVisao cadastrarPacienteVisao = new CadastrarPacienteVisao();
 
         PacienteRepositorio pacienteRepositorio = new PacienteDAO();
         CadastrarPacienteControlador cadPacienteControlador = new CadastrarPacienteControlador(cadastrarPacienteVisao, pacienteRepositorio);
@@ -49,11 +54,22 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         cardLayout.add(manterPacienteVisao, "LISTAR-PACIENTES");
         cardLayout.add(cadastrarPacienteVisao, "CADASTRAR-PACIENTE");
 
-        TreeButton treePacientes = new TreeButton(btnPacientes);
         btnCadastrarPaciente.addActionListener(e -> mostrarTela("CADASTRAR-PACIENTE", cadPacienteControlador));
         btnListarPacientes.addActionListener(e -> mostrarTela("LISTAR-PACIENTES", listPacienteControlador));
+
+        TreeButton treePacientes = new TreeButton(btnPacientes);
         treePacientes.addButton(btnCadastrarPaciente);
         treePacientes.addButton(btnListarPacientes);
+
+        // Agenda
+        ManterAgendaVisao manterAgendaVisao = new ManterAgendaVisao();
+
+        AgendaRepositorio agendaRepositorio = new AgendaDAO();
+        ManterAgendaControlador listAgendaControlador = new ManterAgendaControlador(manterAgendaVisao, agendaRepositorio);
+
+        cardLayout.add(manterAgendaVisao, "LISTAR-AGENDA");
+
+        btnAgenda.addActionListener(e -> mostrarTela("LISTAR-AGENDA", listAgendaControlador));
 
 
         // Medicamentos
@@ -107,98 +123,193 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        btnCadastrarPaciente = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         btnListarPacientes = new javax.swing.JButton();
         btnPacientes = new javax.swing.JButton();
-        btnMedicamentos = new javax.swing.JButton();
-        btnDespesas = new javax.swing.JButton();
-        btnCadastrarMedicamento = new javax.swing.JButton();
+        btnCadastrarPaciente = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         btnListarMedicamentos = new javax.swing.JButton();
-        btnListarDespesas = new javax.swing.JButton();
+        btnMedicamentos = new javax.swing.JButton();
+        btnCadastrarMedicamento = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
         btnCadastrarDespesa = new javax.swing.JButton();
+        btnDespesas = new javax.swing.JButton();
+        btnListarDespesas = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        btnCadastrarDespesa1 = new javax.swing.JButton();
+        btnAgenda = new javax.swing.JButton();
+        btnListarDespesas1 = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        btnCadastrarPaciente.setText("Cadastrar");
-        btnCadastrarPaciente.setMargin(new java.awt.Insets(2, 0, 3, 14));
-        btnCadastrarPaciente.addActionListener(this::btnCadastrarPacienteActionPerformed);
-
         btnListarPacientes.setText("Listar");
         btnListarPacientes.setMargin(new java.awt.Insets(2, 0, 3, 14));
+        btnListarPacientes.addActionListener(this::btnListarPacientesActionPerformed);
 
         btnPacientes.setText("Pacientes");
         btnPacientes.setMargin(new java.awt.Insets(2, 0, 3, 14));
 
-        btnMedicamentos.setText("Medicamentos");
-        btnMedicamentos.setMargin(new java.awt.Insets(2, 0, 3, 14));
+        btnCadastrarPaciente.setText("Cadastrar");
+        btnCadastrarPaciente.setMargin(new java.awt.Insets(2, 0, 3, 14));
+        btnCadastrarPaciente.addActionListener(this::btnCadastrarPacienteActionPerformed);
 
-        btnDespesas.setText("Despesas");
-        btnDespesas.setMargin(new java.awt.Insets(2, 0, 3, 14));
-
-        btnCadastrarMedicamento.setText("Cadastrar");
-        btnCadastrarMedicamento.setMargin(new java.awt.Insets(2, 0, 3, 14));
-
-        btnListarMedicamentos.setText("Listar");
-        btnListarMedicamentos.setMargin(new java.awt.Insets(2, 0, 3, 14));
-
-        btnListarDespesas.setText("Listar");
-        btnListarDespesas.setMargin(new java.awt.Insets(2, 0, 3, 14));
-
-        btnCadastrarDespesa.setText("Cadastrar");
-        btnCadastrarDespesa.setMargin(new java.awt.Insets(2, 0, 3, 14));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnMedicamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(btnDespesas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPacientes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCadastrarPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                            .addComponent(btnListarPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnListarDespesas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCadastrarDespesa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnCadastrarMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                                .addComponent(btnListarMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(12, 12, 12))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCadastrarPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(btnListarPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(0, 0, 0))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
                 .addComponent(btnPacientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrarPaciente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnListarPacientes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 0, 0))
+        );
+
+        btnListarMedicamentos.setText("Listar");
+        btnListarMedicamentos.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        btnMedicamentos.setText("Medicamentos");
+        btnMedicamentos.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        btnCadastrarMedicamento.setText("Cadastrar");
+        btnCadastrarMedicamento.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCadastrarMedicamento, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(btnListarMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btnMedicamentos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrarMedicamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnListarMedicamentos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap())
+        );
+
+        btnCadastrarDespesa.setText("Cadastrar");
+        btnCadastrarDespesa.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        btnDespesas.setText("Despesas");
+        btnDespesas.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        btnListarDespesas.setText("Listar");
+        btnListarDespesas.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCadastrarDespesa, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(btnListarDespesas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btnDespesas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrarDespesa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnListarDespesas)
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        btnCadastrarDespesa1.setText("Cadastrar");
+        btnCadastrarDespesa1.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        btnAgenda.setText("Agenda");
+        btnAgenda.setMargin(new java.awt.Insets(2, 0, 3, 14));
+        btnAgenda.addActionListener(this::btnAgendaActionPerformed);
+
+        btnListarDespesas1.setText("Listar");
+        btnListarDespesas1.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCadastrarDespesa1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                    .addComponent(btnListarDespesas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAgenda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCadastrarDespesa1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnListarDespesas1)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         cardLayout.setPreferredSize(new java.awt.Dimension(600, 0));
@@ -211,7 +322,7 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -226,6 +337,14 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
     private void btnCadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPacienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCadastrarPacienteActionPerformed
+
+    private void btnListarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPacientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnListarPacientesActionPerformed
+
+    private void btnAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,16 +372,23 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgenda;
     private javax.swing.JButton btnCadastrarDespesa;
+    private javax.swing.JButton btnCadastrarDespesa1;
     private javax.swing.JButton btnCadastrarMedicamento;
     private javax.swing.JButton btnCadastrarPaciente;
     private javax.swing.JButton btnDespesas;
     private javax.swing.JButton btnListarDespesas;
+    private javax.swing.JButton btnListarDespesas1;
     private javax.swing.JButton btnListarMedicamentos;
     private javax.swing.JButton btnListarPacientes;
     private javax.swing.JButton btnMedicamentos;
     private javax.swing.JButton btnPacientes;
     private javax.swing.JPanel cardLayout;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }

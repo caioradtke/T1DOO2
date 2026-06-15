@@ -6,6 +6,8 @@ import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.paciente.ManterPacienteVisao;
 
+import javax.swing.*;
+
 public class ManterPacienteControlador implements Controlador {
    
     private ManterPacienteVisao visao;
@@ -53,11 +55,15 @@ public class ManterPacienteControlador implements Controlador {
     }
     
     public void excluirPaciente() {
-        pacienteModelo = visao.getPacienteSelecionado();
-        repositorio.apagar(pacienteModelo);
-        visao.apresentarMensagem("Paciente removido: " + pacienteModelo.toString());
-        visao.initCbPacientes(repositorio.buscarTodosPacientes());
-        visao.limparTela();
+
+        int confirma = JOptionPane.showConfirmDialog(visao, "Tem certeza que deseja excluir paciente? Esta ação é irreversível.", "Confirmar Exclusão", JOptionPane.OK_CANCEL_OPTION );
+        if (confirma == 0) {
+            pacienteModelo = visao.getPacienteSelecionado();
+            repositorio.apagar(pacienteModelo);
+            visao.apresentarMensagem("Paciente removido: " + pacienteModelo.toString());
+            visao.initCbPacientes(repositorio.buscarTodosPacientes());
+            visao.limparTela();
+        }
     }
 }
 

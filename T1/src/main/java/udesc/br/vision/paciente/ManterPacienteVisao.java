@@ -9,30 +9,17 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import udesc.br.model.Paciente;
-import udesc.br.vision.paciente.subframes.ConfirmarExclusaoPaciente;
 
 /**
  *
  * @author andre
  */
 public class ManterPacienteVisao extends javax.swing.JPanel {
-    private ConfirmarExclusaoPaciente telaConfirmarExclusao;
-    private JFrame pai;
     /**
      * Creates new form ManterPacienteVisa
      */
-    public ManterPacienteVisao(JFrame pai) {
+    public ManterPacienteVisao() {
         initComponents();
-        this.pai = pai;
-        
-        telaConfirmarExclusao = new ConfirmarExclusaoPaciente();
-        
-        btnAbrirJanelaExclusao.addActionListener(e -> abrirTelaExclusao());
-    }
-    
-    public void abrirTelaExclusao() {
-        telaConfirmarExclusao.setLocationRelativeTo(pai);
-        telaConfirmarExclusao.setVisible(true);
     }
     
     public void apresentarTela(){
@@ -46,7 +33,7 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
         }
     }
     
-    public void adicionarAcaoBtnApagar(ActionListener acao){
+    public void adicionarAcaoBtnExcluir(ActionListener acao){
         btnAbrirJanelaExclusao.addActionListener(acao);
     }
     
@@ -58,9 +45,9 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
         btnAlterarPaciente.addActionListener(acao);
     }
     
-    public void adicionarAcaoBtnExcluir (ActionListener acao){
-        telaConfirmarExclusao.adicionarAcaoBtnExcluir(acao);
-    }
+//    public void adicionarAcaoBtnExcluir (ActionListener acao){
+//        telaConfirmarExclusao.adicionarAcaoBtnExcluir(acao);
+//    }
     
     public Paciente getPacienteSelecionado(){
         return (Paciente) cbPacientes.getSelectedItem();
@@ -91,7 +78,7 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
     }
     
     public void apresentarMensagem(String msg){
-        JOptionPane.showMessageDialog(pai, msg);
+        JOptionPane.showMessageDialog(this.getParent(), msg);
     }
     
     public void limparTela(){

@@ -19,14 +19,12 @@ import udesc.br.model.Paciente;
 public class CadastrarPacienteVisao extends javax.swing.JPanel {
 
     DefaultTableModel tabela;
-    private JFrame pai;
 
     /**
      * Creates new form CadastrarPacienteVisa
      */
-    public CadastrarPacienteVisao(JFrame pai) {
+    public CadastrarPacienteVisao() {
         initComponents();
-        this.pai = pai;
     }
     
     public void adicionarAcaoBtnSalvar(ActionListener acao){
@@ -88,7 +86,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
         
     
     public void apresentarMensagem(String msg){
-        JOptionPane.showMessageDialog(pai, msg);
+        JOptionPane.showMessageDialog(this.getParent(), msg);
     }
     
     public void apresentarPacientes(List<Paciente> pacientes){
@@ -414,7 +412,6 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -423,7 +420,6 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
@@ -434,7 +430,6 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtNome1;
     private javax.swing.JTextArea txtObservacao;
     private javax.swing.JTextArea txtObservacao1;
     private javax.swing.JTextField txtPeso;
