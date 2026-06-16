@@ -4,6 +4,7 @@
  */
 package udesc.br.controller;
 
+import javax.print.attribute.standard.Media;
 import udesc.br.model.Medicamento;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
@@ -15,7 +16,7 @@ import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
 public class CadastrarMedicamentoControlador implements Controlador{
     private CadastrarMedicamentoVisao visao;
     private MedicamentoRepositorio medicamentoRepositorio;
-    private Medicamento medicamentoModelo;
+    private Medicamento modelo;
     
     public CadastrarMedicamentoControlador(CadastrarMedicamentoVisao visao, MedicamentoRepositorio medicamentoRepositorio){
         this.visao = visao;
@@ -30,11 +31,29 @@ public class CadastrarMedicamentoControlador implements Controlador{
 
     @Override
     public void adicionarAcoes() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        visao.adicionarAcaoBtnCadastrar(e -> salvarMedicamento());
     }
 
     @Override
     public void atualizarTela() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    private void salvarMedicamento() {
+        // pegar informações na tela
+        try{
+            String nome = visao.getMedicamentoNome();
+            double valor = visao.getMedicamentoValorCompra();
+            double estoque = visao.getMedicamentoEstoque();
+            
+            modelo = new Medicamento(nome, valor, estoque);
+            
+            medicamentoRepositorio.salvarMedicamento(modelo);
+            visao.apresentarMensagem("Medicamento cadastrado com sucesso!");
+            visao.limparTela();
+        }catch (Exception ex) {
+            System.err.println("Erro ao salvar no banco: " + ex.getMessage());
+            visao.apresentarMensagem("Erro ao salvar no banco de dados");
+        }
     }
 }

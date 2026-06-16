@@ -22,10 +22,10 @@ public class Medicamento {
     @OneToMany
     private Aplicacao aplicacao;
     
-    public Medicamento(String nome, double valorCompra) {
+    public Medicamento(String nome, double valorCompra, double estoque) {
         this.nome = nome;
         this.valorCompra = valorCompra;
-        this.estoque = 0;
+        this.estoque = estoque;
     }
 
     // JPA exige construtor vazio
