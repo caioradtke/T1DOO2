@@ -1,17 +1,37 @@
 package udesc.br.model;
 
-public class Medicamento {
-    private int id;
-    private String nome;
-    private double valorCompra;
-    private double estoque; //medido em mg
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "medicamento")
+public class Medicamento {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // PostgreSQL gera o ID automaticamente
+    private Long id;
+
+    @Column(nullable = false, length = 150)
+    private String nome;
+
+    @Column(name = "valor_compra", nullable = false)
+    private double valorCompra;
+
+    @Column(nullable = false)
+    private double estoque; // medido em mg
+    
+    @OneToMany
+    private Aplicacao aplicacao;
+    
     public Medicamento(String nome, double valorCompra) {
-        this.id = id;
         this.nome = nome;
         this.valorCompra = valorCompra;
         this.estoque = 0;
     }
+
+    // JPA exige construtor vazio
+    public Medicamento() {
+    }
+    
     public boolean adicionarEstoque(double quantidade){
         if (estoque <= 0){
             return false;
@@ -40,7 +60,7 @@ public class Medicamento {
     public String getNome() {
         return nome;
     }
-    public int getId(){
+    public Long getId(){
         return this.id;
     }
     

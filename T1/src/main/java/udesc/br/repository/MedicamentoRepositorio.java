@@ -5,7 +5,7 @@ import udesc.br.model.Medicamento;
 
 public interface MedicamentoRepositorio {
     
-    void salvarPaciente(Medicamento medicamento);
-    List<Medicamento> buscarTodosPacientes();
+    void salvarMedicamento(Medicamento medicamento);
+    List<Medicamento> buscarTodosMedicamentos();
     void apagar(Medicamento medicamento);
 }

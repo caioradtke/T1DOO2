@@ -10,7 +10,7 @@ import udesc.br.repository.MedicamentoRepositorio;
 public class MedicamentoDAO implements MedicamentoRepositorio {
 
 @Override
-public void salvarPaciente(Medicamento medicamento) {
+public void salvarMedicamento(Medicamento medicamento) {
     EntityManager em = JPAConnector.getEntityManager();
     try {
         em.getTransaction().begin(); // comeca a transacao
@@ -26,7 +26,7 @@ public void salvarPaciente(Medicamento medicamento) {
 
 
 @Override
-public List<Medicamento> buscarTodosPacientes() {
+public List<Medicamento> buscarTodosMedicamentos() {
     EntityManager em = JPAConnector.getEntityManager();
     try {
         TypedQuery<Medicamento> query = em.createQuery("FROM Medicamento", Medicamento.class);
