@@ -7,11 +7,14 @@ import udesc.br.repository.AgendaRepositorio;
 import udesc.br.vision.agenda.ManterAgendaVisao;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Array;
 import java.time.*;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalField;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ManterAgendaControlador implements Controlador {
 
@@ -19,7 +22,7 @@ public class ManterAgendaControlador implements Controlador {
     private AgendaRepositorio repositorio;
     private Agenda modelo;
 
-    private int[] diasMes;
+    private List<Dia> diasMes;
     private int mesSelecionado;
     private int anoSelecionado;
 
@@ -124,10 +127,10 @@ public class ManterAgendaControlador implements Controlador {
         anoSelecionado = visao.getAno();
 
         diasMes = carregarMes(mesSelecionado, anoSelecionado);
-        gerarCalendario(diasMes);
+        gerarCalendario();
     }
 
-    private int[] carregarMes(int mes, int ano) {
+    private List<Dia> carregarMes(int mes, int ano) {
         YearMonth mesAno = YearMonth.of(ano, mes);
 
         int diasNoMes = mesAno.lengthOfMonth(); // 31
@@ -135,45 +138,71 @@ public class ManterAgendaControlador implements Controlador {
         LocalDate primeiroDia = mesAno.atDay(1);
 
         int dayOfWeek = primeiroDia.getDayOfWeek().getValue();
-        int diaSemana = dayOfWeek == 7 ? 0  : dayOfWeek;
+        int primeiroDiaSemana = dayOfWeek == 7 ? 1 : dayOfWeek + 1;
 
-        int[] mesTotal = new int[diasNoMes + diaSemana];
+        List<Dia> diasMes = new ArrayList<>();
 
-        int contDiaSemana = diaSemana; // 0
-        int contDiaMes = 0;
-        for (int i = 0; i < diasNoMes + diaSemana; i++ ) {
-            if (contDiaSemana == 0) {
-                contDiaMes++;
-                mesTotal[i] = contDiaMes;
-                continue;
-            }
+        for (int i = 1; i <= diasNoMes; i++ ) {
 
-            mesTotal[i] = 0;
-            contDiaSemana--;
+            diasMes.add(new Dia(i, primeiroDiaSemana, null));
         }
 
-        return mesTotal;
+        return diasMes;
     }
 
-    public void gerarCalendario(int[] dias) {
-        for (int i = 0; i < 49; i++) {
-            if (i >= dias.length) {
-                visao.addCalendario(gerarDiaMes(0));
-                continue;
+    public void gerarCalendario() {
+        List<Agenda> agendas = repositorio.buscarAgendasData(mesSelecionado, anoSelecionado);
+        int diaSemana = diasMes.get(0).diaSemana;
+        int totalDias = diasMes.size();
+
+        for (int i = 0; i < diaSemana -1; i++) {
+            visao.addCalendario(new JPanel());
+        }
+        for (Dia dia : diasMes) {
+            for (Agenda a : agendas) {
+                if (dia.dia == a.getData().getDayOfMonth()) {
+                    dia.setAgenda(a);
+                }
             }
-            visao.addCalendario(gerarDiaMes(dias[i]));
+            visao.addCalendario(dia.gerarComponente());
+        }
+        int diasRestantes = 49 - (diaSemana - 1 + totalDias);
+        for (int i = 0; i < diasRestantes; i++) {
+            visao.addCalendario(new JPanel());
         }
     }
 
-    public JPanel gerarDiaMes(int dia) {
-        JPanel div = new JPanel();
-        JLabel diaLabel = new JLabel();
+    public class Dia {
+        protected int dia;
+        protected int diaSemana; // variavel zuada q armazena o primeiro dia do mes
+        protected Agenda agenda;
 
-        diaLabel.setText(dia == 0 ? "" :  Integer.toString(dia));
+        public Dia(int dia, int diaSemana, Agenda agenda) {
+            this.dia = dia;
+            this.diaSemana = diaSemana;
+            this.agenda = agenda;
+        }
 
-        div.add(diaLabel);
+        public JPanel gerarComponente() {
+            JPanel div = new JPanel();
+            div.setName(Integer.toString(dia));
+            JLabel diaLabel = new JLabel();
 
-        return div;
+            diaLabel.setText(dia == 0 ? "" :  Integer.toString(dia));
+            div.add(diaLabel);
+
+            if (agenda != null) {
+                JLabel consultaLabel = new JLabel();
+                consultaLabel.setText(agenda.getNome());
+                div.add(consultaLabel);
+            }
+
+            return div;
+        }
+
+        public void setAgenda(Agenda agenda) {
+            this.agenda = agenda;
+        }
     }
 }
 

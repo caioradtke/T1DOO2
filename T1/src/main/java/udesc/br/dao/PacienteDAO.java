@@ -30,7 +30,7 @@ public class PacienteDAO implements PacienteRepositorio {
     public List<Paciente> buscarTodosPacientes() {
         EntityManager em = JPAConnector.getEntityManager();
         try {
-            TypedQuery<Paciente> query = em.createQuery("FROM Paciente", Paciente.class);
+            TypedQuery<Paciente> query = em.createQuery("FROM Paciente ", Paciente.class);
             return query.getResultList();
         } catch (Exception e) {
             throw e;

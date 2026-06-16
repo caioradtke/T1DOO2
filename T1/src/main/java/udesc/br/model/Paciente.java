@@ -2,8 +2,10 @@ package udesc.br.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "pacientes")
+@Table(name = "paciente")
 public class Paciente {
 
     @Id
@@ -33,6 +35,9 @@ public class Paciente {
     
     @Column (name = "Observações")
     private String observacao;
+
+    @OneToMany(mappedBy = "paciente")
+    private List<Consulta> consultas;
 
     public Paciente(String nome, String cpf, double peso, double altura, int idade, String telefone) {
         this.nome = nome;
