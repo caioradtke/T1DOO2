@@ -19,9 +19,9 @@ public class Medicamento {
     @Column(nullable = false)
     private double estoque; // medido em mg
         
-    public Medicamento(String nome, double valorCompra, double estoque) {
+    public Medicamento(String nome, double valor, double estoque) {
         this.nome = nome;
-        this.valorCompra = valorCompra;
+        this.valorCompra = valor;
         this.estoque = estoque;
     }
 
