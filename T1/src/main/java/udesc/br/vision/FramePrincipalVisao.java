@@ -143,9 +143,9 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         btnDespesas = new javax.swing.JButton();
         btnListarDespesas = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        btnCadastrarDespesa1 = new javax.swing.JButton();
         btnAgenda = new javax.swing.JButton();
-        btnListarDespesas1 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        btnFinanceiro = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -153,14 +153,12 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
 
         btnListarPacientes.setText("Listar");
         btnListarPacientes.setMargin(new java.awt.Insets(2, 0, 3, 14));
-        btnListarPacientes.addActionListener(this::btnListarPacientesActionPerformed);
 
         btnPacientes.setText("Pacientes");
         btnPacientes.setMargin(new java.awt.Insets(2, 0, 3, 14));
 
         btnCadastrarPaciente.setText("Cadastrar");
         btnCadastrarPaciente.setMargin(new java.awt.Insets(2, 0, 3, 14));
-        btnCadastrarPaciente.addActionListener(this::btnCadastrarPacienteActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -252,37 +250,38 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnCadastrarDespesa1.setText("Cadastrar");
-        btnCadastrarDespesa1.setMargin(new java.awt.Insets(2, 0, 3, 14));
-
         btnAgenda.setText("Agenda");
         btnAgenda.setMargin(new java.awt.Insets(2, 0, 3, 14));
-        btnAgenda.addActionListener(this::btnAgendaActionPerformed);
-
-        btnListarDespesas1.setText("Listar");
-        btnListarDespesas1.setMargin(new java.awt.Insets(2, 0, 3, 14));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btnAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCadastrarDespesa1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                    .addComponent(btnListarDespesas1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addComponent(btnAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAgenda)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCadastrarDespesa1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnListarDespesas1)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnFinanceiro.setText("Financeiro");
+        btnFinanceiro.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnFinanceiro, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnFinanceiro)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -300,9 +299,11 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(12, 12, 12))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -316,7 +317,9 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         cardLayout.setPreferredSize(new java.awt.Dimension(600, 0));
@@ -340,18 +343,6 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnCadastrarPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPacienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCadastrarPacienteActionPerformed
-
-    private void btnListarPacientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarPacientesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnListarPacientesActionPerformed
-
-    private void btnAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgendaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAgendaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,12 +372,11 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgenda;
     private javax.swing.JButton btnCadastrarDespesa;
-    private javax.swing.JButton btnCadastrarDespesa1;
     private javax.swing.JButton btnCadastrarMedicamento;
     private javax.swing.JButton btnCadastrarPaciente;
     private javax.swing.JButton btnDespesas;
+    private javax.swing.JButton btnFinanceiro;
     private javax.swing.JButton btnListarDespesas;
-    private javax.swing.JButton btnListarDespesas1;
     private javax.swing.JButton btnListarMedicamentos;
     private javax.swing.JButton btnListarPacientes;
     private javax.swing.JButton btnMedicamentos;
@@ -397,5 +387,6 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 }

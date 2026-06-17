@@ -1,18 +1,12 @@
 package udesc.br.controller;
 
 
-import org.hibernate.grammars.hql.HqlParser;
 import udesc.br.model.Agenda;
 import udesc.br.repository.AgendaRepositorio;
 import udesc.br.vision.agenda.ManterAgendaVisao;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.lang.reflect.Array;
 import java.time.*;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +41,7 @@ public class ManterAgendaControlador implements Controlador {
         mesAtual = dataReal.getMonthValue();
         diaAtual = dataReal.getDayOfMonth();
 
-        visao.limparCB();
+        visao.limparCBAno();
         popularCB(anoAtual);
 
         mesSelecionado = mesAtual;
@@ -59,6 +53,11 @@ public class ManterAgendaControlador implements Controlador {
         visao.adicionarAcaoMesAnterior(e -> voltarMes());
         visao.adicionarAcaoProximoMes(e -> avancarMes());
         visao.adicionarAcaoCBAno(e -> {if (itemCB) atualizarTela();});
+        visao.adicionarAcaoAgendarConsulta(e -> cadastrarConsulta());
+    }
+
+    public void cadastrarConsulta() {
+
     }
 
     public String getMesString(int mes) {
@@ -114,7 +113,7 @@ public class ManterAgendaControlador implements Controlador {
             menorAno = anoAtual - 5;
         }
         for(int i = menorAno; i <= anoAtual; i++ ) {
-            visao.adicionarItemCB(Integer.toString(i));
+            visao.adicionarItemCBAno(Integer.toString(i));
         }
         itemCB = true;
     }

@@ -14,10 +14,6 @@ public class Agenda {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @Column(name = "data", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private LocalDate data;
-
     @Column(name = "nome", length = 30)
     private String nome;
 
@@ -27,25 +23,14 @@ public class Agenda {
     @Column(name = "notas", length = 150)
     private String notas;
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "cor", length = 30)
-//    private Color corAgenda;
-
-//    private List<Aplicacao> aplicacoes;
-
-    public Agenda(Consulta consulta, LocalDate data) {
+    public Agenda(Consulta consulta) {
         this.consulta = consulta;
-        this.data = data;
     }
 
     public Agenda() {}
 
     public String getId() {
         return id;
-    }
-
-    public LocalDate getData() {
-        return data;
     }
 
     public Consulta getConsulta() {
@@ -60,7 +45,8 @@ public class Agenda {
         return nome;
     }
 
-//    public Color getCorAgenda() {
-//        return corAgenda;
-//    }
+    public LocalDate getData() {
+        return consulta.getData();
+    }
+
 }

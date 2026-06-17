@@ -58,7 +58,7 @@ public class AgendaDAO implements AgendaRepositorio {
         LocalDate dataFim = LocalDate.of(ano, mes, anoMes.getMonthValue());
 
         try {
-            TypedQuery<Agenda> query = em.createQuery("FROM Agenda WHERE data BETWEEN :inicio AND :fim", Agenda.class);
+            TypedQuery<Agenda> query = em.createQuery("FROM Consulta WHERE data BETWEEN :inicio AND :fim", Agenda.class);
             query.setParameter("inicio", dataInicio);
             query.setParameter("fim", dataFim);
             return query.getResultList();

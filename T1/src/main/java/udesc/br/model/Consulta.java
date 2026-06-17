@@ -17,6 +17,9 @@ public class Consulta {
     @Temporal(TemporalType.DATE)
     private LocalDate data;
 
+    @Column(name = "status")
+    private String status; // PENDENTE, CONCLUIDO, CANCELADO
+
     @ManyToOne
     private Paciente paciente;
 
@@ -62,5 +65,9 @@ public class Consulta {
 
     public double getPressaoPaciente() {
         return pressaoPaciente;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }
