@@ -52,6 +52,11 @@ public class CadastrarMedicamentoVisao extends javax.swing.JPanel {
     public void apresentarMensagem(String msg){
         JOptionPane.showMessageDialog(this.getParent(), msg);
     }
+    public void limparTela(){
+        txtEstoque.setText("");
+        txtNome.setText("");
+        txtValorCompra.setText("");
+    }
    
 
     /**
