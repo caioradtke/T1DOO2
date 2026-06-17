@@ -35,7 +35,7 @@ public class Despesa extends MovimentacaoFinanceira {
         return this.valorPorMg * this.quantidade;
     }
 
-    public double getValorUnitario() {
+    public double getValorPorMg() {
         return valorPorMg;
     }
     public int  getQuantidade() {
