@@ -20,16 +20,19 @@ public class CadastrarPacienteControlador implements  Controlador{
         initTela();
     }
 
+    @Override
     public void initTela(){
         adicionarAcoes();
         visao.apresentarPacientes(pacienteRepositorio.buscarTodosPacientes());
     }
 
+    @Override
     public void atualizarTela(){
         visao.limparTela();
         visao.apresentarPacientes(pacienteRepositorio.buscarTodosPacientes());
     }
 
+    @Override
     public void adicionarAcoes(){
         
         visao.adicionarAcaoBtnSalvar(e -> salvarPaciente());

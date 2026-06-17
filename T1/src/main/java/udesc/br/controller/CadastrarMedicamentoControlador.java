@@ -26,7 +26,7 @@ public class CadastrarMedicamentoControlador implements Controlador{
 
     @Override
     public void initTela() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        adicionarAcoes();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CadastrarMedicamentoControlador implements Controlador{
 
     @Override
     public void atualizarTela() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        visao.limparTela();
     }
 
     private void salvarMedicamento() {
