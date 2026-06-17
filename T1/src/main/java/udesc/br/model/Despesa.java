@@ -18,9 +18,9 @@ public class Despesa extends MovimentacaoFinanceira {
     @Column(name = "valor_unitario", nullable = false)
     private double valorUnitario;
 
-    public Despesa(String descricao, LocalDate data, int quantidade,
+    public Despesa(String descricao, LocalDate data, double valor, int quantidade,
                     double valorUnitario, Medicamento medicamento) {
-        super(descricao, data);
+        super(descricao, data, valor);
         this.quantidade = quantidade;
         this.valorUnitario = valorUnitario;
         this.medicamento = medicamento;
@@ -31,7 +31,7 @@ public class Despesa extends MovimentacaoFinanceira {
     }
 
     @Override
-    public double calcularValor(){
+    public double getValor(){
         return this.valorUnitario * this.quantidade;
     }
 
@@ -40,6 +40,10 @@ public class Despesa extends MovimentacaoFinanceira {
     }
     public int  getQuantidade() {
         return quantidade;
+    }
+    
+    public Medicamento getMedicamento() {
+        return medicamento;
     }
 
     @Override
@@ -51,6 +55,6 @@ public class Despesa extends MovimentacaoFinanceira {
                 " - " +
                 valorUnitario +
                 " - Valor total: " +
-                calcularValor();
+                getValor();
     }
 }

@@ -19,8 +19,8 @@ public class Entrada extends MovimentacaoFinanceira {
     @Column(nullable = false)
     private double valor;
 
-    public Entrada(String descricao, LocalDate data, Paciente paciente, Aplicacao aplicacao) {
-        super(descricao, data);
+    public Entrada(String descricao, LocalDate data,double valor, Paciente paciente, Aplicacao aplicacao) {
+        super(descricao, data, valor);
         this.paciente = paciente;
         this.aplicacao = aplicacao;
         this.valor = aplicacao.getPreco();
@@ -29,10 +29,8 @@ public class Entrada extends MovimentacaoFinanceira {
     // JPA exige construtor vazio
     public Entrada() {
     }
-    @Override
-    public double calcularValor() {
-        return this.valor;
-    }
+
+    public double getValor() {return valor;}
 
     public Paciente getPaciente() {
         return paciente;

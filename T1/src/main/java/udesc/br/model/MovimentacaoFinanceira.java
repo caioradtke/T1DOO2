@@ -19,20 +19,34 @@ public abstract class MovimentacaoFinanceira {
     @Column(nullable = false)
     private LocalDate data;
 
+    @Column (name = "valor")
+    private double valor;
+
     // JPA exige construtor vazio
     protected MovimentacaoFinanceira() {
     }
 
-    public MovimentacaoFinanceira(String descricao, LocalDate data) {
+    public MovimentacaoFinanceira(String descricao, LocalDate data, double valor) {
         this.descricao = descricao;
         this.data = data;
+        this.valor = valor;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
     }
 
     public Long getId() {
         return id;
     }
-
-    public abstract double calcularValor();
+    
+     public LocalDate getData() {
+        return data;
+    }
 
     public String getDescricao() {
         return descricao;

@@ -7,4 +7,5 @@ public interface MovimentacaoFinanceiraRepositorio {
     void salvarMovimentacaoFinanceira(MovimentacaoFinanceira mov);
     List <MovimentacaoFinanceira> buscarTodasMovimentacaoFinanceiras();
     void apagar(MovimentacaoFinanceira mov);
+    double buscarTotalSaldoMes();
 }
