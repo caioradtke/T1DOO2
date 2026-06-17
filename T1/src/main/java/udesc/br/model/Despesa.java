@@ -9,20 +9,20 @@ import java.time.LocalDate;
 public class Despesa extends MovimentacaoFinanceira {
 
     @Column(nullable = false)
-    private double quantidade;
+    private int quantidade;
 
     @ManyToOne
     @JoinColumn(name = "medicamento_id", nullable = false)
     private Medicamento medicamento;
 
-    @Column(name = "valor_por_mg", nullable = false)
-    private double valorPorMg;
+    @Column(name = "valor_unitario", nullable = false)
+    private double valorUnitario;
 
-    public Despesa(String descricao, LocalDate data, double quantidade,
+    public Despesa(String descricao, LocalDate data, double valor, int quantidade,
                     double valorUnitario, Medicamento medicamento) {
-        super(descricao, data);
+        super(descricao, data, valor);
         this.quantidade = quantidade;
-        this.valorPorMg = valorUnitario;
+        this.valorUnitario = valorUnitario;
         this.medicamento = medicamento;
     }
 
@@ -31,15 +31,19 @@ public class Despesa extends MovimentacaoFinanceira {
     }
 
     @Override
-    public double calcularValor(){
-        return this.valorPorMg * this.quantidade;
+    public double getValor(){
+        return this.valorUnitario * this.quantidade;
     }
 
-    public double getValorPorMg() {
-        return valorPorMg;
+    public double getValorUnitario() {
+        return valorUnitario;
     }
-    public double  getQuantidade() {
+    public int  getQuantidade() {
         return quantidade;
+    }
+    
+    public Medicamento getMedicamento() {
+        return medicamento;
     }
 
     @Override
@@ -49,8 +53,8 @@ public class Despesa extends MovimentacaoFinanceira {
                 " unidades de " +
                 medicamento.getNome() +
                 " - " +
-                valorPorMg +
+                valorUnitario +
                 " - Valor total: " +
-                calcularValor();
+                getValor();
     }
 }
