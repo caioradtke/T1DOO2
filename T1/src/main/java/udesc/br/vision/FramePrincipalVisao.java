@@ -9,9 +9,11 @@ import udesc.br.controller.Controlador;
 import udesc.br.controller.ManterAgendaControlador;
 import udesc.br.controller.ManterPacienteControlador;
 import udesc.br.dao.AgendaDAO;
+import udesc.br.dao.ConsultaDAO;
 import udesc.br.dao.PacienteDAO;
 import udesc.br.model.Agenda;
 import udesc.br.repository.AgendaRepositorio;
+import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.agenda.ManterAgendaVisao;
 import udesc.br.vision.components.TreeButton;
@@ -67,8 +69,8 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         // Agenda
         ManterAgendaVisao manterAgendaVisao = new ManterAgendaVisao();
 
-        AgendaRepositorio agendaRepositorio = new AgendaDAO();
-        ManterAgendaControlador listAgendaControlador = new ManterAgendaControlador(manterAgendaVisao, agendaRepositorio);
+        ConsultaRepositorio consultaRepositorio = new ConsultaDAO();
+        ManterAgendaControlador listAgendaControlador = new ManterAgendaControlador(manterAgendaVisao, consultaRepositorio, pacienteRepositorio);
 
         cardLayout.add(manterAgendaVisao, "LISTAR-AGENDA");
 

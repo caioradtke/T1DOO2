@@ -31,7 +31,7 @@ public class CadastrarMedicamentoVisao extends javax.swing.JPanel {
         return txtNome.getText();
     }
     public double getMedicamentoValorCompra() throws MedicamentoException{
-         String valorString = txtValorCompra.getText();
+         String valorString = txtValorCompra.getText().trim();
         
         try {
             return Double.parseDouble(valorString);

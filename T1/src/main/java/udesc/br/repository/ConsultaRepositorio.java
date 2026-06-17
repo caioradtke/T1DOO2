@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface ConsultaRepositorio {
 
-    void salvarRepositorio(Consulta consulta);
+    void salvarConsulta(Consulta consulta);
     List<Consulta> buscarTodasConsultas();
     void apagarConsulta(Consulta consulta);
-    List<Consulta> buscarConsultasData(Month mes, Year ano);
+    List<Consulta> buscarConsultasData(int mes, int ano);
 }

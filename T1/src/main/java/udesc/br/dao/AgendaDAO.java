@@ -17,7 +17,7 @@ public class AgendaDAO implements AgendaRepositorio {
     private EntityManager em;
 
     @Override
-    public void salvarRepositorio(Agenda agenda) {
+    public void salvarAgenda(Agenda agenda) {
         em = JPAConnector.getEntityManager();
         try {
             em.getTransaction().begin();

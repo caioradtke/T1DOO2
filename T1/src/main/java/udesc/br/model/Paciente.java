@@ -57,7 +57,7 @@ public class Paciente {
     @Override
     public String toString() {
       String imcFormatado = String.format("%.2f",imc);
-      return "Paciente ID: " + id + "| Nome:" + nome + "| CPF:" + cpf;
+      return "ID: " + id + "| Nome: " + nome + "| CPF: " + cpf;
     }   
 
     public String getNome() {

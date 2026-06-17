@@ -32,13 +32,12 @@ public class Consulta {
     @Column(name = "pressao_paciente")
     private double pressaoPaciente;
 
-    public Consulta(String id, LocalDate data, String observacao, Paciente paciente, double pesoPaciente, double pressaoPaciente) {
-        this.id = id;
+    public Consulta(LocalDate data, String observacao, Paciente paciente) {
         this.data = data;
         this.observacao = observacao;
         this.paciente = paciente;
-        this.pesoPaciente = pesoPaciente;
-        this.pressaoPaciente = pressaoPaciente;
+        this.pesoPaciente = 0;
+        this.pressaoPaciente = 0;
     }
 
     public Consulta() {};
