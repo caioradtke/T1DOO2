@@ -14,14 +14,14 @@ public class Medicamento {
     private String nome;
 
     @Column(name = "valor_compra", nullable = false)
-    private double valorCompra;
+    private double valorCompraPorMg;
 
     @Column(nullable = false)
     private double estoque; // medido em mg
         
     public Medicamento(String nome, double valor, double estoque) {
         this.nome = nome;
-        this.valorCompra = valor;
+        this.valorCompraPorMg = valor;
         this.estoque = estoque;
     }
 
@@ -59,6 +59,17 @@ public class Medicamento {
     }
     public Long getId(){
         return this.id;
+    }
+    
+    public double getValor(){
+        return this.valorCompraPorMg;
+    }
+    public boolean setValor(double valor){
+        if (valor < 0){
+            return false;
+        }
+        this.valorCompraPorMg = valor;
+        return true;
     }
     
     @Override

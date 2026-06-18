@@ -129,7 +129,7 @@
           <SubComponents>
             <Component class="javax.swing.JButton" name="btnListarPacientes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Listar"/>
+                <Property name="text" type="java.lang.String" value="Editar e Excluir"/>
                 <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
                   <Insets value="[2, 0, 3, 14]"/>
                 </Property>

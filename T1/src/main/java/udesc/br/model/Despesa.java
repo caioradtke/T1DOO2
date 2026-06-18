@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Despesa extends MovimentacaoFinanceira {
 
     @Column(nullable = false)
-    private int quantidade;
+    private double quantidade;
 
     @ManyToOne
     @JoinColumn(name = "medicamento_id", nullable = false)
@@ -18,7 +18,7 @@ public class Despesa extends MovimentacaoFinanceira {
     @Column(name = "valor_por_miligrama", nullable = false)
     private double valorPorMg;
 
-    public Despesa(String descricao, LocalDate data, double valor, int quantidade,
+    public Despesa(String descricao, LocalDate data, double valor, double quantidade,
                     double valorPorMg, Medicamento medicamento) {
         super(descricao, data, valor);
         this.quantidade = quantidade;
@@ -38,7 +38,7 @@ public class Despesa extends MovimentacaoFinanceira {
     public double getValorPorMg() {
         return valorPorMg;
     }
-    public int  getQuantidade() {
+    public double  getQuantidade() {
         return quantidade;
     }
     

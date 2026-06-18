@@ -4,6 +4,7 @@
  */
 package udesc.br.vision.medicamentos;
 
+import java.util.List;
 import udesc.br.model.Medicamento;
 
 /**
@@ -18,6 +19,9 @@ public class ManterMedicamentoVisao extends javax.swing.JPanel {
     public ManterMedicamentoVisao() {
         initComponents();
     }
+    public void initTable(List<Medicamento> lista){
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,14 +33,10 @@ public class ManterMedicamentoVisao extends javax.swing.JPanel {
     private void initComponents() {
 
         btnEditar = new javax.swing.JButton();
-        btnAdicionarEstoque = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMedicamentos = new javax.swing.JTable();
-        cbMedicamentos = new javax.swing.JComboBox<>();
 
-        btnEditar.setText("Editar");
-
-        btnAdicionarEstoque.setText("Adicionar Estoque");
+        btnEditar.setText("Editar e Adicionar Estoque");
 
         tblMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -72,35 +72,25 @@ public class ManterMedicamentoVisao extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAdicionarEstoque)))
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar)
-                    .addComponent(btnAdicionarEstoque))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addComponent(btnEditar)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionarEstoque;
     private javax.swing.JButton btnEditar;
-    private javax.swing.JComboBox<Medicamento> cbMedicamentos;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblMedicamentos;
     // End of variables declaration//GEN-END:variables

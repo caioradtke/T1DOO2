@@ -151,7 +151,7 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        btnListarPacientes.setText("Listar");
+        btnListarPacientes.setText("Editar e Excluir");
         btnListarPacientes.setMargin(new java.awt.Insets(2, 0, 3, 14));
 
         btnPacientes.setText("Pacientes");
