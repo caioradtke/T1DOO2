@@ -11,12 +11,18 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.List;
+
+import udesc.br.model.Consulta;
+import udesc.br.model.Paciente;
 
 /**
  *
  * @author 13592040910
  */
 public class ManterAgendaVisao extends javax.swing.JPanel {
+    private DatePicker datePicker;
     /**
      * Creates new form ManterAgenda
      */
@@ -26,7 +32,7 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
         DatePickerSettings dateSettings = new DatePickerSettings();
         dateSettings.setFirstDayOfWeek(DayOfWeek.SUNDAY);
 
-        DatePicker datePicker = new DatePicker(dateSettings);
+        datePicker = new DatePicker(dateSettings);
 
         frameCriarConsulta.setLocationRelativeTo(getParent());
         btnAbrirTelaCadastroConsulta.addActionListener(e -> frameCriarConsulta.setVisible(true));
@@ -51,7 +57,19 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
     }
 
     public void adicionarAcaoAgendarConsulta(ActionListener acao) {
-        btnAbrirTelaCadastroConsulta.addActionListener(acao);
+        btnCadastrarPaciente.addActionListener(acao);
+    }
+
+    public Paciente getPacienteSelecionado() {
+        return (Paciente) cbPaciente.getSelectedItem();
+    }
+
+    public LocalDate getCampoData() {
+        return datePicker.getDate();
+    }
+
+    public String getObservacao() {
+        return txtObservacao.getText();
     }
 
     public void setLabelMes(String mes) {
@@ -62,8 +80,12 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
         return cbAno;
     }
 
-    public void popularCBPacientes() {
+    public JComboBox<Paciente> getCbPaciente(){
+        return cbPaciente;
+    }
 
+    public void setCbPaciente(JComboBox<Paciente> cbPaciente){
+        this.cbPaciente = cbPaciente;
     }
 
     public void adicionarItemCBAno(String ano) {
@@ -126,7 +148,7 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
         jSpinner1 = new javax.swing.JSpinner();
         jPanel9 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbPaciente = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -190,15 +212,15 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(cbPaciente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.add(jPanel9);
@@ -396,9 +418,9 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
     private javax.swing.JButton btnMesAnterior;
     private javax.swing.JButton btnProximoMes;
     private javax.swing.JComboBox<String> cbAno;
+    private javax.swing.JComboBox<Paciente> cbPaciente;
     private javax.swing.JPanel dataPainel;
     private javax.swing.JFrame frameCriarConsulta;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;

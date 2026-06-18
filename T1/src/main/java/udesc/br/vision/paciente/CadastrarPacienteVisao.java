@@ -50,7 +50,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     }
     
     public double getPacienteAltura() throws PacienteException {
-         String alturaString = txtAltura.getText();
+         String alturaString = txtAltura.getText().trim();
         
         try {
             return Double.parseDouble(alturaString);
@@ -60,7 +60,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     }
     
     public double getPacientePeso() throws PacienteException {
-         String pesoString = txtPeso.getText();
+         String pesoString = txtPeso.getText().trim();
         
         try {
             return Double.parseDouble(pesoString);
@@ -70,7 +70,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     }
     
     public int getPacienteIdade() throws PacienteException {
-         String idadeString = txtIdade.getText();
+         String idadeString = txtIdade.getText().trim();
         
         try {
             return Integer.parseInt(idadeString);

@@ -44,9 +44,9 @@ public class CadastrarPacienteControlador implements  Controlador{
     public void salvarPaciente(){
         try {
             System.out.println("Salvando Paciente");
-            String nome = visao.getPacienteNome();
-            String cpf = visao.getPacienteCpf();
-            String telefone = visao.getPacienteTelefone();
+            String nome = visao.getPacienteNome().trim();
+            String cpf = visao.getPacienteCpf().trim();
+            String telefone = visao.getPacienteTelefone().trim();
             double altura = visao.getPacienteAltura();
             double peso = visao.getPacientePeso();
             int idade = visao.getPacienteIdade();

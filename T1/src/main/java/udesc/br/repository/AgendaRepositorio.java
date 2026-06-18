@@ -7,7 +7,7 @@ import java.time.Year;
 import java.util.List;
 
 public interface AgendaRepositorio {
-    void salvarRepositorio(Agenda agenda);
+    void salvarAgenda(Agenda agenda);
     List<Agenda> buscarTodasAgendas();
     void apagarAgenda(Agenda agenda);
     List<Agenda> buscarAgendasData(int mes, int ano);

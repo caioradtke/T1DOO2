@@ -42,7 +42,7 @@ public class CadastrarMedicamentoControlador implements Controlador{
     private void salvarMedicamento() {
         // pegar informações na tela
         try{
-            String nome = visao.getMedicamentoNome();
+            String nome = visao.getMedicamentoNome().trim();
             double valor = visao.getMedicamentoValorCompra();
             double estoque = visao.getMedicamentoEstoque();
             
