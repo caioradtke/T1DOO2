@@ -134,9 +134,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txtNome">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel9">
               <Properties>
@@ -168,9 +165,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txtCpf">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCpfActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -202,9 +196,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txtAltura">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAlturaActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel10">
               <Properties>
@@ -236,9 +227,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txtPeso">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPesoActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
               <Properties>
@@ -301,9 +289,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Selecionar Paciente"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarPacienteActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -364,9 +349,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txtTelefone">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefoneActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
@@ -398,9 +380,6 @@
           </Layout>
           <SubComponents>
             <Component class="javax.swing.JTextField" name="txtIdade">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIdadeActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel13">
               <Properties>

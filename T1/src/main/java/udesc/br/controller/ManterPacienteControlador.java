@@ -38,7 +38,7 @@ public class ManterPacienteControlador implements Controlador {
     
     public void adicionarAcoes() {
         visao.adicionarAcaoBtnBuscar(e-> buscarPaciente());
-        visao.adicionarAcaoBtnAlterar(e -> alterarPaciente());
+        visao.adicionarAcaoBtnAlterar(e -> alterarPaciente());  
         visao.adicionarAcaoBtnExcluir(e ->excluirPaciente());
     }
     
@@ -48,10 +48,23 @@ public class ManterPacienteControlador implements Controlador {
     }
     
     public void alterarPaciente() {
-        visao.alterarAtributos(pacienteModelo);
+        try{
+        pacienteModelo.setNome(visao.getPacienteNome());
+        pacienteModelo.setPeso(visao.getPacientePeso());
+        pacienteModelo.setAltura(visao.getPacienteAltura());
+        pacienteModelo.setTelefone(visao.getPacienteTelefone());
+        pacienteModelo.setCpf(visao.getPacienteCpf());
+        pacienteModelo.setIdade((visao.getPacienteIdade()));
+        pacienteModelo.setImc(visao.getPacientePeso(), (visao.getPacienteAltura()));
+        pacienteModelo.setObservacao(visao.getPacienteObservacao());
         repositorio.salvarPaciente(pacienteModelo);
         visao.apresentarMensagem(pacienteModelo.toString() + " Alterações salvas com sucesso");
         visao.limparTela();
+        }
+        catch(Exception ex){
+            System.err.println("Erro ao salvar no banco: " + ex.getMessage());
+            visao.apresentarMensagem("Erro ao salvar no banco de dados");
+        }
     }
     
     public void excluirPaciente() {

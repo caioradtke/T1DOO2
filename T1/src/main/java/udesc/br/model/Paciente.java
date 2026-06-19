@@ -81,7 +81,8 @@ public class Paciente {
     }
 
     public double getImc() {
-        return this.imc;
+        String imcFormatado = String.format("%.2f",this.imc);
+        return Double.parseDouble(imcFormatado);
     }
     
     public int getIdade() {
