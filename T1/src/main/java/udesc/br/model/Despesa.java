@@ -15,7 +15,7 @@ public class Despesa extends MovimentacaoFinanceira {
     @JoinColumn(name = "medicamento_id", nullable = false)
     private Medicamento medicamento;
 
-    @Column(name = "valor_por_miligrama", nullable = false)
+    @Column(name = "valor_por_mg", nullable = false)
     private double valorPorMg;
 
     public Despesa(String descricao, LocalDate data, double valor, double quantidade,

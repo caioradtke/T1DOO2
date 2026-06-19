@@ -4,8 +4,12 @@
  */
 package udesc.br.vision.medicamentos;
 
+import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JOptionPane;
 import udesc.br.model.Medicamento;
+
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,15 +17,32 @@ import udesc.br.model.Medicamento;
  */
 public class ManterMedicamentoVisao extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ManterMedicamentoVisa
-     */
+    DefaultTableModel tabela;
+
     public ManterMedicamentoVisao() {
         initComponents();
     }
-    public void initTable(List<Medicamento> lista){
-        
+    public void adicionarAcaoBtnEditar(ActionListener acao){
+        btnEditar.addActionListener(acao);
     }
+    public void apresentarMedicamentos(List<Medicamento> medicamentos){
+        tabela = (DefaultTableModel) tblMedicamentos.getModel();
+        tabela.setRowCount(0);
+
+        for (Medicamento m : medicamentos){
+            tabela.addRow(new Object[]{
+                    m.getId(),
+                    m.getNome(),
+                    m.getEstoque(),
+                    m.getValor(),
+            });
+        }
+    }
+    public void apresentarMensagem(String msg){
+        JOptionPane.showMessageDialog(this.getParent(), msg);
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,20 +61,20 @@ public class ManterMedicamentoVisao extends javax.swing.JPanel {
 
         tblMedicamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Estoque", "Valor Compra", "Valor Aplicação"
+                "ID", "Nome", "Estoque", "Valor Compra"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -1,19 +1,47 @@
 package udesc.br.controller;
 
-public class ManterMedicamentoControlador implements Controlador{
+import udesc.br.exception.MedicamentoException;
+import udesc.br.model.MovimentacaoFinanceira;
+import udesc.br.repository.MedicamentoRepositorio;
+import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
+import udesc.br.vision.medicamentos.EditarMedicamentoVisao;
+import udesc.br.vision.medicamentos.ManterMedicamentoVisao;
 
+public class ManterMedicamentoControlador implements Controlador{
+    ManterMedicamentoVisao visao;
+    MedicamentoRepositorio medRepo;
+    MovimentacaoFinanceiraRepositorio despesaRepo;
+    
+    public ManterMedicamentoControlador(ManterMedicamentoVisao visao, MedicamentoRepositorio medRepo, MovimentacaoFinanceiraRepositorio despesaRepo){
+        this.visao = visao;
+        this.medRepo = medRepo;
+        this.despesaRepo = despesaRepo;
+        initTela();
+    }
     @Override
     public void initTela() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        adicionarAcoes();
+        visao.apresentarMedicamentos(medRepo.buscarTodosMedicamentos());
     }
 
     @Override
     public void adicionarAcoes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        visao.adicionarAcaoBtnEditar(e -> abrirTelaEditar());
     }
 
     @Override
     public void atualizarTela() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        visao.apresentarMedicamentos(medRepo.buscarTodosMedicamentos());
+    }
+
+    private void abrirTelaEditar(){
+        System.out.println("Clicou!");
+        EditarMedicamentoVisao editarVisao =
+                new EditarMedicamentoVisao();
+        new EditarMedicamentoControlador(
+                editarVisao,
+                medRepo,
+                despesaRepo);
+        editarVisao.setVisible(true);
     }
 }
