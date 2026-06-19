@@ -129,6 +129,7 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
         txtNome.setText("");
         txtCpf.setText("");
         txtIdade.setText("");
+        txtAltura.setText("");
         txtTelefone.setText("");
         txtObservacao.setText("");
         txtPeso.setText("");
