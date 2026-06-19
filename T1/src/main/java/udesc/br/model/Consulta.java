@@ -38,6 +38,7 @@ public class Consulta {
         this.paciente = paciente;
         this.pesoPaciente = 0;
         this.pressaoPaciente = 0;
+        this.status = "PENDENTE";
     }
 
     public Consulta() {};

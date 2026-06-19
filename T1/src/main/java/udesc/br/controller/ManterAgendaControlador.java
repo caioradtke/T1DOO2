@@ -14,6 +14,8 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.awt.SystemColor.text;
+
 public class ManterAgendaControlador implements Controlador {
 
     private ManterAgendaVisao visao;
@@ -218,14 +220,20 @@ public class ManterAgendaControlador implements Controlador {
             div.add(diaLabel, BorderLayout.NORTH);
 
             JPanel diaPainel = new JPanel();
-            diaPainel.setSize(20, 50);
             diaPainel.setLayout(new BoxLayout(diaPainel, BoxLayout.Y_AXIS));
+            diaPainel.setSize(20, 50);
 
             for (Consulta consulta : consultas) {
                 System.out.println("Adicionando Consulta " + dia);
                 JButton consultaButton = new JButton();
 
-                consultaButton.setText("Consulta " + consulta.getStatus());
+                String nomePaciente = consulta.getPaciente().getNome();
+                if (nomePaciente.length() > 3) {
+                    nomePaciente = nomePaciente.substring(0, 3);
+                }
+                String text = "Consulta " + nomePaciente;
+
+                consultaButton.setText(text);
                 consultaButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
                 consultaButton.setBorderPainted(false);
                 consultaButton.setContentAreaFilled(false);
@@ -235,7 +243,7 @@ public class ManterAgendaControlador implements Controlador {
                 diaPainel.add(consultaButton);
             }
 
-            div.add(diaPainel, BorderLayout.CENTER);
+            div.add(diaPainel, BorderLayout.LINE_START);
             return div;
         }
 
