@@ -28,8 +28,11 @@ import java.awt.event.ActionListener;
 import javax.naming.ldap.Control;
 import javax.swing.JPanel;
 import udesc.br.controller.CadastrarMedicamentoControlador;
+import udesc.br.controller.ManterMedicamentoControlador;
 import udesc.br.dao.MedicamentoDAO;
+import udesc.br.dao.MovimentacaoFinanceiraDAO;
 import udesc.br.repository.MedicamentoRepositorio;
+import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 
 /**
  *
@@ -79,15 +82,18 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
 
         // Medicamentos
         MedicamentoRepositorio medicamentoRepositorio = new MedicamentoDAO();
+        MovimentacaoFinanceiraRepositorio movRepositorio = new MovimentacaoFinanceiraDAO();
+        ManterMedicamentoVisao manterMedicamentoVisao = new ManterMedicamentoVisao();
+        ManterMedicamentoControlador manterMedicamentoControlador = new ManterMedicamentoControlador(manterMedicamentoVisao, medicamentoRepositorio, movRepositorio);
         CadastrarMedicamentoVisao cadastroMedVisao = new CadastrarMedicamentoVisao();
         CadastrarMedicamentoControlador cadMedicamentoControlador = new CadastrarMedicamentoControlador(cadastroMedVisao, medicamentoRepositorio);
         
         cardLayout.add(cadastroMedVisao, "CADASTRAR-MEDICAMENTO");
-        //cardLayout.add(new ManterMedicamentoVisao(), "LISTAR-MEDICAMENTOS");
+        cardLayout.add(manterMedicamentoVisao, "LISTAR-MEDICAMENTOS");
 
         TreeButton treeMedicamentos = new TreeButton(btnMedicamentos);
         btnCadastrarMedicamento.addActionListener(e -> mostrarTela("CADASTRAR-MEDICAMENTO", cadMedicamentoControlador));
-        //btnListarMedicamentos.addActionListener(e -> mostrarTela("LISTAR-MEDICAMENTOS"));
+        btnListarMedicamentos.addActionListener(e -> mostrarTela("LISTAR-MEDICAMENTOS", manterMedicamentoControlador));
         treeMedicamentos.addButton(btnCadastrarMedicamento);
         treeMedicamentos.addButton(btnListarMedicamentos);
 

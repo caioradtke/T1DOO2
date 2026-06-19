@@ -56,6 +56,13 @@ public class EditarMedicamentoVisao extends javax.swing.JFrame {
     public void adicionarAcaoBtnExcluir(ActionListener acao){
         btnExcluir.addActionListener(acao);
     }
+    public void adicionarAcaoCbMedicamentos(ActionListener acao){
+        cbMedicamentos.addActionListener(acao);
+    }
+    public void preencheCampos(double valor, double estoque){
+        txtPreco.setText(String.valueOf(valor));
+        txtEstoque.setText(String.valueOf(estoque));
+    }
     
     public void preencherCampos(Medicamento modelo){
         txtEstoque.setText(String.valueOf(modelo.getEstoque()));
@@ -105,7 +112,7 @@ public class EditarMedicamentoVisao extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Medicamento");
 
