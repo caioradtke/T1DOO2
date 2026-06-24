@@ -1,6 +1,7 @@
 package udesc.br.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
@@ -25,14 +26,14 @@ public class ManterPacienteControlador implements Controlador {
         adicionarAcoes();
         
         //Inicializar combobox
-        List<Paciente> pacientes = repositorio.buscarTodosPacientes();
+        Map<Long,Paciente> pacientes = repositorio.buscarTodosPacientes();
         visao.initCbPacientes(pacientes);
         
     }
 
     public void atualizarTela(){
         visao.limparTela();
-        List<Paciente> pacientes = repositorio.buscarTodosPacientes();
+        Map<Long,Paciente> pacientes = repositorio.buscarTodosPacientes();
         visao.initCbPacientes(pacientes);
     }
     

@@ -8,6 +8,8 @@ import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PacienteDAO implements PacienteRepositorio {
 
@@ -27,13 +29,18 @@ public class PacienteDAO implements PacienteRepositorio {
     }
 
     @Override
-    public List<Paciente> buscarTodosPacientes() {
+    public Map<Long, Paciente> buscarTodosPacientes() {
         EntityManager em = JPAConnector.getEntityManager();
         try {
-            TypedQuery<Paciente> query = em.createQuery("FROM Paciente ", Paciente.class);
-            return query.getResultList();
-        } catch (Exception e) {
-            throw e;
+            TypedQuery<Paciente> query =
+                    em.createQuery("FROM Paciente", Paciente.class);
+
+            return query.getResultList()
+                    .stream()
+                    .collect(Collectors.toMap(
+                            Paciente::getId,
+                            paciente -> paciente
+                    ));
         } finally {
             em.close();
         }

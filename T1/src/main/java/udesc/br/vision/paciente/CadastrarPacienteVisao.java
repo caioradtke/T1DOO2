@@ -7,6 +7,7 @@ package udesc.br.vision.paciente;
 import udesc.br.exception.PacienteException;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -88,22 +89,22 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     public void apresentarMensagem(String msg){
         JOptionPane.showMessageDialog(this.getParent(), msg);
     }
-    
-    public void apresentarPacientes(List<Paciente> pacientes){
-        
+
+    public void apresentarPacientes(Map<Long, Paciente> pacientes) {
+
         tabela = (DefaultTableModel) tabPacientes.getModel();
-            tabela.setRowCount(0);
-        
-          for (Paciente p : pacientes) {
-                tabela.addRow(new Object[]{
-                p.getId(),
-                p.getNome(),
-                p.getCpf(),
-                p.getPeso(),
-                p.getAltura(),
-                p.getTelefone(),
-                p.getIdade(),
-                p.getImc(),
+        tabela.setRowCount(0);
+
+        for (Paciente p : pacientes.values()) {
+            tabela.addRow(new Object[]{
+                    p.getId(),
+                    p.getNome(),
+                    p.getCpf(),
+                    p.getPeso(),
+                    p.getAltura(),
+                    p.getTelefone(),
+                    p.getIdade(),
+                    p.getImc(),
             });
         }
     }

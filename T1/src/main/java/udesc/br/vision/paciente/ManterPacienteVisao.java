@@ -6,6 +6,7 @@ package udesc.br.vision.paciente;
 
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import udesc.br.exception.PacienteException;
@@ -26,10 +27,11 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
     public void apresentarTela(){
         setVisible(true);
     }
-     
-    public void initCbPacientes(List<Paciente> pacientes){
+
+    public void initCbPacientes(Map<Long, Paciente> pacientes) {
         cbPacientes.removeAllItems();
-        for(Paciente p: pacientes){
+
+        for (Paciente p : pacientes.values()) {
             cbPacientes.addItem(p);
         }
     }

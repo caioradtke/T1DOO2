@@ -13,6 +13,7 @@ import java.awt.*;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ManterAgendaControlador implements Controlador {
 
@@ -114,10 +115,10 @@ public class ManterAgendaControlador implements Controlador {
         atualizarTela();
     }
 
-    public void popularCBPacientes(List<Paciente> pacientes){
+    public void popularCBPacientes(Map<Long,Paciente> pacientes){
         JComboBox<Paciente> cbPacientePop = visao.getCbPaciente();
         cbPacientePop.removeAllItems();
-        for(Paciente p: pacientes){
+        for (Paciente p : pacientes.values()) {
             cbPacientePop.addItem(p);
         }
         visao.setCbPaciente(cbPacientePop);
