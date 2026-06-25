@@ -5,6 +5,7 @@
 package udesc.br.vision.medicamentos;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import udesc.br.exception.MedicamentoException;
 import udesc.br.model.Medicamento;
@@ -23,7 +24,7 @@ public class EditarMedicamentoVisao extends javax.swing.JFrame {
     public EditarMedicamentoVisao() {
         initComponents();
     }
-    public void  initCbMedicamentos(List<Medicamento> lista){
+    public void  initCbMedicamentos(Set<Medicamento> lista){
         cbMedicamentos.removeAllItems();
         for (Medicamento med : lista){
             cbMedicamentos.addItem(med);

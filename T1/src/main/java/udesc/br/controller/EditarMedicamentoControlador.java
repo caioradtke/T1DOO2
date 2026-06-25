@@ -6,6 +6,8 @@ package udesc.br.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+
 import udesc.br.exception.MedicamentoException;
 import udesc.br.model.Despesa;
 import udesc.br.model.Medicamento;
@@ -36,7 +38,7 @@ public class EditarMedicamentoControlador implements Controlador{
 
     @Override
     public void initTela() {
-        List<Medicamento> lista = medRepositorio.buscarTodosMedicamentos();
+        Set<Medicamento> lista = medRepositorio.buscarTodosMedicamentos();
         visao.initCbMedicamentos(lista);
         if (!lista.isEmpty()){
             preencherDados();

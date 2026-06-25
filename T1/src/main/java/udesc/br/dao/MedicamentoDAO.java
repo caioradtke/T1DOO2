@@ -3,7 +3,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import udesc.br.jpa.JPAConnector;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 import udesc.br.model.Medicamento;
 import udesc.br.repository.MedicamentoRepositorio;
 
@@ -25,18 +29,18 @@ public void salvarMedicamento(Medicamento medicamento) {
 }
 
 
-@Override
-public List<Medicamento> buscarTodosMedicamentos() {
-    EntityManager em = JPAConnector.getEntityManager();
-    try {
-        TypedQuery<Medicamento> query = em.createQuery("FROM Medicamento", Medicamento.class);
-        return query.getResultList();
-    } catch (Exception e) {
-        throw e;
-    } finally {
-        em.close();
+    @Override
+    public Set<Medicamento> buscarTodosMedicamentos() {
+        EntityManager em = JPAConnector.getEntityManager();
+        try {
+            TypedQuery<Medicamento> query = em.createQuery("FROM Medicamento", Medicamento.class);
+            return new HashSet<>(query.getResultList());
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            em.close();
+        }
     }
-}
 
 @Override
 public void apagar(Medicamento medicamento) {

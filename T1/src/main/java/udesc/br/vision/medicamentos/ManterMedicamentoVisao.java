@@ -6,6 +6,7 @@ package udesc.br.vision.medicamentos;
 
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import udesc.br.model.Medicamento;
 
@@ -25,7 +26,7 @@ public class ManterMedicamentoVisao extends javax.swing.JPanel {
     public void adicionarAcaoBtnEditar(ActionListener acao){
         btnEditar.addActionListener(acao);
     }
-    public void apresentarMedicamentos(List<Medicamento> medicamentos){
+    public void apresentarMedicamentos(Set<Medicamento> medicamentos){
         tabela = (DefaultTableModel) tblMedicamentos.getModel();
         tabela.setRowCount(0);
 
