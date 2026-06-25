@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import udesc.br.jpa.JPAConnector;
+import udesc.br.model.Despesa;
+import udesc.br.model.Entrada;
 import udesc.br.model.MovimentacaoFinanceira;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 
@@ -121,5 +123,41 @@ public class MovimentacaoFinanceiraDAO implements MovimentacaoFinanceiraReposito
 
     public double buscarTotalSaldoMes() {
            return buscarTotalEntradasMes() -  buscarTotalDespesasMes();
+    }
+
+    @Override
+    public List<Despesa> buscarTodasDespesas() {
+        
+        EntityManager em = JPAConnector.getEntityManager();
+
+        try {
+            TypedQuery<Despesa> query =
+                    em.createQuery(
+                            "FROM Despesa",
+                            Despesa.class);
+
+            return query.getResultList();
+
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<Entrada> buscarTodasEntradas() {
+        
+        EntityManager em = JPAConnector.getEntityManager();
+
+        try {
+            TypedQuery<Entrada> query =
+                    em.createQuery(
+                            "FROM Entrada",
+                            Entrada.class);
+
+            return query.getResultList();
+
+        } finally {
+            em.close();
+        }
     }
 }

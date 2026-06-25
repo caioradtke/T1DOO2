@@ -6,6 +6,10 @@ package udesc.br.vision.paciente;
 
 import udesc.br.exception.PacienteException;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -158,6 +162,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
         txtObservacao1 = new javax.swing.JTextArea();
         btnCadastrarPaciente = new javax.swing.JButton();
 
+        tabPacientes.setAutoCreateRowSorter(true);
         tabPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

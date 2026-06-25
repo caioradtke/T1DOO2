@@ -16,6 +16,11 @@ public class MovimentacaoFinanceiraVisao extends javax.swing.JPanel {
     public MovimentacaoFinanceiraVisao() {
         initComponents();
     }
+    
+    public void apresentarTela(List<Entrada> entradas,List<Despesa> despesas) {
+        apresentarEntradas(entradas);
+        apresentarDespesas(despesas);
+    }
 
     public void apresentarEntradas(List<Entrada> entradas) {
         tabela = (DefaultTableModel) tabEntradas.getModel();
@@ -45,8 +50,8 @@ public class MovimentacaoFinanceiraVisao extends javax.swing.JPanel {
         }
     }
     
-    public void getSaldoTotalMes() {
-        tfSaldo.setText(Double.toString(repositorio.buscarTotalSaldoMes()));
+    public void getSaldoTotalMes(Double saldo) {
+        tfSaldo.setText(Double.toString(saldo));
     }
     
     @SuppressWarnings("unchecked")
@@ -62,6 +67,7 @@ public class MovimentacaoFinanceiraVisao extends javax.swing.JPanel {
         tfSaldo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
+        tabEntradas.setAutoCreateRowSorter(true);
         tabEntradas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -83,6 +89,7 @@ public class MovimentacaoFinanceiraVisao extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabEntradas);
 
+        tabDespesas.setAutoCreateRowSorter(true);
         tabDespesas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -117,13 +124,13 @@ public class MovimentacaoFinanceiraVisao extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(40, 40, 40))
+                    .addComponent(jLabel2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51))
             .addGroup(layout.createSequentialGroup()
                 .addGap(367, 367, 367)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,7 +153,7 @@ public class MovimentacaoFinanceiraVisao extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -28,11 +28,13 @@ import java.awt.event.ActionListener;
 import javax.naming.ldap.Control;
 import javax.swing.JPanel;
 import udesc.br.controller.CadastrarMedicamentoControlador;
+import udesc.br.controller.FinanceiroControlador;
 import udesc.br.controller.ManterMedicamentoControlador;
 import udesc.br.dao.MedicamentoDAO;
 import udesc.br.dao.MovimentacaoFinanceiraDAO;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
+import udesc.br.vision.financeiro.MovimentacaoFinanceiraVisao;
 
 /**
  *
@@ -99,7 +101,15 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
 
         add(treePacientes);
         add(treeMedicamentos);
+        
+        // Financeiro
+        MovimentacaoFinanceiraVisao movVisao = new MovimentacaoFinanceiraVisao();
+        FinanceiroControlador movControlador = new FinanceiroControlador(movVisao,movRepositorio);
+        
+        cardLayout.add(movVisao, "FINANCEIRO");
 
+        btnFinanceiro.addActionListener(e -> mostrarTela("FINANCEIRO", movControlador));
+    
 //        mostrarTela("LISTA");
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "paciente")
-public class Paciente {
+public class Paciente  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // proprio postgres vai criar o ID automaticamente
@@ -39,7 +39,7 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente")
     private List<Consulta> consultas;
 
-    public Paciente(String nome, String cpf, double peso, double altura, int idade, String telefone) {
+    public Paciente (String nome, String cpf, double peso, double altura, int idade, String telefone) {
         this.nome = nome;
         this.cpf = cpf;
         this.peso = peso;
