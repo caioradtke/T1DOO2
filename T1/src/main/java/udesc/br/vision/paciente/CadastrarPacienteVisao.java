@@ -331,7 +331,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
         jLabel4.setText("Observações");
 
         txtObservacao.setColumns(20);
-        txtObservacao.setRows(5);
+        txtObservacao.setRows(3);
         txtObservacao.setMaximumSize(new java.awt.Dimension(30, 30));
         jScrollPane2.setViewportView(txtObservacao);
 

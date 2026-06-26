@@ -15,7 +15,7 @@ import udesc.br.model.Agenda;
 import udesc.br.repository.AgendaRepositorio;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
-import udesc.br.vision.agenda.ManterAgendaVisao;
+import udesc.br.vision.consulta.ManterAgendaVisao;
 import udesc.br.vision.components.TreeButton;
 import udesc.br.vision.despesas.ManterDespesasVisao;
 import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
