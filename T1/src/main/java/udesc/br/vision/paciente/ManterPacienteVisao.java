@@ -68,7 +68,7 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
         txtIdade.setText(String.valueOf(pacienteModelo.getIdade()));
         txtAltura.setText(String.valueOf(pacienteModelo.getAltura()));
         txtPeso.setText(String.valueOf(pacienteModelo.getPeso()));
-        txtCpf.setText(String.valueOf(pacienteModelo.getAltura()));
+        txtCpf.setText(String.valueOf(pacienteModelo.getCpf()));
         String imcFormatado = String.format("%.2f",pacienteModelo.getImc());
         txtImc.setText(imcFormatado);
         txtObservacao.setText(pacienteModelo.getObservacao());
