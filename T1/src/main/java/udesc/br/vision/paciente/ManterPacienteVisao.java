@@ -5,6 +5,8 @@
 package udesc.br.vision.paciente;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -30,8 +32,11 @@ public class ManterPacienteVisao extends javax.swing.JPanel {
 
     public void initCbPacientes(Map<Long, Paciente> pacientes) {
         cbPacientes.removeAllItems();
+        List<Paciente> lista = new ArrayList<>(pacientes.values());
 
-        for (Paciente p : pacientes.values()) {
+        Collections.sort(lista);
+
+        for (Paciente p : lista) {
             cbPacientes.addItem(p);
         }
     }

@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "paciente")
-public class Paciente  {
+public class Paciente implements Comparable<Paciente> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // proprio postgres vai criar o ID automaticamente
@@ -141,4 +141,9 @@ public class Paciente  {
 
         return false;
     }
+
+    @Override
+    public int compareTo(Paciente p) {
+        return this.nome.compareTo(p.getNome());
+}
 }

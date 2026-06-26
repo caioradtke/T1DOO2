@@ -5,7 +5,11 @@ import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.paciente.CadastrarPacienteVisao;
 
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 
 public class CadastrarPacienteControlador implements  Controlador{
@@ -34,11 +38,8 @@ public class CadastrarPacienteControlador implements  Controlador{
 
     @Override
     public void adicionarAcoes(){
-        
         visao.adicionarAcaoBtnSalvar(e -> salvarPaciente());
     }
-
-
 
     //Fluxo principal
     public void salvarPaciente(){
