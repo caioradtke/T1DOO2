@@ -50,7 +50,7 @@ public class ConsultaDAO implements ConsultaRepositorio {
 
         YearMonth anoMes = YearMonth.of(ano, mes);
         LocalDate dataInicio = LocalDate.of(ano, mes, 1);
-        LocalDate dataFim = LocalDate.of(ano, mes, anoMes.getMonthValue());
+        LocalDate dataFim = LocalDate.of(ano, mes, anoMes.lengthOfMonth());
 
         try {
             TypedQuery<Consulta> query = em.createQuery("FROM Consulta WHERE data BETWEEN :inicio AND :fim", Consulta.class);

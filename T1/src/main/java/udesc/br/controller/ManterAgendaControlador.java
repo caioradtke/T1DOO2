@@ -6,9 +6,10 @@ import udesc.br.model.Consulta;
 import udesc.br.model.Paciente;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
-import udesc.br.vision.agenda.ManterAgendaVisao;
+import udesc.br.vision.consulta.ManterAgendaVisao;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.time.*;
 import java.util.ArrayList;
@@ -187,13 +188,14 @@ public class ManterAgendaControlador implements Controlador {
             }
             visao.addCalendario(dia.gerarComponente());
         }
-        int diasRestantes = 49 - (diaSemana - 1 + totalDias);
+        int diasTotais = diaSemana + totalDias;
+        int diasRestantes = diasTotais / 7 + 1 - diasTotais;
         for (int i = 0; i < diasRestantes; i++) {
             visao.addCalendario(new JPanel());
         }
     }
 
-    public class Dia {
+    public static class Dia {
         protected int dia;
         protected int diaSemana; // variavel zuada q armazena o primeiro dia do mes
         protected List<Consulta> consultas;
@@ -208,7 +210,8 @@ public class ManterAgendaControlador implements Controlador {
             JPanel div = new JPanel();
             div.setName(Integer.toString(dia));
 //            div.setSize(30, 30);
-            div.setBackground(Color.LIGHT_GRAY);
+
+            div.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, false));
             div.setLayout(new BorderLayout());
 
             JLabel diaLabel = new JLabel();
@@ -216,13 +219,12 @@ public class ManterAgendaControlador implements Controlador {
             diaLabel.setText(dia == 0 ? "" :  Integer.toString(dia));
 
             diaLabel.setHorizontalAlignment(SwingConstants.LEFT);
-            diaLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+            diaLabel.setBorder(BorderFactory.createEmptyBorder(5, 5, 0, 0));
 
             div.add(diaLabel, BorderLayout.NORTH);
 
             JPanel diaPainel = new JPanel();
             diaPainel.setLayout(new BoxLayout(diaPainel, BoxLayout.Y_AXIS));
-            diaPainel.setSize(20, 50);
 
             for (Consulta consulta : consultas) {
                 System.out.println("Adicionando Consulta " + dia);
@@ -230,12 +232,13 @@ public class ManterAgendaControlador implements Controlador {
 
                 String nomePaciente = consulta.getPaciente().getNome();
                 if (nomePaciente.length() > 3) {
-                    nomePaciente = nomePaciente.substring(0, 3);
+                    nomePaciente = nomePaciente.substring(0, 12);
                 }
-                String text = "Consulta " + nomePaciente;
+                String text = nomePaciente;
 
                 consultaButton.setText(text);
-                consultaButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                consultaButton.setFont(new Font("Arial", Font.PLAIN, 12));
+                consultaButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
                 consultaButton.setBorderPainted(false);
                 consultaButton.setContentAreaFilled(false);
                 consultaButton.setFocusPainted(false);
