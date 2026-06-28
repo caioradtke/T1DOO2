@@ -62,7 +62,7 @@ public class CadastrarPacienteControlador implements  Controlador{
 
         } catch (Exception ex) {
             System.err.println("Erro ao salvar no banco: " + ex.getMessage());
-            visao.apresentarMensagem("Erro ao salvar no banco de dados");
+            visao.apresentarMensagem(ex.getMessage());
         }
     }
 }

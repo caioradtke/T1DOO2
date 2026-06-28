@@ -1,29 +1,26 @@
 package udesc.br.controller;
 
 
-import udesc.br.model.Agenda;
 import udesc.br.model.Consulta;
 import udesc.br.model.Paciente;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
+import udesc.br.vision.FramePrincipalVisao;
+import udesc.br.vision.consulta.CriarConsultaVisao;
 import udesc.br.vision.consulta.ManterAgendaVisao;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static java.awt.SystemColor.text;
-
 public class ManterAgendaControlador implements Controlador {
 
     private ManterAgendaVisao visao;
     private ConsultaRepositorio repositorio;
     private PacienteRepositorio pacienteRepositorio;
-    private Agenda modelo;
 
     private List<Dia> diasMes;
     private int mesSelecionado;
@@ -35,10 +32,9 @@ public class ManterAgendaControlador implements Controlador {
 
     private boolean itemCB = false;
 
-    public ManterAgendaControlador(ManterAgendaVisao visao, ConsultaRepositorio repositorio, PacienteRepositorio pacienteRepositorio) {
+    public ManterAgendaControlador(ManterAgendaVisao visao, ConsultaRepositorio repositorio) {
         this.visao = visao;
         this.repositorio = repositorio;
-        this.pacienteRepositorio = pacienteRepositorio;
         initTela();
     }
 
@@ -52,7 +48,6 @@ public class ManterAgendaControlador implements Controlador {
         diaAtual = dataReal.getDayOfMonth();
 
         popularCBAno(anoAtual);
-        popularCBPacientes(pacienteRepositorio.buscarTodosPacientes());
 
         mesSelecionado = mesAtual;
         anoSelecionado = anoAtual;
@@ -63,12 +58,12 @@ public class ManterAgendaControlador implements Controlador {
         visao.adicionarAcaoMesAnterior(e -> voltarMes());
         visao.adicionarAcaoProximoMes(e -> avancarMes());
         visao.adicionarAcaoCBAno(e -> {if (itemCB) atualizarTela();});
-        visao.adicionarAcaoAgendarConsulta(e -> salvarConsulta());
+        visao.adicionarAcaoCadastrarConsulta(e -> abrirTelaCadastroConsulta());
     }
 
-    public void salvarConsulta() {
-        Consulta consultaModelo = new Consulta(visao.getCampoData(), visao.getObservacao(), visao.getPacienteSelecionado());
-        repositorio.salvarConsulta(consultaModelo);
+    public void abrirTelaCadastroConsulta() {
+        CriarConsultaControlador telaCadastroConsulta =
+                new CriarConsultaControlador(new CriarConsultaVisao(), pacienteRepositorio, repositorio);
     }
 
     public String getMesString(int mes) {
@@ -118,15 +113,6 @@ public class ManterAgendaControlador implements Controlador {
         atualizarTela();
     }
 
-    public void popularCBPacientes(Map<Long,Paciente> pacientes){
-        JComboBox<Paciente> cbPacientePop = visao.getCbPaciente();
-        cbPacientePop.removeAllItems();
-        for (Paciente p : pacientes.values()) {
-            cbPacientePop.addItem(p);
-        }
-        visao.setCbPaciente(cbPacientePop);
-    }
-
     public void popularCBAno(int anoAtual) {
         visao.limparCBAno();
         int menorAno = 2024;
@@ -143,8 +129,6 @@ public class ManterAgendaControlador implements Controlador {
     public void atualizarTela() {
         visao.limparTela();
         visao.setLabelMes(getMesString(mesSelecionado));
-
-        popularCBPacientes(pacienteRepositorio.buscarTodosPacientes());
 
         anoSelecionado = visao.getAno();
 
@@ -166,7 +150,7 @@ public class ManterAgendaControlador implements Controlador {
 
         for (int i = 1; i <= diasNoMes; i++ ) {
 
-            diasMes.add(new Dia(i, primeiroDiaSemana, null));
+            diasMes.add(new Dia(i, primeiroDiaSemana));
         }
 
         return diasMes;
@@ -200,7 +184,7 @@ public class ManterAgendaControlador implements Controlador {
         protected int diaSemana; // variavel zuada q armazena o primeiro dia do mes
         protected List<Consulta> consultas;
 
-        public Dia(int dia, int diaSemana, Agenda agenda) {
+        public Dia(int dia, int diaSemana) {
             this.dia = dia;
             this.diaSemana = diaSemana;
             this.consultas = new ArrayList<>();
@@ -209,7 +193,6 @@ public class ManterAgendaControlador implements Controlador {
         public JPanel gerarComponente() {
             JPanel div = new JPanel();
             div.setName(Integer.toString(dia));
-//            div.setSize(30, 30);
 
             div.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1, false));
             div.setLayout(new BorderLayout());

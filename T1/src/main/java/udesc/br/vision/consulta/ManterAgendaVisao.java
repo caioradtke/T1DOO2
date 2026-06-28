@@ -14,6 +14,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
+import udesc.br.exception.ConsultaException;
 import udesc.br.model.Consulta;
 import udesc.br.model.Paciente;
 
@@ -28,64 +29,10 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
      */
     public ManterAgendaVisao() {
         initComponents();
-
-        DatePickerSettings dateSettings = new DatePickerSettings();
-        dateSettings.setFirstDayOfWeek(DayOfWeek.SUNDAY);
-
-        datePicker = new DatePicker(dateSettings);
-
-        frameCriarConsulta.setLocationRelativeTo(getParent());
-        btnAbrirTelaCadastroConsulta.addActionListener(e -> frameCriarConsulta.setVisible(true));
-
-        javax.swing.GroupLayout dataPainelLayout = new javax.swing.GroupLayout(dataPainel);
-        dataPainel.setLayout(dataPainelLayout);
-        dataPainelLayout.setHorizontalGroup(
-                dataPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(dataPainelLayout.createSequentialGroup()
-                                .addGap(0, 0, 0)
-                                .addGroup(dataPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                                        .addComponent(datePicker)))
-        );
-        dataPainelLayout.setVerticalGroup(
-                dataPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(dataPainelLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-    }
-
-    public void adicionarAcaoAgendarConsulta(ActionListener acao) {
-        btnCadastrarPaciente.addActionListener(acao);
-    }
-
-    public Paciente getPacienteSelecionado() {
-        return (Paciente) cbPaciente.getSelectedItem();
-    }
-
-    public LocalDate getCampoData() {
-        return datePicker.getDate();
-    }
-
-    public String getObservacao() {
-        return txtObservacao.getText();
     }
 
     public void setLabelMes(String mes) {
         labelMes.setText(mes);
-    }
-
-    public JComboBox<String> getCBAno() {
-        return cbAno;
-    }
-
-    public JComboBox<Paciente> getCbPaciente(){
-        return cbPaciente;
-    }
-
-    public void setCbPaciente(JComboBox<Paciente> cbPaciente){
-        this.cbPaciente = cbPaciente;
     }
 
     public void adicionarItemCBAno(String ano) {
@@ -95,6 +42,10 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
 
     public void limparCBAno() {
         cbAno.removeAll();
+    }
+
+    public void adicionarAcaoCadastrarConsulta(ActionListener acao) {
+        btnAbrirTelaCadastroConsulta.addActionListener(acao);
     }
 
     public void adicionarAcaoCBAno(ItemListener acao) {
@@ -121,10 +72,6 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
 
     public int getAno() {
         return Integer.parseInt((String) cbAno.getSelectedItem());
-    }
-
-    public int getMes() {
-        return 3;
     }
 
     public void mostrarMensagem(String mensagem) {
@@ -357,10 +304,10 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
                 .addGap(5, 5, 5)
                 .addComponent(btnProximoMes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelMes, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelMes, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
+                .addGap(136, 136, 136)
                 .addComponent(btnAbrirTelaCadastroConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -387,9 +334,7 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelCalendario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, 0)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
         );
         jPanel6Layout.setVerticalGroup(

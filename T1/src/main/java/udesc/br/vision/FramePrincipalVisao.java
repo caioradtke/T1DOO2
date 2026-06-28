@@ -8,25 +8,20 @@ import udesc.br.controller.CadastrarPacienteControlador;
 import udesc.br.controller.Controlador;
 import udesc.br.controller.ManterAgendaControlador;
 import udesc.br.controller.ManterPacienteControlador;
-import udesc.br.dao.AgendaDAO;
 import udesc.br.dao.ConsultaDAO;
 import udesc.br.dao.PacienteDAO;
-import udesc.br.model.Agenda;
-import udesc.br.repository.AgendaRepositorio;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
+import udesc.br.vision.consulta.CriarConsultaVisao;
 import udesc.br.vision.consulta.ManterAgendaVisao;
 import udesc.br.vision.components.TreeButton;
-import udesc.br.vision.despesas.ManterDespesasVisao;
 import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
 import udesc.br.vision.medicamentos.ManterMedicamentoVisao;
 import udesc.br.vision.paciente.CadastrarPacienteVisao;
 import udesc.br.vision.paciente.ManterPacienteVisao;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
-import javax.naming.ldap.Control;
-import javax.swing.JPanel;
+
 import udesc.br.controller.CadastrarMedicamentoControlador;
 import udesc.br.controller.FinanceiroControlador;
 import udesc.br.controller.ManterMedicamentoControlador;
@@ -75,7 +70,7 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         ManterAgendaVisao manterAgendaVisao = new ManterAgendaVisao();
 
         ConsultaRepositorio consultaRepositorio = new ConsultaDAO();
-        ManterAgendaControlador listAgendaControlador = new ManterAgendaControlador(manterAgendaVisao, consultaRepositorio, pacienteRepositorio);
+        ManterAgendaControlador listAgendaControlador = new ManterAgendaControlador(manterAgendaVisao, consultaRepositorio);
 
         cardLayout.add(manterAgendaVisao, "LISTAR-AGENDA");
 
@@ -109,21 +104,12 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         cardLayout.add(movVisao, "FINANCEIRO");
 
         btnFinanceiro.addActionListener(e -> mostrarTela("FINANCEIRO", movControlador));
-    
-//        mostrarTela("LISTA");
+
     }
 
     public void mostrarTela(String nomeTela, Controlador controlador) {
         layout.show(cardLayout, nomeTela);
         controlador.atualizarTela();
-    }
-
-    public void telaCadastrarPaciente() {
-
-    }
-
-    public void telaListarPacientes() {
-
     }
 
     
@@ -289,7 +275,7 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(142, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         cardLayout.setPreferredSize(new java.awt.Dimension(600, 0));
@@ -302,13 +288,15 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();

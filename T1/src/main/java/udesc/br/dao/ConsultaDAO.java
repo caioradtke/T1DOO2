@@ -3,13 +3,10 @@ package udesc.br.dao;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import udesc.br.jpa.JPAConnector;
-import udesc.br.model.Agenda;
 import udesc.br.model.Consulta;
 import udesc.br.repository.ConsultaRepositorio;
 
 import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
 import java.time.YearMonth;
 import java.util.List;
 
