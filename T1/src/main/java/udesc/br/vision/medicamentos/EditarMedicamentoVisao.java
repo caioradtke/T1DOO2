@@ -4,6 +4,9 @@
  */
 package udesc.br.vision.medicamentos;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import javax.swing.JOptionPane;
 import udesc.br.exception.MedicamentoException;
@@ -25,7 +28,16 @@ public class EditarMedicamentoVisao extends javax.swing.JFrame {
     }
     public void  initCbMedicamentos(Set<Medicamento> lista){
         cbMedicamentos.removeAllItems();
-        for (Medicamento med : lista){
+
+        List<Medicamento> medicamentos =
+                new ArrayList<>(lista);
+
+        Collections.sort(
+                medicamentos,
+                (m1, m2) -> Double.compare(m2.getEstoque(),(m1.getEstoque()))
+        );
+
+        for (Medicamento med : medicamentos) {
             cbMedicamentos.addItem(med);
         }
     }
