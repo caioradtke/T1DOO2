@@ -2,8 +2,10 @@ package udesc.br.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import udesc.br.controller.ConsultaRepositorioListener;
 import udesc.br.jpa.JPAConnector;
 import udesc.br.model.Consulta;
+import udesc.br.model.Paciente;
 import udesc.br.repository.ConsultaRepositorio;
 
 import java.time.LocalDate;
@@ -12,6 +14,11 @@ import java.util.List;
 
 public class ConsultaDAO implements ConsultaRepositorio {
     private EntityManager em;
+    private ConsultaRepositorioListener listener;
+
+    public void setListener(ConsultaRepositorioListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void salvarConsulta(Consulta consulta) {
@@ -25,6 +32,7 @@ public class ConsultaDAO implements ConsultaRepositorio {
             throw e;
         } finally {
             em.close();
+            listener.consultaAlterada(consulta);
         }
     }
 
@@ -62,8 +70,25 @@ public class ConsultaDAO implements ConsultaRepositorio {
     }
 
     @Override
-    public void apagarConsulta(Consulta consulta) {
+    public Consulta buscarConsultaPorId(long id) {
+        em = JPAConnector.getEntityManager();
+        return em.find(Consulta.class, id);
+    }
 
+    @Override
+    public void apagarConsulta(Consulta consulta) {
+        em = JPAConnector.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Consulta c = em.find(Consulta.class, consulta.getId());
+            em.remove(c);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+            listener.consultaAlterada(consulta);
+        }
     }
 }
 

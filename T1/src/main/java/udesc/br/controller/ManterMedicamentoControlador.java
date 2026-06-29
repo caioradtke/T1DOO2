@@ -42,6 +42,6 @@ public class ManterMedicamentoControlador implements Controlador{
                 editarVisao,
                 medRepo,
                 despesaRepo);
-        editarVisao.setVisible(true);
+        editarVisao.setLocationRelativeTo(visao.getParent());
     }
 }

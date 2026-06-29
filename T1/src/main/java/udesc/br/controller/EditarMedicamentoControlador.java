@@ -33,11 +33,15 @@ public class EditarMedicamentoControlador implements Controlador{
         this.visao = visao;
         this.medRepositorio = medRepositorio;
         this.despesaRepositorio = despesaRepositorio;
+
         initTela();
     }
 
     @Override
     public void initTela() {
+        visao.setLocationRelativeTo(visao.getParent());
+        visao.setVisible(true);
+
         Set<Medicamento> lista = medRepositorio.buscarTodosMedicamentos();
         visao.initCbMedicamentos(lista);
         if (!lista.isEmpty()){
@@ -116,22 +120,22 @@ public void atualizarEstoque() {
     
     public void atualizarMedicamento(){
            try {
-        modelo = visao.getMedicamento();
-        
-        modelo.setValor(visao.getNovoPreco());
+               modelo = visao.getMedicamento();
 
-        medRepositorio.salvarMedicamento(modelo);
+               modelo.setValor(visao.getNovoPreco());
 
-        visao.apresentarMensagem("Medicamento atualizado com sucesso!");
+               medRepositorio.salvarMedicamento(modelo);
 
-        atualizarTela();
+               visao.apresentarMensagem("Medicamento atualizado com sucesso!");
 
-    } catch (MedicamentoException ex) {
-        visao.apresentarMensagem(ex.getMessage());
-    } catch (Exception ex) {
-        visao.apresentarMensagem("Erro ao atualizar medicamento.");
-        ex.printStackTrace();
-    }
+               atualizarTela();
+
+           } catch (MedicamentoException ex) {
+               visao.apresentarMensagem(ex.getMessage());
+           } catch (Exception ex) {
+               visao.apresentarMensagem("Erro ao atualizar medicamento.");
+               ex.printStackTrace();
+           }
     }
     public void excluirMedicamento(){
         try{

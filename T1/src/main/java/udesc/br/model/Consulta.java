@@ -11,11 +11,14 @@ public class Consulta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private long id;
 
     @Column(name = "data", nullable = false)
     @Temporal(TemporalType.DATE)
     private LocalDate data;
+
+    @Column(name = "horario")
+    private String horario;
 
     @Column(name = "status")
     private String status; // PENDENTE, CONCLUIDO, CANCELADO
@@ -32,9 +35,21 @@ public class Consulta {
     @Column(name = "pressao_paciente")
     private double pressaoPaciente;
 
-    public Consulta(LocalDate data, String observacao, Paciente paciente) {
+    public Consulta(LocalDate data, String horario, String observacao, Paciente paciente) {
         this.data = data;
         this.observacao = observacao;
+        this.horario = horario;
+        this.paciente = paciente;
+        this.pesoPaciente = 0;
+        this.pressaoPaciente = 0;
+        this.status = "PENDENTE";
+    }
+
+    public Consulta(long id, LocalDate data, String horario, String observacao, Paciente paciente) {
+        this.id = id;
+        this.data = data;
+        this.observacao = observacao;
+        this.horario = horario;
         this.paciente = paciente;
         this.pesoPaciente = 0;
         this.pressaoPaciente = 0;
@@ -43,12 +58,16 @@ public class Consulta {
 
     public Consulta() {};
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
     public LocalDate getData() {
         return data;
+    }
+
+    public String getHorario() {
+        return horario;
     }
 
     public Paciente getPaciente() {

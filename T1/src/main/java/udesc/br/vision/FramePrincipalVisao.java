@@ -70,7 +70,7 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         ManterAgendaVisao manterAgendaVisao = new ManterAgendaVisao();
 
         ConsultaRepositorio consultaRepositorio = new ConsultaDAO();
-        ManterAgendaControlador listAgendaControlador = new ManterAgendaControlador(manterAgendaVisao, consultaRepositorio);
+        ManterAgendaControlador listAgendaControlador = new ManterAgendaControlador(manterAgendaVisao, consultaRepositorio, pacienteRepositorio);
 
         cardLayout.add(manterAgendaVisao, "LISTAR-AGENDA");
 
@@ -275,7 +275,7 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         cardLayout.setPreferredSize(new java.awt.Dimension(600, 0));
@@ -288,15 +288,13 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         pack();

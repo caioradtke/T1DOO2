@@ -1,11 +1,12 @@
 package udesc.br.controller;
 
 
+import udesc.br.dao.ConsultaDAO;
+import udesc.br.dao.PacienteDAO;
 import udesc.br.model.Consulta;
-import udesc.br.model.Paciente;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
-import udesc.br.vision.FramePrincipalVisao;
+import udesc.br.vision.consulta.ConsultaVisao;
 import udesc.br.vision.consulta.CriarConsultaVisao;
 import udesc.br.vision.consulta.ManterAgendaVisao;
 
@@ -14,9 +15,8 @@ import java.awt.*;
 import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-public class ManterAgendaControlador implements Controlador {
+public class ManterAgendaControlador implements Controlador, ConsultaRepositorioListener {
 
     private ManterAgendaVisao visao;
     private ConsultaRepositorio repositorio;
@@ -28,13 +28,16 @@ public class ManterAgendaControlador implements Controlador {
 
     private int anoAtual;
     private int mesAtual;
-    private int diaAtual;
 
     private boolean itemCB = false;
 
-    public ManterAgendaControlador(ManterAgendaVisao visao, ConsultaRepositorio repositorio) {
+    public ManterAgendaControlador(ManterAgendaVisao visao, ConsultaRepositorio repositorio, PacienteRepositorio pacienteRepositorio) {
         this.visao = visao;
         this.repositorio = repositorio;
+        this.pacienteRepositorio = pacienteRepositorio;
+
+        repositorio.setListener(this);
+
         initTela();
     }
 
@@ -45,7 +48,6 @@ public class ManterAgendaControlador implements Controlador {
         LocalDate dataReal = LocalDate.now();
         anoAtual = dataReal.getYear();
         mesAtual = dataReal.getMonthValue();
-        diaAtual = dataReal.getDayOfMonth();
 
         popularCBAno(anoAtual);
 
@@ -62,8 +64,15 @@ public class ManterAgendaControlador implements Controlador {
     }
 
     public void abrirTelaCadastroConsulta() {
-        CriarConsultaControlador telaCadastroConsulta =
-                new CriarConsultaControlador(new CriarConsultaVisao(), pacienteRepositorio, repositorio);
+        CriarConsultaVisao visaoCriarConsulta = new CriarConsultaVisao();
+        CadastrarConsultaControlador telaCadastroConsulta =
+                new CadastrarConsultaControlador(visaoCriarConsulta, pacienteRepositorio, repositorio);
+        visaoCriarConsulta.setLocationRelativeTo(visao.getParent());
+    }
+
+    @Override
+    public void consultaAlterada(Consulta consulta) {
+        atualizarTela();
     }
 
     public String getMesString(int mes) {
@@ -150,7 +159,7 @@ public class ManterAgendaControlador implements Controlador {
 
         for (int i = 1; i <= diasNoMes; i++ ) {
 
-            diasMes.add(new Dia(i, primeiroDiaSemana));
+            diasMes.add(new Dia(i, primeiroDiaSemana, visao, repositorio));
         }
 
         return diasMes;
@@ -183,11 +192,15 @@ public class ManterAgendaControlador implements Controlador {
         protected int dia;
         protected int diaSemana; // variavel zuada q armazena o primeiro dia do mes
         protected List<Consulta> consultas;
+        protected ManterAgendaVisao manterAgendaVisao;
+        protected ConsultaRepositorio consultaRepositorio;
 
-        public Dia(int dia, int diaSemana) {
+        public Dia(int dia, int diaSemana, ManterAgendaVisao manterAgendaVisao,  ConsultaRepositorio consultaRepositorio) {
             this.dia = dia;
             this.diaSemana = diaSemana;
             this.consultas = new ArrayList<>();
+            this.manterAgendaVisao = manterAgendaVisao;
+            this.consultaRepositorio = consultaRepositorio;
         }
 
         public JPanel gerarComponente() {
@@ -219,13 +232,15 @@ public class ManterAgendaControlador implements Controlador {
                 }
                 String text = nomePaciente;
 
-                consultaButton.setText(text);
+                consultaButton.setText( "<html><u>"+ text + "</u></html>");
                 consultaButton.setFont(new Font("Arial", Font.PLAIN, 12));
                 consultaButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
                 consultaButton.setBorderPainted(false);
                 consultaButton.setContentAreaFilled(false);
                 consultaButton.setFocusPainted(false);
                 consultaButton.setOpaque(false);
+                consultaButton.addActionListener(e -> acaoAbrirConsulta(consulta));
+                consultaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
                 diaPainel.add(consultaButton);
             }
@@ -238,8 +253,12 @@ public class ManterAgendaControlador implements Controlador {
             this.consultas.add(consulta);
         }
 
-        public void removeConsulta(Consulta consulta) {
-            this.consultas.remove(consulta);
+        public void acaoAbrirConsulta(Consulta consulta) {
+            ConsultaVisao consultaVisao = new ConsultaVisao();
+            ConsultaControlador consultaControlador =
+                    new ConsultaControlador(consultaVisao, consultaRepositorio, new PacienteDAO(), consulta);
+            consultaVisao.setLocationRelativeTo(manterAgendaVisao.getParent());
+            consultaVisao.setVisible(true);
         }
     }
 }

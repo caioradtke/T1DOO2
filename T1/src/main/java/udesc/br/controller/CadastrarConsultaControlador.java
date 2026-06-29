@@ -6,19 +6,18 @@ import udesc.br.model.Paciente;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.consulta.CriarConsultaVisao;
-import udesc.br.vision.consulta.ManterAgendaVisao;
 
 import javax.swing.*;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class CriarConsultaControlador implements Controlador {
+public class CadastrarConsultaControlador implements Controlador {
 
     private CriarConsultaVisao visao;
     private PacienteRepositorio pacienteRepositorio;
     private ConsultaRepositorio consultaRepositorio;
 
-    public CriarConsultaControlador(CriarConsultaVisao visao, PacienteRepositorio pacienteRepositorio, ConsultaRepositorio consultaRepositorio) {
+    public CadastrarConsultaControlador(CriarConsultaVisao visao, PacienteRepositorio pacienteRepositorio, ConsultaRepositorio consultaRepositorio) {
         this.visao = visao;
         this.pacienteRepositorio = pacienteRepositorio;
         this.consultaRepositorio = consultaRepositorio;
@@ -28,6 +27,8 @@ public class CriarConsultaControlador implements Controlador {
 
     @Override
     public void initTela() {
+        adicionarAcoes();
+
         popularCBPacientes(pacienteRepositorio.buscarTodosPacientes());
 
         visao.setVisible(true);
@@ -44,16 +45,17 @@ public class CriarConsultaControlador implements Controlador {
         for (Paciente p : pacientes.values()) {
             cbPacientePop.addItem(p);
         }
-        visao.setCbPaciente(cbPacientePop);
     }
 
     public void salvarConsulta() {
+        System.out.println("Salvando Consulta...");
         try {
             LocalDate dataConsulta = visao.getCampoData();
             String observacao = visao.getObservacao();
+            String horario = visao.getHorario();
             Paciente paciente = visao.getPacienteSelecionado();
 
-            Consulta consultaModelo = new Consulta(dataConsulta, observacao, paciente);
+            Consulta consultaModelo = new Consulta(dataConsulta, horario, observacao, paciente);
             consultaRepositorio.salvarConsulta(consultaModelo);
 
             visao.mostrarMensagem("Consulta agendada com sucesso");
@@ -64,7 +66,7 @@ public class CriarConsultaControlador implements Controlador {
             System.err.println("Erro ao salvar: " + ex.getMessage());
             visao.mostrarMensagem("Erro ao salvar no banco de dados");
         } finally {
-
+            visao.limparTela();
         }
     }
 
