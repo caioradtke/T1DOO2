@@ -1,5 +1,6 @@
 package udesc.br.controller;
 
+import udesc.br.controller.interfaces.ControladorPaineis;
 import udesc.br.dao.ConsultaDAO;
 import udesc.br.dao.MedicamentoDAO;
 import udesc.br.dao.MovimentacaoFinanceiraDAO;
@@ -19,7 +20,6 @@ import udesc.br.vision.medicamentos.ManterMedicamentoVisao;
 import udesc.br.vision.paciente.CadastrarPacienteVisao;
 import udesc.br.vision.paciente.ManterPacienteVisao;
 
-import javax.swing.*;
 import java.util.*;
 
 public class FrameControlador {
@@ -79,6 +79,7 @@ public class FrameControlador {
         iniciarBD();
         abrirTelaInicio();
 
+        visao.setLocationRelativeTo(null);
         visao.setVisible(true);
     }
 

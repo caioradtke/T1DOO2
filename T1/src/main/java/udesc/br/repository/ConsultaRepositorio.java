@@ -1,11 +1,8 @@
 package udesc.br.repository;
 
-import udesc.br.controller.ConsultaRepositorioListener;
-import udesc.br.controller.ManterAgendaControlador;
+import udesc.br.controller.interfaces.ConsultaRepositorioListener;
 import udesc.br.model.Consulta;
 
-import java.time.Month;
-import java.time.Year;
 import java.util.List;
 
 public interface ConsultaRepositorio {

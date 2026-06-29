@@ -1,5 +1,6 @@
 package udesc.br.controller;
 
+import udesc.br.controller.interfaces.ControladorPaineis;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 import udesc.br.vision.financeiro.MovimentacaoFinanceiraVisao;
 

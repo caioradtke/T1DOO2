@@ -2,6 +2,7 @@ package udesc.br.controller;
 
 import java.util.Map;
 
+import udesc.br.controller.interfaces.ControladorPaineis;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.paciente.ManterPacienteVisao;

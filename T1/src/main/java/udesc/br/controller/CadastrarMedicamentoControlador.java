@@ -4,6 +4,7 @@
  */
 package udesc.br.controller;
 
+import udesc.br.controller.interfaces.ControladorPaineis;
 import udesc.br.model.Medicamento;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;

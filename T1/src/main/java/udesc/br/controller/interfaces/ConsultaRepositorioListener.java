@@ -1,4 +1,4 @@
-package udesc.br.controller;
+package udesc.br.controller.interfaces;
 
 import udesc.br.model.Consulta;
 

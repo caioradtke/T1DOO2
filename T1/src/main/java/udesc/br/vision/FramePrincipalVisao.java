@@ -4,32 +4,10 @@
  */
 package udesc.br.vision;
 
-import udesc.br.controller.CadastrarPacienteControlador;
-import udesc.br.controller.ControladorPaineis;
-import udesc.br.controller.ManterAgendaControlador;
-import udesc.br.controller.ManterPacienteControlador;
-import udesc.br.dao.ConsultaDAO;
-import udesc.br.dao.PacienteDAO;
-import udesc.br.repository.ConsultaRepositorio;
-import udesc.br.repository.PacienteRepositorio;
-import udesc.br.vision.consulta.ManterAgendaVisao;
-import udesc.br.vision.components.TreeButton;
-import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
-import udesc.br.vision.medicamentos.ManterMedicamentoVisao;
-import udesc.br.vision.paciente.CadastrarPacienteVisao;
-import udesc.br.vision.paciente.ManterPacienteVisao;
+import udesc.br.controller.interfaces.ControladorPaineis;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
-
-import udesc.br.controller.CadastrarMedicamentoControlador;
-import udesc.br.controller.FinanceiroControlador;
-import udesc.br.controller.ManterMedicamentoControlador;
-import udesc.br.dao.MedicamentoDAO;
-import udesc.br.dao.MovimentacaoFinanceiraDAO;
-import udesc.br.repository.MedicamentoRepositorio;
-import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
-import udesc.br.vision.financeiro.MovimentacaoFinanceiraVisao;
 
 import javax.swing.*;
 

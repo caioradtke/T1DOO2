@@ -1,5 +1,6 @@
 package udesc.br.controller;
 
+import udesc.br.controller.interfaces.ControladorPaineis;
 import udesc.br.exception.ConsultaException;
 import udesc.br.model.Consulta;
 import udesc.br.model.Paciente;

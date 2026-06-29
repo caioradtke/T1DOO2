@@ -1,5 +1,6 @@
 package udesc.br.controller;
 
+import udesc.br.controller.interfaces.ControladorPaineis;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 import udesc.br.vision.medicamentos.EditarMedicamentoVisao;
@@ -40,6 +41,6 @@ public class ManterMedicamentoControlador implements ControladorPaineis {
                 editarVisao,
                 medRepo,
                 despesaRepo);
-        editarVisao.setLocationRelativeTo(visao.getParent());
+        editarVisao.setLocationRelativeTo(null);
     }
 }

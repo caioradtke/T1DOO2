@@ -95,12 +95,8 @@ public class CadastrarConsultaVisao extends javax.swing.JFrame {
         return cbPaciente;
     }
 
-    public void setCbPaciente(JComboBox<Paciente> cbPaciente){
-        this.cbPaciente = cbPaciente;
-    }
-
     public void mostrarMensagem(String mensagem) {
-        JOptionPane.showMessageDialog(this, mensagem);
+        JOptionPane.showMessageDialog(null, mensagem);
     }
 
     /**

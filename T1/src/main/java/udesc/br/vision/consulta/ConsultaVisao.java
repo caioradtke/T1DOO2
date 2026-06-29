@@ -38,13 +38,16 @@ public class ConsultaVisao extends javax.swing.JFrame {
             btnEditar.setText("Editar Consulta");
         }
         btnExcluir.setVisible(modo);
+        btnFinalizar.setVisible(modo);
 
+        cbStatus.setEnabled(!modo);
         cbPacientes.setVisible(!modo);
         txtHorario.setEditable(!modo);
+        txtHorario.setFocusable(!modo);
         txtData.setEditable(!modo);
+        txtData.setFocusable(!modo);
         txtObservacao.setEditable(!modo);
     }
-
 
     public void popularCBPaciente(Map<Long, Paciente> pacientes) {
         List<Paciente> lista = new ArrayList<>(pacientes.values());
@@ -56,8 +59,10 @@ public class ConsultaVisao extends javax.swing.JFrame {
 
     public void carregarConsulta(Consulta consulta) {
         System.out.println("Carregando Consulta...");
+
         Paciente paciente = consulta.getPaciente();
         String nomePaciente = paciente.getNome();
+
         if (nomePaciente.length() > 16) { nomePaciente = nomePaciente.substring(0, 16);}
 
         txtNome.setText(nomePaciente);
@@ -67,9 +72,21 @@ public class ConsultaVisao extends javax.swing.JFrame {
         txtTelefone.setText(paciente.getTelefone());
         txtIdade.setText(Integer.toString(paciente.getIdade()));
 
+        cbStatus.setSelectedItem(consulta.getStatus());
         txtData.setText(consulta.getData().toString());
         txtHorario.setText(consulta.getHorario());
         txtObservacao.setText(consulta.getObservacao());
+
+        if (consulta.getStatus().equals("CONCLUIDA")) {
+            painelDadosConsulta.setVisible(true);
+            txtPesoConsulta.setText(Double.toString(consulta.getPesoPaciente()));
+            txtPressao.setText(Double.toString(consulta.getPressaoPaciente()));
+
+            btnFinalizar.setVisible(false);
+        } else {
+            painelDadosConsulta.setVisible(false);
+            btnFinalizar.setVisible(true);
+        }
 
         cbPacientes.setSelectedItem(paciente);
     }
@@ -82,7 +99,7 @@ public class ConsultaVisao extends javax.swing.JFrame {
         btnExcluir.addActionListener(acao);
     }
 
-    public void adicionarAcaoFinalizar(ActionListener acao) {
+    public void adicionarAcaoAbrirTelaFinalizar(ActionListener acao) {
         btnFinalizar.addActionListener(acao);
     }
 
@@ -104,6 +121,13 @@ public class ConsultaVisao extends javax.swing.JFrame {
         return obs;
     }
 
+    public String getStatus() throws ConsultaException {
+        if (cbStatus.getSelectedItem() == null) {
+            throw new ConsultaException("Selecione um status");
+        }
+        return cbStatus.getSelectedItem().toString();
+    }
+
     public Paciente getPacienteSelecionado() throws ConsultaException {
         if (cbPacientes.getSelectedItem() instanceof Paciente ) {
             return (Paciente) cbPacientes.getSelectedItem();
@@ -112,7 +136,7 @@ public class ConsultaVisao extends javax.swing.JFrame {
     }
 
     public void mostrarMensagem(String mensagem) {
-        JOptionPane.showMessageDialog(this, mensagem);
+        JOptionPane.showMessageDialog(null, mensagem);
     }
 
     /**
@@ -125,18 +149,15 @@ public class ConsultaVisao extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        txtObservacao = new javax.swing.JTextArea();
-        jLabel4 = new javax.swing.JLabel();
         cbPacientes = new javax.swing.JComboBox<>();
         btnEditar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         btnFinalizar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         txtData = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         txtHorario1 = new javax.swing.JLabel();
-        txtHorario = new javax.swing.JTextField();
+        cbStatus = new javax.swing.JComboBox<>();
+        txtHorario = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         txtNome = new javax.swing.JTextField();
@@ -156,19 +177,24 @@ public class ConsultaVisao extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         txtTelefone = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtObservacao = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        painelDadosConsulta = new javax.swing.JPanel();
+        jPanel18 = new javax.swing.JPanel();
+        txtPressao = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel17 = new javax.swing.JPanel();
+        txtPesoConsulta = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Visualizar Consulta");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel2.setText("Paciente");
-
-        txtObservacao.setEditable(false);
-        txtObservacao.setColumns(20);
-        txtObservacao.setRows(3);
-        txtObservacao.setMaximumSize(new java.awt.Dimension(30, 30));
-        jScrollPane2.setViewportView(txtObservacao);
-
-        jLabel4.setText("Observações");
+        jLabel2.setText("Dados do Paciente");
 
         btnEditar.setText("Editar Consulta");
 
@@ -178,15 +204,18 @@ public class ConsultaVisao extends javax.swing.JFrame {
         btnFinalizar.setText("Finalizar Consulta");
 
         txtData.setEditable(false);
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Consulta");
+        txtData.setFocusable(false);
 
         txtHorario1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtHorario1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         txtHorario1.setText("-");
 
+        cbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PENDENTE", "CONCLUIDA", "CANCELADA" }));
+        cbStatus.setEnabled(false);
+
         txtHorario.setEditable(false);
+        txtHorario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        txtHorario.setFocusable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -194,9 +223,9 @@ public class ConsultaVisao extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtHorario1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -204,15 +233,11 @@ public class ConsultaVisao extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtHorario1)
-                        .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtHorario1)
+                .addComponent(cbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtHorario, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel2.setLayout(new java.awt.GridLayout(2, 3, 5, 5));
@@ -220,6 +245,7 @@ public class ConsultaVisao extends javax.swing.JFrame {
         txtNome.setEditable(false);
         txtNome.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel9.setText("Nome");
         jLabel9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
@@ -248,6 +274,7 @@ public class ConsultaVisao extends javax.swing.JFrame {
         txtCpf.setEditable(false);
         txtCpf.setBorder(null);
 
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("CPF");
         jLabel10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
@@ -276,6 +303,7 @@ public class ConsultaVisao extends javax.swing.JFrame {
         txtIdade.setEditable(false);
         txtIdade.setBorder(null);
 
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel14.setText("Idade");
         jLabel14.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
@@ -304,6 +332,7 @@ public class ConsultaVisao extends javax.swing.JFrame {
         txtPeso.setEditable(false);
         txtPeso.setBorder(null);
 
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel12.setText("Peso (Kg)");
         jLabel12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
@@ -332,6 +361,7 @@ public class ConsultaVisao extends javax.swing.JFrame {
         txtAltura.setEditable(false);
         txtAltura.setBorder(null);
 
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel13.setText("Altura (Cm)");
         jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
@@ -360,6 +390,7 @@ public class ConsultaVisao extends javax.swing.JFrame {
         txtTelefone.setEditable(false);
         txtTelefone.setBorder(null);
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setText("Telefone");
         jLabel11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
@@ -385,6 +416,120 @@ public class ConsultaVisao extends javax.swing.JFrame {
 
         jPanel2.add(jPanel10);
 
+        txtObservacao.setEditable(false);
+        txtObservacao.setColumns(20);
+        txtObservacao.setRows(3);
+        txtObservacao.setMaximumSize(new java.awt.Dimension(30, 30));
+        jScrollPane2.setViewportView(txtObservacao);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Observações");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        txtPressao.setEditable(false);
+        txtPressao.setBorder(null);
+
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel19.setText("Pressão");
+        jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPressao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtPressao, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Dados da Consulta");
+
+        txtPesoConsulta.setEditable(false);
+        txtPesoConsulta.setBorder(null);
+        txtPesoConsulta.addActionListener(this::txtPesoConsultaActionPerformed);
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel18.setText("Peso (Kg)");
+        jLabel18.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPesoConsulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel17Layout.createSequentialGroup()
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtPesoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+
+        javax.swing.GroupLayout painelDadosConsultaLayout = new javax.swing.GroupLayout(painelDadosConsulta);
+        painelDadosConsulta.setLayout(painelDadosConsultaLayout);
+        painelDadosConsultaLayout.setHorizontalGroup(
+            painelDadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelDadosConsultaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(painelDadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelDadosConsultaLayout.createSequentialGroup()
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        painelDadosConsultaLayout.setVerticalGroup(
+            painelDadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelDadosConsultaLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelDadosConsultaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -392,10 +537,9 @@ public class ConsultaVisao extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(painelDadosConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cbPacientes, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -404,35 +548,40 @@ public class ConsultaVisao extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnFinalizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnFinalizar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cbPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelDadosConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(21, 21, 21)
                 .addComponent(btnFinalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtPesoConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPesoConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPesoConsultaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -440,13 +589,16 @@ public class ConsultaVisao extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnFinalizar;
     private javax.swing.JComboBox<Paciente> cbPacientes;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> cbStatus;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -454,19 +606,25 @@ public class ConsultaVisao extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel painelDadosConsulta;
     private javax.swing.JTextField txtAltura;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtData;
-    private javax.swing.JTextField txtHorario;
+    private javax.swing.JFormattedTextField txtHorario;
     private javax.swing.JLabel txtHorario1;
     private javax.swing.JTextField txtIdade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextArea txtObservacao;
     private javax.swing.JTextField txtPeso;
+    private javax.swing.JTextField txtPesoConsulta;
+    private javax.swing.JTextField txtPressao;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

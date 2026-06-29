@@ -7,6 +7,7 @@ package udesc.br.controller;
 import java.time.LocalDate;
 import java.util.Set;
 
+import udesc.br.controller.interfaces.ControladorPaineis;
 import udesc.br.exception.MedicamentoException;
 import udesc.br.model.Despesa;
 import udesc.br.model.Medicamento;
@@ -37,7 +38,7 @@ public class EditarMedicamentoControlador implements ControladorPaineis {
 
     @Override
     public void initTela() {
-        visao.setLocationRelativeTo(visao.getParent());
+        visao.setLocationRelativeTo(null);
         visao.setVisible(true);
 
         Set<Medicamento> lista = medRepositorio.buscarTodosMedicamentos();

@@ -1,4 +1,4 @@
-package udesc.br.controller;
+package udesc.br.controller.interfaces;
 
 public interface ControladorPaineis {
     void initTela();

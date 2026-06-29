@@ -1,6 +1,9 @@
 package udesc.br.controller;
 
 
+import udesc.br.controller.interfaces.ConsultaRepositorioListener;
+import udesc.br.controller.interfaces.ControladorPaineis;
+import udesc.br.dao.MovimentacaoFinanceiraDAO;
 import udesc.br.dao.PacienteDAO;
 import udesc.br.model.Consulta;
 import udesc.br.repository.ConsultaRepositorio;
@@ -66,7 +69,7 @@ public class ManterAgendaControlador implements ControladorPaineis, ConsultaRepo
         CadastrarConsultaVisao visaoCriarConsulta = new CadastrarConsultaVisao();
         CadastrarConsultaControlador telaCadastroConsulta =
                 new CadastrarConsultaControlador(visaoCriarConsulta, pacienteRepositorio, repositorio);
-        visaoCriarConsulta.setLocationRelativeTo(visao.getParent());
+        visaoCriarConsulta.setLocationRelativeTo(null);
     }
 
     @Override
@@ -243,8 +246,8 @@ public class ManterAgendaControlador implements ControladorPaineis, ConsultaRepo
         public void acaoAbrirConsulta(Consulta consulta) {
             ConsultaVisao consultaVisao = new ConsultaVisao();
             ConsultaControlador consultaControlador =
-                    new ConsultaControlador(consultaVisao, consultaRepositorio, new PacienteDAO(), consulta);
-            consultaVisao.setLocationRelativeTo(manterAgendaVisao.getParent());
+                    new ConsultaControlador(consultaVisao, consultaRepositorio, consulta);
+            consultaVisao.setLocationRelativeTo(null);
             consultaVisao.setVisible(true);
         }
     }

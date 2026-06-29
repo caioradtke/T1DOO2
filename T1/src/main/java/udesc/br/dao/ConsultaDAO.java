@@ -2,10 +2,9 @@ package udesc.br.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import udesc.br.controller.ConsultaRepositorioListener;
+import udesc.br.controller.interfaces.ConsultaRepositorioListener;
 import udesc.br.jpa.JPAConnector;
 import udesc.br.model.Consulta;
-import udesc.br.model.Paciente;
 import udesc.br.repository.ConsultaRepositorio;
 
 import java.time.LocalDate;

@@ -1,11 +1,16 @@
 package udesc.br.controller;
 
+import udesc.br.controller.interfaces.ControladorPaineis;
+import udesc.br.dao.MovimentacaoFinanceiraDAO;
+import udesc.br.dao.PacienteDAO;
 import udesc.br.exception.ConsultaException;
 import udesc.br.model.Consulta;
 import udesc.br.model.Paciente;
 import udesc.br.repository.ConsultaRepositorio;
+import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.consulta.ConsultaVisao;
+import udesc.br.vision.consulta.FinalizarConsultaVisao;
 
 import javax.swing.*;
 import java.time.LocalDate;
@@ -16,14 +21,19 @@ public class ConsultaControlador implements ControladorPaineis {
     private ConsultaVisao visao;
     private ConsultaRepositorio consultaRepositorio;
     private PacienteRepositorio pacienteRepositorio;
+    private MovimentacaoFinanceiraRepositorio movimentacaoFinanceiraRepositorio;
     private Consulta consulta;
+    private FinalizarConsultaVisao telaFinalizarConsulta;
 
     private boolean modoEdicao = false;
 
-    public ConsultaControlador(ConsultaVisao consultaVisao, ConsultaRepositorio consultaRepositorio, PacienteRepositorio pacienteRepositorio, Consulta consulta) {
+    public ConsultaControlador(ConsultaVisao consultaVisao,
+                               ConsultaRepositorio consultaRepositorio,
+                               Consulta consulta) {
         this.visao = consultaVisao;
         this.consultaRepositorio = consultaRepositorio;
-        this.pacienteRepositorio = pacienteRepositorio;
+        this.pacienteRepositorio = new PacienteDAO();
+        this.movimentacaoFinanceiraRepositorio = new MovimentacaoFinanceiraDAO();
         this.consulta = consulta;
 
         initTela();
@@ -42,7 +52,7 @@ public class ConsultaControlador implements ControladorPaineis {
     public void adicionarAcoes() {
         visao.adicionarAcaoEditar(e-> editarOuSalvarConsulta());
         visao.adicionarAcaoExcluir(e -> excluirConsulta());
-        visao.adicionarAcaoFinalizar(e-> finalizarConsulta());
+        visao.adicionarAcaoAbrirTelaFinalizar(e-> abrirTelaFinalizar());
     }
 
     @Override
@@ -57,8 +67,10 @@ public class ConsultaControlador implements ControladorPaineis {
                 String horario = visao.getHorario();
                 LocalDate data = visao.getData();
                 String observacao = visao.getObservacao();
+                String status = visao.getStatus();
 
                 Consulta consultaTemp = new Consulta(consulta.getId(), data, horario, observacao, paciente);
+                consultaTemp.setStatus(status);
 
                 consultaRepositorio.salvarConsulta(consultaTemp);
                 consulta = consultaTemp;
@@ -102,7 +114,36 @@ public class ConsultaControlador implements ControladorPaineis {
         }
     }
 
-    public void finalizarConsulta() {
+    public void abrirTelaFinalizar() {
+        telaFinalizarConsulta = new FinalizarConsultaVisao();
+        telaFinalizarConsulta.setLocationRelativeTo(null);
+        telaFinalizarConsulta.setVisible(true);
+        telaFinalizarConsulta.adicionarAcaoFinalizar(e -> finalizarConsulta());
+    }
 
+    public void finalizarConsulta() {
+        try {
+            double peso = telaFinalizarConsulta.getPesoPaciente();
+            double pressao = telaFinalizarConsulta.getPressao();
+
+            Consulta consultaTemp = consulta;
+            consultaTemp.setPesoPaciente(peso);
+            consultaTemp.setPressaoPaciente(pressao);
+            consultaTemp.setStatus("CONCLUIDA");
+
+            consultaRepositorio.salvarConsulta(consultaTemp);
+            consulta = consultaTemp;
+
+            telaFinalizarConsulta.mostrarMensagem("Consulta finalizada com sucesso!");
+            telaFinalizarConsulta.dispose();
+        } catch (ConsultaException ce) {
+            System.err.println(ce.getMessage());
+            visao.mostrarMensagem(ce.getMessage());
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            visao.mostrarMensagem("Erro ao finalizar consulta");
+        } finally {
+            visao.carregarConsulta(consulta);
+        }
     }
 }
