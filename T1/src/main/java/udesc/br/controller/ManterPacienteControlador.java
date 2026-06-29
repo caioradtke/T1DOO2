@@ -1,15 +1,14 @@
 package udesc.br.controller;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.paciente.ManterPacienteVisao;
 
 import javax.swing.*;
 
-public class ManterPacienteControlador implements Controlador {
+public class ManterPacienteControlador implements ControladorPaineis {
    
     private ManterPacienteVisao visao;
     private PacienteRepositorio repositorio;

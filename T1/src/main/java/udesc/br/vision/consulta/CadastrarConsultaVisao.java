@@ -18,15 +18,15 @@ import java.time.LocalDate;
  *
  * @author andre
  */
-public class CriarConsultaVisao extends javax.swing.JFrame {
+public class CadastrarConsultaVisao extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CriarConsultaVisao.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastrarConsultaVisao.class.getName());
     private DatePicker datePicker;
 
     /**
      * Creates new form CriarConsultaVisao
      */
-    public CriarConsultaVisao() {
+    public CadastrarConsultaVisao() {
         initComponents();
 
         DatePickerSettings dateSettings = new DatePickerSettings();
@@ -130,6 +130,7 @@ public class CriarConsultaVisao extends javax.swing.JFrame {
         txtHorario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Agendar Consulta");
 
         jLabel15.setText("Observações");
 
@@ -169,7 +170,7 @@ public class CriarConsultaVisao extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        jPanel4.setLayout(new java.awt.GridLayout(2, 3, 12, 15));
+        jPanel4.setLayout(new java.awt.GridLayout(2, 3, 12, 10));
 
         jLabel9.setText("Data");
         jLabel9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -186,7 +187,7 @@ public class CriarConsultaVisao extends javax.swing.JFrame {
             dataPainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dataPainelLayout.createSequentialGroup()
                 .addComponent(jLabel9)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         jPanel4.add(dataPainel);
@@ -209,7 +210,8 @@ public class CriarConsultaVisao extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cbPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
 
         jPanel4.add(jPanel9);
@@ -251,10 +253,10 @@ public class CriarConsultaVisao extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
@@ -262,30 +264,6 @@ public class CriarConsultaVisao extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new CriarConsultaVisao().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarPaciente;

@@ -89,4 +89,32 @@ public class Consulta {
     public String getStatus() {
         return status;
     }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    public void setPesoPaciente(double pesoPaciente) {
+        this.pesoPaciente = pesoPaciente;
+    }
+
+    public void setPressaoPaciente(double pressaoPaciente) {
+        this.pressaoPaciente = pressaoPaciente;
+    }
 }

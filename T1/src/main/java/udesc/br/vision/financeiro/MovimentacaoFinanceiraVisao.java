@@ -4,9 +4,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import udesc.br.model.Despesa;
 import udesc.br.model.Entrada;
-import udesc.br.model.Paciente;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
-import udesc.br.repository.PacienteRepositorio;
 
 public class MovimentacaoFinanceiraVisao extends javax.swing.JPanel {
 

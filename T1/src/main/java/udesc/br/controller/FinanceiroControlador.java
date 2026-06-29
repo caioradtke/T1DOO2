@@ -3,7 +3,7 @@ package udesc.br.controller;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 import udesc.br.vision.financeiro.MovimentacaoFinanceiraVisao;
 
-public class FinanceiroControlador implements Controlador {
+public class FinanceiroControlador implements ControladorPaineis {
     
     private MovimentacaoFinanceiraVisao visao;
     private MovimentacaoFinanceiraRepositorio repositorio;

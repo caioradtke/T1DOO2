@@ -42,8 +42,6 @@ public class ConsultaDAO implements ConsultaRepositorio {
         try {
             TypedQuery<Consulta> query = em.createQuery("FROM Consulta ", Consulta.class);
             return query.getResultList();
-        } catch (Exception e) {
-            throw e;
         } finally {
             em.close();
         }
@@ -62,8 +60,6 @@ public class ConsultaDAO implements ConsultaRepositorio {
             query.setParameter("inicio", dataInicio);
             query.setParameter("fim", dataFim);
             return query.getResultList();
-        } catch (Exception e) {
-            throw e;
         } finally {
             em.close();
         }

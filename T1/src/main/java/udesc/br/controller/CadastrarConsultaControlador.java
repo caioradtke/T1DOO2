@@ -5,19 +5,19 @@ import udesc.br.model.Consulta;
 import udesc.br.model.Paciente;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
-import udesc.br.vision.consulta.CriarConsultaVisao;
+import udesc.br.vision.consulta.CadastrarConsultaVisao;
 
 import javax.swing.*;
 import java.time.LocalDate;
 import java.util.Map;
 
-public class CadastrarConsultaControlador implements Controlador {
+public class CadastrarConsultaControlador implements ControladorPaineis {
 
-    private CriarConsultaVisao visao;
+    private CadastrarConsultaVisao visao;
     private PacienteRepositorio pacienteRepositorio;
     private ConsultaRepositorio consultaRepositorio;
 
-    public CadastrarConsultaControlador(CriarConsultaVisao visao, PacienteRepositorio pacienteRepositorio, ConsultaRepositorio consultaRepositorio) {
+    public CadastrarConsultaControlador(CadastrarConsultaVisao visao, PacienteRepositorio pacienteRepositorio, ConsultaRepositorio consultaRepositorio) {
         this.visao = visao;
         this.pacienteRepositorio = pacienteRepositorio;
         this.consultaRepositorio = consultaRepositorio;

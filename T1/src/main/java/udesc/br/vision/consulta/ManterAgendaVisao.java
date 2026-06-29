@@ -5,17 +5,13 @@
 package udesc.br.vision.consulta;
 
 import com.github.lgooddatepicker.components.DatePicker;
-import com.github.lgooddatepicker.components.DatePickerSettings;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.List;
+import java.text.DecimalFormat;
 
-import udesc.br.exception.ConsultaException;
-import udesc.br.model.Consulta;
 import udesc.br.model.Paciente;
 
 /**
@@ -29,27 +25,30 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
      */
     public ManterAgendaVisao() {
         initComponents();
+//        
+        JSpinner.NumberEditor editor = new JSpinner.NumberEditor(spnAno, "0");
+        spnAno.setEditor(editor);
+
+        editor.getTextField().setFont(new Font("Arial", Font.PLAIN, 14));
+        
+        DecimalFormat format = editor.getFormat();
+        format.setGroupingUsed(false);
     }
 
     public void setLabelMes(String mes) {
         labelMes.setText(mes);
     }
 
-    public void adicionarItemCBAno(String ano) {
-        cbAno.addItem(ano);
-        cbAno.setSelectedIndex(cbAno.getItemCount() - 1);
-    }
-
-    public void limparCBAno() {
-        cbAno.removeAll();
-    }
-
     public void adicionarAcaoCadastrarConsulta(ActionListener acao) {
         btnAbrirTelaCadastroConsulta.addActionListener(acao);
     }
 
-    public void adicionarAcaoCBAno(ItemListener acao) {
-        cbAno.addItemListener(acao);
+    public void adicionarAcaoSpinnerAno(ChangeListener acao) {
+        spnAno.addChangeListener(acao);
+    }
+
+    public void setSpinnerAno(int spnAno) {
+        this.spnAno.setValue(spnAno);
     }
 
     public void adicionarAcaoMesAnterior(ActionListener acao) {
@@ -71,7 +70,10 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
     }
 
     public int getAno() {
-        return Integer.parseInt((String) cbAno.getSelectedItem());
+        if (spnAno.getValue() == null) {
+            return 2026;
+        }
+        return (Integer) spnAno.getValue();
     }
 
     public void mostrarMensagem(String mensagem) {
@@ -118,8 +120,8 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
         labelMes = new javax.swing.JLabel();
         btnMesAnterior = new javax.swing.JButton();
         btnProximoMes = new javax.swing.JButton();
-        cbAno = new javax.swing.JComboBox<>();
         btnAbrirTelaCadastroConsulta = new javax.swing.JButton();
+        spnAno = new javax.swing.JSpinner();
 
         frameCriarConsulta.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         frameCriarConsulta.setTitle("Agendar Consulta");
@@ -284,9 +286,9 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
         jLabel8.setAlignmentX(1.0F);
         jPanel1.add(jLabel8);
 
-        painelCalendario.setLayout(new java.awt.GridLayout(0, 7));
+        painelCalendario.setLayout(new java.awt.GridLayout(0, 7, 1, 1));
 
-        labelMes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelMes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelMes.setText("JANEIRO");
 
         btnMesAnterior.setText("<");
@@ -294,6 +296,9 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
         btnProximoMes.setText(">");
 
         btnAbrirTelaCadastroConsulta.setText("Agendar Consulta");
+
+        spnAno.setModel(new javax.swing.SpinnerNumberModel(2020, 1950, 3000, 1));
+        spnAno.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -304,24 +309,26 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
                 .addGap(5, 5, 5)
                 .addComponent(btnProximoMes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelMes, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addComponent(labelMes, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(136, 136, 136)
+                .addComponent(spnAno, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(154, 154, 154)
                 .addComponent(btnAbrirTelaCadastroConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnProximoMes, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cbAno, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAbrirTelaCadastroConsulta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAbrirTelaCadastroConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(spnAno)
+                        .addGap(1, 1, 1))
+                    .addComponent(btnProximoMes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMesAnterior, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addComponent(labelMes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnMesAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -344,9 +351,9 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(painelCalendario, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painelCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jScrollPane3.setViewportView(jPanel6);
@@ -356,14 +363,14 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
+                .addComponent(jScrollPane3)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                .addComponent(jScrollPane3)
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -374,7 +381,6 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
     private javax.swing.JButton btnCadastrarPaciente;
     private javax.swing.JButton btnMesAnterior;
     private javax.swing.JButton btnProximoMes;
-    private javax.swing.JComboBox<String> cbAno;
     private javax.swing.JComboBox<Paciente> cbPaciente;
     private javax.swing.JPanel dataPainel;
     private javax.swing.JFrame frameCriarConsulta;
@@ -401,6 +407,7 @@ public class ManterAgendaVisao extends javax.swing.JPanel {
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel labelMes;
     private javax.swing.JPanel painelCalendario;
+    private javax.swing.JSpinner spnAno;
     private javax.swing.JTextArea txtObservacao;
     private javax.swing.JTextArea txtObservacao1;
     // End of variables declaration//GEN-END:variables

@@ -1,13 +1,11 @@
 package udesc.br.controller;
 
-import udesc.br.exception.MedicamentoException;
-import udesc.br.model.MovimentacaoFinanceira;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 import udesc.br.vision.medicamentos.EditarMedicamentoVisao;
 import udesc.br.vision.medicamentos.ManterMedicamentoVisao;
 
-public class ManterMedicamentoControlador implements Controlador{
+public class ManterMedicamentoControlador implements ControladorPaineis {
     ManterMedicamentoVisao visao;
     MedicamentoRepositorio medRepo;
     MovimentacaoFinanceiraRepositorio despesaRepo;

@@ -5,13 +5,11 @@
 package udesc.br.controller;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 import udesc.br.exception.MedicamentoException;
 import udesc.br.model.Despesa;
 import udesc.br.model.Medicamento;
-import udesc.br.model.MovimentacaoFinanceira;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 import udesc.br.vision.medicamentos.EditarMedicamentoVisao;
@@ -22,7 +20,7 @@ import javax.swing.*;
  *
  * @author joaom
  */
-public class EditarMedicamentoControlador implements Controlador{
+public class EditarMedicamentoControlador implements ControladorPaineis {
     private EditarMedicamentoVisao visao;
     private MedicamentoRepositorio medRepositorio;
     private Medicamento modelo;

@@ -4,7 +4,6 @@
  */
 package udesc.br.controller;
 
-import javax.print.attribute.standard.Media;
 import udesc.br.model.Medicamento;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
@@ -13,7 +12,7 @@ import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
  *
  * @author mayur
  */
-public class CadastrarMedicamentoControlador implements Controlador{
+public class CadastrarMedicamentoControlador implements ControladorPaineis {
     private CadastrarMedicamentoVisao visao;
     private MedicamentoRepositorio medicamentoRepositorio;
     private Medicamento modelo;

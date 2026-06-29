@@ -35,21 +35,25 @@ public void salvarMedicamento(Medicamento medicamento) {
         try {
             TypedQuery<Medicamento> query = em.createQuery("FROM Medicamento", Medicamento.class);
             return new HashSet<>(query.getResultList());
-        } catch (Exception e) {
-            throw e;
         } finally {
             em.close();
         }
     }
 
-@Override
-public void apagar(Medicamento medicamento) {
-    EntityManager em = JPAConnector.getEntityManager();
-    em.getTransaction().begin();
-    Medicamento m = em.find(Medicamento.class, medicamento.getId());
-    em.remove(m);
-    em.getTransaction().commit();
-    em.close();
-}
+    @Override
+    public void apagar(Medicamento medicamento) {
+        EntityManager em = JPAConnector.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Medicamento m = em.find(Medicamento.class, medicamento.getId());
+            em.remove(m);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            throw e;
+        } finally {
+            em.close();
+        }
+    }
     
 }

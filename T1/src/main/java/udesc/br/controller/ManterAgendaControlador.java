@@ -1,13 +1,12 @@
 package udesc.br.controller;
 
 
-import udesc.br.dao.ConsultaDAO;
 import udesc.br.dao.PacienteDAO;
 import udesc.br.model.Consulta;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.consulta.ConsultaVisao;
-import udesc.br.vision.consulta.CriarConsultaVisao;
+import udesc.br.vision.consulta.CadastrarConsultaVisao;
 import udesc.br.vision.consulta.ManterAgendaVisao;
 
 import javax.swing.*;
@@ -16,7 +15,7 @@ import java.time.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManterAgendaControlador implements Controlador, ConsultaRepositorioListener {
+public class ManterAgendaControlador implements ControladorPaineis, ConsultaRepositorioListener {
 
     private ManterAgendaVisao visao;
     private ConsultaRepositorio repositorio;
@@ -49,22 +48,22 @@ public class ManterAgendaControlador implements Controlador, ConsultaRepositorio
         anoAtual = dataReal.getYear();
         mesAtual = dataReal.getMonthValue();
 
-        popularCBAno(anoAtual);
-
         mesSelecionado = mesAtual;
         anoSelecionado = anoAtual;
+
+        visao.setSpinnerAno(anoAtual);
     }
 
     @Override
     public void adicionarAcoes() {
-        visao.adicionarAcaoMesAnterior(e -> voltarMes());
-        visao.adicionarAcaoProximoMes(e -> avancarMes());
-        visao.adicionarAcaoCBAno(e -> {if (itemCB) atualizarTela();});
+        visao.adicionarAcaoMesAnterior( e -> voltarMes() );
+        visao.adicionarAcaoProximoMes(  e -> avancarMes() );
+        visao.adicionarAcaoSpinnerAno( e -> { atualizarTela(); });
         visao.adicionarAcaoCadastrarConsulta(e -> abrirTelaCadastroConsulta());
     }
 
     public void abrirTelaCadastroConsulta() {
-        CriarConsultaVisao visaoCriarConsulta = new CriarConsultaVisao();
+        CadastrarConsultaVisao visaoCriarConsulta = new CadastrarConsultaVisao();
         CadastrarConsultaControlador telaCadastroConsulta =
                 new CadastrarConsultaControlador(visaoCriarConsulta, pacienteRepositorio, repositorio);
         visaoCriarConsulta.setLocationRelativeTo(visao.getParent());
@@ -120,18 +119,6 @@ public class ManterAgendaControlador implements Controlador, ConsultaRepositorio
             mesSelecionado = 1;
         }
         atualizarTela();
-    }
-
-    public void popularCBAno(int anoAtual) {
-        visao.limparCBAno();
-        int menorAno = 2024;
-        if (anoAtual < menorAno) {
-            menorAno = anoAtual - 5;
-        }
-        for(int i = menorAno; i <= anoAtual; i++ ) {
-            visao.adicionarItemCBAno(Integer.toString(i));
-        }
-        itemCB = true;
     }
 
     @Override

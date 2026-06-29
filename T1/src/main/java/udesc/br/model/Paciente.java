@@ -57,7 +57,7 @@ public class Paciente implements Comparable<Paciente> {
     @Override
     public String toString() {
       String imcFormatado = String.format("%.2f",imc);
-      return "ID: " + id + "| Nome: " + nome + "| CPF: " + cpf;
+      return "ID: " + id + " | Nome: " + nome + " | CPF: " + cpf;
     }   
 
     public String getNome() {
@@ -131,15 +131,6 @@ public class Paciente implements Comparable<Paciente> {
 
     public Long getId() {
         return id;
-    }
-
-    public boolean setId(Long id) {
-        if (id > 0) {
-            this.id = id;
-            return true;
-        }
-
-        return false;
     }
 
     @Override

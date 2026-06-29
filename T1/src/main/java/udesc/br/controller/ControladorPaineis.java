@@ -1,6 +1,6 @@
 package udesc.br.controller;
 
-public interface Controlador {
+public interface ControladorPaineis {
     void initTela();
 
     void adicionarAcoes();

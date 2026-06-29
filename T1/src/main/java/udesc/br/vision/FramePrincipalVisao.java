@@ -5,14 +5,13 @@
 package udesc.br.vision;
 
 import udesc.br.controller.CadastrarPacienteControlador;
-import udesc.br.controller.Controlador;
+import udesc.br.controller.ControladorPaineis;
 import udesc.br.controller.ManterAgendaControlador;
 import udesc.br.controller.ManterPacienteControlador;
 import udesc.br.dao.ConsultaDAO;
 import udesc.br.dao.PacienteDAO;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.PacienteRepositorio;
-import udesc.br.vision.consulta.CriarConsultaVisao;
 import udesc.br.vision.consulta.ManterAgendaVisao;
 import udesc.br.vision.components.TreeButton;
 import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
@@ -21,6 +20,7 @@ import udesc.br.vision.paciente.CadastrarPacienteVisao;
 import udesc.br.vision.paciente.ManterPacienteVisao;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 import udesc.br.controller.CadastrarMedicamentoControlador;
 import udesc.br.controller.FinanceiroControlador;
@@ -30,6 +30,8 @@ import udesc.br.dao.MovimentacaoFinanceiraDAO;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 import udesc.br.vision.financeiro.MovimentacaoFinanceiraVisao;
+
+import javax.swing.*;
 
 /**
  *
@@ -47,72 +49,86 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         initComponents();
         
         layout = (CardLayout) cardLayout.getLayout();
-
-        // Pacientes
-        ManterPacienteVisao manterPacienteVisao = new ManterPacienteVisao();
-        CadastrarPacienteVisao cadastrarPacienteVisao = new CadastrarPacienteVisao();
-
-        PacienteRepositorio pacienteRepositorio = new PacienteDAO();
-        CadastrarPacienteControlador cadPacienteControlador = new CadastrarPacienteControlador(cadastrarPacienteVisao, pacienteRepositorio);
-        ManterPacienteControlador listPacienteControlador = new ManterPacienteControlador(manterPacienteVisao, pacienteRepositorio);
-
-        cardLayout.add(manterPacienteVisao, "LISTAR-PACIENTES");
-        cardLayout.add(cadastrarPacienteVisao, "CADASTRAR-PACIENTE");
-
-        btnCadastrarPaciente.addActionListener(e -> mostrarTela("CADASTRAR-PACIENTE", cadPacienteControlador));
-        btnListarPacientes.addActionListener(e -> mostrarTela("LISTAR-PACIENTES", listPacienteControlador));
-
-        TreeButton treePacientes = new TreeButton(btnPacientes);
-        treePacientes.addButton(btnCadastrarPaciente);
-        treePacientes.addButton(btnListarPacientes);
-
-        // Agenda
-        ManterAgendaVisao manterAgendaVisao = new ManterAgendaVisao();
-
-        ConsultaRepositorio consultaRepositorio = new ConsultaDAO();
-        ManterAgendaControlador listAgendaControlador = new ManterAgendaControlador(manterAgendaVisao, consultaRepositorio, pacienteRepositorio);
-
-        cardLayout.add(manterAgendaVisao, "LISTAR-AGENDA");
-
-        btnAgenda.addActionListener(e -> mostrarTela("LISTAR-AGENDA", listAgendaControlador));
-
-
-        // Medicamentos
-        MedicamentoRepositorio medicamentoRepositorio = new MedicamentoDAO();
-        MovimentacaoFinanceiraRepositorio movRepositorio = new MovimentacaoFinanceiraDAO();
-        ManterMedicamentoVisao manterMedicamentoVisao = new ManterMedicamentoVisao();
-        ManterMedicamentoControlador manterMedicamentoControlador = new ManterMedicamentoControlador(manterMedicamentoVisao, medicamentoRepositorio, movRepositorio);
-        CadastrarMedicamentoVisao cadastroMedVisao = new CadastrarMedicamentoVisao();
-        CadastrarMedicamentoControlador cadMedicamentoControlador = new CadastrarMedicamentoControlador(cadastroMedVisao, medicamentoRepositorio);
-        
-        cardLayout.add(cadastroMedVisao, "CADASTRAR-MEDICAMENTO");
-        cardLayout.add(manterMedicamentoVisao, "LISTAR-MEDICAMENTOS");
-
-        TreeButton treeMedicamentos = new TreeButton(btnMedicamentos);
-        btnCadastrarMedicamento.addActionListener(e -> mostrarTela("CADASTRAR-MEDICAMENTO", cadMedicamentoControlador));
-        btnListarMedicamentos.addActionListener(e -> mostrarTela("LISTAR-MEDICAMENTOS", manterMedicamentoControlador));
-        treeMedicamentos.addButton(btnCadastrarMedicamento);
-        treeMedicamentos.addButton(btnListarMedicamentos);
-
-        add(treePacientes);
-        add(treeMedicamentos);
-        
-        // Financeiro
-        MovimentacaoFinanceiraVisao movVisao = new MovimentacaoFinanceiraVisao();
-        FinanceiroControlador movControlador = new FinanceiroControlador(movVisao,movRepositorio);
-        
-        cardLayout.add(movVisao, "FINANCEIRO");
-
-        btnFinanceiro.addActionListener(e -> mostrarTela("FINANCEIRO", movControlador));
-
     }
 
-    public void mostrarTela(String nomeTela, Controlador controlador) {
+    public void adicionarAcaoVoltar(ActionListener acao) {
+        btnVoltar.addActionListener(acao);
+    }
+
+    public void adicionarAcaoAvancar(ActionListener acao) {
+        vtnAvancar.addActionListener(acao);
+    }
+
+    public void adicionarAcaoRecarregar(ActionListener acao) {
+        btnRecarregar.addActionListener(acao);
+    }
+
+    public void adicionarAcaoListarPacientes(ActionListener acao) {
+        btnListarPacientes.addActionListener(acao);
+    }
+
+    public void adicionarAcaoListarMedicamentos(ActionListener acao) {
+        btnListarMedicamentos.addActionListener(acao);
+    }
+
+    public void adicionarAcaoFinanceiro(ActionListener acao) {
+        btnFinanceiro.addActionListener(acao);
+    }
+
+    public void adicionarAcaoCadastrarPaciente(ActionListener acao) {
+        btnCadastrarPaciente.addActionListener(acao);
+    }
+
+    public void adicionarAcaoCadastrarMedicamento(ActionListener acao) {
+        btnCadastrarMedicamento.addActionListener(acao);
+    }
+
+    public void adicionarAcaoAgenda(ActionListener acao) {
+        btnAgenda.addActionListener(acao);
+    }
+
+    public JButton getBtnCadastrarMedicamento() {
+        return btnCadastrarMedicamento;
+    }
+
+    public JButton getBtnListarMedicamentos() {
+        return btnListarMedicamentos;
+    }
+
+    public JButton getBtnListarPacientes() {
+        return btnListarPacientes;
+    }
+
+    public JButton getBtnMedicamentos() {
+        return btnMedicamentos;
+    }
+
+    public JButton getBtnPacientes() {
+        return btnPacientes;
+    }
+
+    public JButton getBtnCadastrarPaciente() {
+        return btnCadastrarPaciente;
+    }
+
+    public void adicionarTela(JPanel tela, String titulo) {
+        cardLayout.add(tela, titulo);
+
+        cardLayout.revalidate();
+        cardLayout.repaint();
+    }
+
+    public void mostrarTela(String nomeTela, ControladorPaineis controladorPaineis) {
         layout.show(cardLayout, nomeTela);
-        controlador.atualizarTela();
+        controladorPaineis.atualizarTela();
     }
 
-    
+    public void adicionarComponente(JComponent componente) {
+        this.add(componente);
+        this.revalidate();
+        this.repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,13 +147,16 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         btnListarMedicamentos = new javax.swing.JButton();
         btnMedicamentos = new javax.swing.JButton();
         btnCadastrarMedicamento = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
         btnAgenda = new javax.swing.JButton();
         btnFinanceiro = new javax.swing.JButton();
+        logo = new javax.swing.JLabel();
+        btnVoltar = new javax.swing.JButton();
+        vtnAvancar = new javax.swing.JButton();
+        btnRecarregar = new javax.swing.JButton();
         cardLayout = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("EasyMed");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         btnListarPacientes.setText("Editar e Excluir");
@@ -155,7 +174,7 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(btnPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -166,8 +185,8 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(btnPacientes)
+                .addContainerGap()
+                .addComponent(btnPacientes, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrarPaciente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -198,8 +217,8 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(btnMedicamentos)
+                .addContainerGap()
+                .addComponent(btnMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCadastrarMedicamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -207,75 +226,66 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 196, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 35, Short.MAX_VALUE)
-        );
-
-        btnAgenda.setText("Agenda");
+        btnAgenda.setText("Consultas");
         btnAgenda.setMargin(new java.awt.Insets(2, 0, 3, 14));
 
         btnFinanceiro.setText("Financeiro");
         btnFinanceiro.setMargin(new java.awt.Insets(2, 0, 3, 14));
+
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/easyMed190.png"))); // NOI18N
+
+        btnVoltar.setBackground(new java.awt.Color(249, 249, 249));
+        btnVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-left.png"))); // NOI18N
+        btnVoltar.setBorder(null);
+
+        vtnAvancar.setBackground(new java.awt.Color(249, 249, 249));
+        vtnAvancar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/arrow-right.png"))); // NOI18N
+        vtnAvancar.setBorder(null);
+        vtnAvancar.addActionListener(this::vtnAvancarActionPerformed);
+
+        btnRecarregar.setBackground(new java.awt.Color(249, 249, 249));
+        btnRecarregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reload.png"))); // NOI18N
+        btnRecarregar.setBorder(null);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(vtnAvancar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRecarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(logo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(12, 12, 12))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAgenda, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnFinanceiro, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFinanceiro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(16, 16, 16)
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRecarregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnVoltar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vtnAvancar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAgenda)
+                .addComponent(btnAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnFinanceiro)
-                .addGap(41, 41, 41)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addComponent(btnFinanceiro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cardLayout.setPreferredSize(new java.awt.Dimension(600, 0));
@@ -288,42 +298,22 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+                .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(cardLayout, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void vtnAvancarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vtnAvancarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vtnAvancarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new FramePrincipalVisao().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgenda;
@@ -334,11 +324,13 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
     private javax.swing.JButton btnListarPacientes;
     private javax.swing.JButton btnMedicamentos;
     private javax.swing.JButton btnPacientes;
+    private javax.swing.JButton btnRecarregar;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JPanel cardLayout;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel logo;
+    private javax.swing.JButton vtnAvancar;
     // End of variables declaration//GEN-END:variables
 }

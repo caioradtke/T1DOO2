@@ -21,16 +21,14 @@ public class TreeButton extends JComponent {
 
         setUpIcon();
         this.btnTree.addActionListener(e -> aoClicar());
-//        this.btnTree.setBorderPainted(false);
-//        this.btnTree.setBackground(new Color(240, 240, 240));
     }
 
     private void setUpIcon() {
-        arrowUp = new ImageIcon("src/assets/arrow-up.png").getImage();
-        arrowDown = new ImageIcon("src/assets/arrow-down.png").getImage();
+        arrowUp = new ImageIcon("src/main/resources/assets/arrow-up.png").getImage();
+        arrowDown = new ImageIcon("src/main/resources/assets/arrow-down.png").getImage();
 
-        arrowUp = arrowUp.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-        arrowDown = arrowDown.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        arrowUp = arrowUp.getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+        arrowDown = arrowDown.getScaledInstance(24, 24, Image.SCALE_SMOOTH);
 
         icon = new ImageIcon(arrowDown);
         btnTree.setIcon(icon);

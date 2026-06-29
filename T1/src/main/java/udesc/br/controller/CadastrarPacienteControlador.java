@@ -1,18 +1,11 @@
 package udesc.br.controller;
 
-import udesc.br.exception.PacienteException;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.paciente.CadastrarPacienteVisao;
 
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
-
-public class CadastrarPacienteControlador implements  Controlador{
+public class CadastrarPacienteControlador implements ControladorPaineis {
 
     private CadastrarPacienteVisao visao;
     private Paciente modelo;
@@ -20,6 +13,12 @@ public class CadastrarPacienteControlador implements  Controlador{
 
     public CadastrarPacienteControlador(CadastrarPacienteVisao visao, PacienteRepositorio pacienteRepositorio){
         this.visao = visao;
+        this.pacienteRepositorio = pacienteRepositorio;
+        initTela();
+    }
+
+    public CadastrarPacienteControlador(PacienteRepositorio pacienteRepositorio){
+        this.visao = new CadastrarPacienteVisao();
         this.pacienteRepositorio = pacienteRepositorio;
         initTela();
     }
