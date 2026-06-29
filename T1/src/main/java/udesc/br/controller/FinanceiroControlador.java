@@ -28,6 +28,7 @@ public class FinanceiroControlador implements Controlador {
 
     @Override
     public void atualizarTela() {
-        
+        visao.apresentarTela(repositorio.buscarTodasEntradas(),repositorio.buscarTodasDespesas());
+        visao.getSaldoTotalMes(repositorio.buscarTotalSaldoMes());
     }
 }

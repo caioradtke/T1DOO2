@@ -35,60 +35,104 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     public void adicionarAcaoBtnSalvar(ActionListener acao){
         btnCadastrarPaciente.addActionListener(acao);
     }
-    
+
     public String getPacienteNome() throws PacienteException {
-        if(txtNome.getText().isEmpty())
+        String nome = txtNome.getText().trim();
+
+        if (nome.isEmpty())
             throw new PacienteException("Preencha o nome do paciente");
-        return txtNome.getText();
+
+        if (!nome.matches("[A-Za-zÀ-ÿ ]+"))
+            throw new PacienteException("O nome deve conter apenas letras");
+
+        return nome;
     }
-    
+
     public String getPacienteCpf() throws PacienteException {
-        if(txtCpf.getText().isEmpty())
+        String cpf = txtCpf.getText().trim();
+
+        if (cpf.isEmpty())
             throw new PacienteException("Preencha o CPF do paciente");
-        return txtCpf.getText();
+
+        cpf = cpf.replaceAll("\\D", "");
+
+        if (cpf.length() != 11)
+            throw new PacienteException("O CPF deve conter 11 dígitos");
+
+        return cpf;
     }
- 
+
     public String getPacienteTelefone() throws PacienteException {
-        if(txtTelefone.getText().isEmpty())
-            throw new PacienteException("Preencha o Telefone do paciente");
-        return txtTelefone.getText();
+        String telefone = txtTelefone.getText().trim();
+
+        if (telefone.isEmpty())
+            throw new PacienteException("Preencha o telefone do paciente");
+
+        return telefone;
     }
-    
+
     public double getPacienteAltura() throws PacienteException {
-         String alturaString = txtAltura.getText().trim();
-        
+        String alturaString = txtAltura.getText().trim();
+
+        if (alturaString.isEmpty())
+            throw new PacienteException("Preencha a altura do paciente");
+
         try {
-            return Double.parseDouble(alturaString);
-        } catch (NumberFormatException ex){
+            double altura = Double.parseDouble(alturaString);
+
+            if (altura <= 0)
+                throw new PacienteException("A altura deve ser maior que zero");
+
+            return altura;
+
+        } catch (NumberFormatException ex) {
             throw new PacienteException("Formato da altura inválido");
         }
     }
-    
+
     public double getPacientePeso() throws PacienteException {
-         String pesoString = txtPeso.getText().trim();
-        
+        String pesoString = txtPeso.getText().trim();
+
+        if (pesoString.isEmpty())
+            throw new PacienteException("Preencha o peso do paciente");
+
         try {
-            return Double.parseDouble(pesoString);
-        } catch (NumberFormatException ex){
+            double peso = Double.parseDouble(pesoString);
+
+            if (peso <= 0)
+                throw new PacienteException("O peso deve ser maior que zero");
+
+            return peso;
+
+        } catch (NumberFormatException ex) {
             throw new PacienteException("Formato do peso inválido");
         }
     }
-    
+
     public int getPacienteIdade() throws PacienteException {
-         String idadeString = txtIdade.getText().trim();
-        
+        String idadeString = txtIdade.getText().trim();
+
+        if (idadeString.isEmpty())
+            throw new PacienteException("Preencha a idade do paciente");
+
         try {
-            return Integer.parseInt(idadeString);
-        } catch (NumberFormatException ex){
+            int idade = Integer.parseInt(idadeString);
+
+            if (idade < 0)
+                throw new PacienteException("A idade não pode ser negativa");
+
+            return idade;
+
+        } catch (NumberFormatException ex) {
             throw new PacienteException("Formato da idade inválido");
         }
     }
-    
-    
+
+
      public String getPacienteObservacao() {
         return txtObservacao.getText();
     }
-        
+
     
     public void apresentarMensagem(String msg){
         JOptionPane.showMessageDialog(this.getParent(), msg);
