@@ -118,6 +118,10 @@ public class FramePrincipalVisao extends javax.swing.JFrame {
         cardLayout.repaint();
     }
 
+    public void mostrarTela(String nomeTela) {
+        layout.show(cardLayout, nomeTela);
+    }
+
     public void mostrarTela(String nomeTela, ControladorPaineis controladorPaineis) {
         layout.show(cardLayout, nomeTela);
         controladorPaineis.atualizarTela();

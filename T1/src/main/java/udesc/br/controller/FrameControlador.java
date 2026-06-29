@@ -10,6 +10,7 @@ import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.FramePrincipalVisao;
+import udesc.br.vision.TelaInicialVisao;
 import udesc.br.vision.components.TreeButton;
 import udesc.br.vision.consulta.ManterAgendaVisao;
 import udesc.br.vision.financeiro.MovimentacaoFinanceiraVisao;
@@ -76,6 +77,7 @@ public class FrameControlador {
         adicionarAcoes();
 
         iniciarBD();
+        abrirTelaInicio();
 
         visao.setVisible(true);
     }
@@ -155,6 +157,15 @@ public class FrameControlador {
         if (telaHistorico.size() > 10) {
             telaHistorico.remove(telaHistorico.getLast());
         }
+    }
+
+    public void abrirTelaInicio() {
+
+        TelaInicialVisao tela = new TelaInicialVisao();
+
+        visao.adicionarTela(tela, "TELA-INICIAL");
+
+        visao.mostrarTela("TELA-INICIAL");
     }
 
     public void abrirTelaCadastrarPaciente() {
