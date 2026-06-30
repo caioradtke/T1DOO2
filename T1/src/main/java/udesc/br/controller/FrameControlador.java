@@ -1,11 +1,13 @@
 package udesc.br.controller;
 
+import jakarta.persistence.EntityManager;
 import udesc.br.controller.interfaces.ControladorPaineis;
 import udesc.br.dao.ConsultaDAO;
 import udesc.br.dao.MedicamentoDAO;
 import udesc.br.dao.MovimentacaoFinanceiraDAO;
 import udesc.br.dao.PacienteDAO;
 import udesc.br.jpa.JPAConnector;
+import udesc.br.model.*;
 import udesc.br.repository.ConsultaRepositorio;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.repository.MovimentacaoFinanceiraRepositorio;
@@ -20,14 +22,16 @@ import udesc.br.vision.medicamentos.ManterMedicamentoVisao;
 import udesc.br.vision.paciente.CadastrarPacienteVisao;
 import udesc.br.vision.paciente.ManterPacienteVisao;
 
+import javax.swing.*;
+import java.time.LocalDate;
 import java.util.*;
 
-public class FrameControlador {
+public class FrameControlador implements ControladorPaineis {
 
-    private final ConsultaRepositorio consultaRepositorio;
-    private final MedicamentoRepositorio medicamentoRepositorio;
-    private final MovimentacaoFinanceiraRepositorio movFinanceiraRepositorio;
-    private final PacienteRepositorio pacienteRepositorio;
+    private ConsultaRepositorio consultaRepositorio;
+    private MedicamentoRepositorio medicamentoRepositorio;
+    private MovimentacaoFinanceiraRepositorio movFinanceiraRepositorio;
+    private PacienteRepositorio pacienteRepositorio;
 
     private CadastrarPacienteControlador cadPacienteControlador;
     private ManterPacienteControlador manterPacienteControlador;
@@ -39,7 +43,8 @@ public class FrameControlador {
     private LinkedList<Tela> telaHistorico;
     private Tela telaAtual;
 
-    private final FramePrincipalVisao visao;
+    private FramePrincipalVisao visao;
+    private TelaInicialVisao telaInicial;
 
     class Tela {
         private String nome;
@@ -77,7 +82,7 @@ public class FrameControlador {
         adicionarAcoes();
 
         iniciarBD();
-        abrirTelaInicio();
+        initTela(); // abre tela inicial
 
         visao.setLocationRelativeTo(null);
         visao.setVisible(true);
@@ -107,7 +112,8 @@ public class FrameControlador {
         visao.adicionarComponente(treeMedicamentos);
     }
 
-    private void adicionarAcoes() {
+    @Override
+    public void adicionarAcoes() {
         visao.adicionarAcaoCadastrarPaciente(e -> abrirTelaCadastrarPaciente());
         visao.adicionarAcaoListarPacientes(e -> abrirTelaListarPacientes());
 
@@ -160,13 +166,16 @@ public class FrameControlador {
         }
     }
 
-    public void abrirTelaInicio() {
+    @Override
+    public void initTela() {
 
-        TelaInicialVisao tela = new TelaInicialVisao();
+        telaInicial = new TelaInicialVisao();
+        telaInicial.adicionarAcaoPopular( e-> popularClasses());
+        telaInicial.adicionarAcaoLimpar( e-> limparBD());
 
-        visao.adicionarTela(tela, "TELA-INICIAL");
+        visao.adicionarTela(telaInicial, "TELA-INICIAL");
 
-        visao.mostrarTela("TELA-INICIAL");
+        logTela("TELA-INICIAL", this);
     }
 
     public void abrirTelaCadastrarPaciente() {
@@ -237,5 +246,139 @@ public class FrameControlador {
         }
 
         logTela("FINANCEIRO", this.financeiroControlador);
+    }
+
+    @Override
+    public void atualizarTela() {}
+
+    public void limparBD() {
+        int opcao = telaInicial.mostrarMensagemConfirmacao("Tem certeza que deseja deletar o Banco de Dados?");
+
+        if (opcao != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        EntityManager em = JPAConnector.getEntityManager();
+
+        em.getTransaction().begin();
+
+        em.createQuery("DELETE FROM Consulta").executeUpdate();
+        em.createQuery("DELETE FROM MovimentacaoFinanceira").executeUpdate();
+        em.createQuery("DELETE FROM Medicamento").executeUpdate();
+        em.createQuery("DELETE FROM Paciente").executeUpdate();
+
+        em.getTransaction().commit();
+        em.close();
+    }
+
+    public void popularClasses() {
+        abrirTelaAgenda();
+        abrirTelaFinanceiro();
+        abrirTelaCadastrarMedicamento();
+        abrirTelaCadastrarPaciente();
+        abrirTelaListarMedicamentos();
+        abrirTelaListarPacientes();
+
+        visao.mostrarTela("TELA-INICIAL");
+
+        // Pacientes
+        Paciente p1 = new Paciente("João Silva", "11111111111", 82.5, 180, 35, "47 99999-1111");
+        Paciente p2 = new Paciente("Maria Oliveira", "22222222222", 64.2, 165, 29, "47 99999-2222");
+        Paciente p3 = new Paciente("Carlos Souza", "33333333333", 95.8, 178, 42, "47 99999-3333");
+        Paciente p4 = new Paciente("Ana Pereira", "44444444444", 58.4, 162, 24, "47 99999-4444");
+        Paciente p5 = new Paciente("Fernanda Lima", "55555555555", 70.1, 170, 31, "47 99999-5555");
+
+        pacienteRepositorio.salvarPaciente(p1);
+        pacienteRepositorio.salvarPaciente(p2);
+        pacienteRepositorio.salvarPaciente(p3);
+        pacienteRepositorio.salvarPaciente(p4);
+        pacienteRepositorio.salvarPaciente(p5);
+
+        // Medicamento
+        Medicamento m1 = new Medicamento("Semaglutida", 0.45, 50000);
+        Medicamento m2 = new Medicamento("Tirzepatida", 0.75, 35000);
+        Medicamento m3 = new Medicamento("Vitamina B12", 0.08, 100000);
+
+        medicamentoRepositorio.salvarMedicamento(m1);
+        medicamentoRepositorio.salvarMedicamento(m2);
+        medicamentoRepositorio.salvarMedicamento(m3);
+
+        Map<Long, Paciente> pacientes = pacienteRepositorio.buscarTodosPacientes();
+        Set<Medicamento> medicamentos = medicamentoRepositorio.buscarTodosMedicamentos();
+
+        // Consultas
+        consultaRepositorio.salvarConsulta(new Consulta(
+                LocalDate.of(2026, 6, 5),
+                "09:00",
+                "Primeira consulta",
+                pacientes.get((long) 1)));
+
+        consultaRepositorio.salvarConsulta(new Consulta(
+                LocalDate.of(2026, 6, 5),
+                "10:00",
+                "Retorno",
+                pacientes.get((long)2)));
+
+        consultaRepositorio.salvarConsulta(new Consulta(
+                LocalDate.of(2026, 7, 6),
+                "14:30",
+                "Avaliação física",
+                pacientes.get((long)3)));
+
+        consultaRepositorio.salvarConsulta(new Consulta(
+                LocalDate.of(2026, 6, 7),
+                "15:00",
+                "Acompanhamento",
+                pacientes.get((long)4)));
+
+        consultaRepositorio.salvarConsulta(new Consulta(
+                LocalDate.of(2026, 7, 8),
+                "16:00",
+                "",
+                pacientes.get((long)5)));
+
+        // Entradas
+        movFinanceiraRepositorio.salvarMovimentacaoFinanceira(new Entrada(
+                "Consulta João Silva",
+                LocalDate.of(2026, 7, 5),
+                250.00,
+                pacientes.get((long)1)));
+
+        movFinanceiraRepositorio.salvarMovimentacaoFinanceira(new Entrada(
+                "Consulta Maria Oliveira",
+                LocalDate.of(2026, 7, 5),
+                250.00,
+                pacientes.get((long)2)));
+
+        movFinanceiraRepositorio.salvarMovimentacaoFinanceira(new Entrada(
+                "Consulta Carlos Souza",
+                LocalDate.of(2026, 7, 6),
+                300.00,
+                pacientes.get((long)3)));
+
+        // Despesas
+        movFinanceiraRepositorio.salvarMovimentacaoFinanceira(new Despesa(
+                "Aplicação Semaglutida",
+                LocalDate.of(2026, 7, 5),
+                90.00,
+                200,
+                0.45,
+                (Medicamento) medicamentos.toArray()[0]));
+
+        movFinanceiraRepositorio.salvarMovimentacaoFinanceira(new Despesa(
+                "Aplicação Tirzepatida",
+                LocalDate.of(2026, 7, 6),
+                150.00,
+                200,
+                0.75,
+                (Medicamento) medicamentos.toArray()[1]));
+
+        movFinanceiraRepositorio.salvarMovimentacaoFinanceira(new Despesa(
+                "Vitamina B12",
+                LocalDate.of(2026, 7, 7),
+                8.00,
+                100,
+                0.08,
+                (Medicamento) medicamentos.toArray()[2]));
     }
 }
