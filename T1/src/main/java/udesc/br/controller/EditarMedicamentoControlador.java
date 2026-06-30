@@ -23,15 +23,17 @@ import javax.swing.*;
  */
 public class EditarMedicamentoControlador implements ControladorPaineis {
     private EditarMedicamentoVisao visao;
+    private ManterMedicamentoControlador manterMedicamentoControlador;
     private MedicamentoRepositorio medRepositorio;
     private Medicamento modelo;
     private Despesa despesa;
     private MovimentacaoFinanceiraRepositorio despesaRepositorio;
     
-    public EditarMedicamentoControlador(EditarMedicamentoVisao visao, MedicamentoRepositorio medRepositorio, MovimentacaoFinanceiraRepositorio despesaRepositorio){
+    public EditarMedicamentoControlador(EditarMedicamentoVisao visao, MedicamentoRepositorio medRepositorio, MovimentacaoFinanceiraRepositorio despesaRepositorio, ManterMedicamentoControlador manterMedicamentoControlador) {
         this.visao = visao;
         this.medRepositorio = medRepositorio;
         this.despesaRepositorio = despesaRepositorio;
+        this.manterMedicamentoControlador = manterMedicamentoControlador;
 
         initTela();
     }
@@ -40,13 +42,16 @@ public class EditarMedicamentoControlador implements ControladorPaineis {
     public void initTela() {
         visao.setLocationRelativeTo(null);
         visao.setVisible(true);
+        atualizarCbMedicamentos();
+        adicionarAcoes();
+    }
 
+    public void atualizarCbMedicamentos(){
         Set<Medicamento> lista = medRepositorio.buscarTodosMedicamentos();
         visao.initCbMedicamentos(lista);
         if (!lista.isEmpty()){
             preencherDados();
         }
-        adicionarAcoes();
     }
 
     @Override
@@ -60,6 +65,7 @@ public class EditarMedicamentoControlador implements ControladorPaineis {
     @Override
     public void atualizarTela() {
         visao.limparTela();
+        visao.preencherCampos(modelo);
     }
     public Despesa gerarDespesa(Medicamento med, double quantidade){
         
@@ -68,6 +74,7 @@ public class EditarMedicamentoControlador implements ControladorPaineis {
             double valorPorMg = med.getValor();
 
             double valorTotal = quantidade * valorPorMg;
+
 
             despesa = new Despesa(
                 descricao,
@@ -84,13 +91,16 @@ public void atualizarEstoque() {
     try {
         modelo = visao.getMedicamento();
 
+        if(modelo == null){
+            throw new MedicamentoException("Selecione um medicamento!");
+        }
+
         double quantidade = visao.getQuantidade();
 
         boolean sucesso = modelo.adicionarEstoque(quantidade);
 
         if (!sucesso) {
-            visao.apresentarMensagem("Quantia inválida");
-            return;
+            throw new MedicamentoException("Quantidade inválida!");
         }
 
         System.out.println("1 - Estoque atualizado");
@@ -110,35 +120,56 @@ public void atualizarEstoque() {
         visao.apresentarMensagem("Estoque atualizado com sucesso!");
 
         atualizarTela();
-
-    } catch (Exception ex) {
+        manterMedicamentoControlador.atualizarTela();
+    } catch (MedicamentoException ex) {
         ex.printStackTrace();
         visao.apresentarMensagem(ex.getMessage());
+    }catch (Exception ex) {
+        ex.printStackTrace();
+        visao.apresentarMensagem("Erro ao atualizar o estoque!");
     }
 }
     
     public void atualizarMedicamento(){
-           try {
-               modelo = visao.getMedicamento();
+        try {
+            modelo = visao.getMedicamento();
 
-               modelo.setValor(visao.getNovoPreco());
+            if (modelo == null) {
+                throw new MedicamentoException(
+                        "Selecione um medicamento.");
+            }
 
-               medRepositorio.salvarMedicamento(modelo);
+            modelo.setValor(
+                    visao.getNovoPreco());
 
-               visao.apresentarMensagem("Medicamento atualizado com sucesso!");
+            medRepositorio
+                    .salvarMedicamento(modelo);
 
-               atualizarTela();
+            visao.apresentarMensagem(
+                    "Medicamento atualizado com sucesso!");
 
-           } catch (MedicamentoException ex) {
-               visao.apresentarMensagem(ex.getMessage());
-           } catch (Exception ex) {
-               visao.apresentarMensagem("Erro ao atualizar medicamento.");
-               ex.printStackTrace();
-           }
+            atualizarTela();
+            manterMedicamentoControlador.atualizarTela();
+
+        } catch (MedicamentoException ex) {
+            visao.apresentarMensagem(
+                    ex.getMessage());
+
+        } catch (Exception ex) {
+            visao.apresentarMensagem(
+                    "Erro ao atualizar medicamento.");
+            ex.printStackTrace();
+        }
     }
     public void excluirMedicamento(){
-        try{
+        try {
             modelo = visao.getMedicamento();
+
+            if (modelo == null) {
+                throw new MedicamentoException(
+                        "Selecione um medicamento.");
+            }
+
             int opcao = JOptionPane.showConfirmDialog(
                     visao,
                     "Deseja realmente excluir o medicamento \""
@@ -151,12 +182,22 @@ public void atualizarEstoque() {
             if (opcao != JOptionPane.YES_OPTION) {
                 return;
             }
+
             medRepositorio.apagar(modelo);
-            visao.apresentarMensagem("Medicamento excluido com sucesso!");
-        }catch(MedicamentoException ex){
-            visao.apresentarMensagem(ex.getMessage());
-        }catch(Exception ex){
-            visao.apresentarMensagem("Erro ao excluir medicamento.");
+
+            visao.apresentarMensagem(
+                    "Medicamento excluído com sucesso!");
+
+            atualizarCbMedicamentos();
+            manterMedicamentoControlador.atualizarTela();
+
+        } catch (MedicamentoException ex) {
+            visao.apresentarMensagem(
+                    ex.getMessage());
+
+        } catch (Exception ex) {
+            visao.apresentarMensagem(
+                    "Erro ao excluir medicamento.");
             ex.printStackTrace();
         }
     }
@@ -164,7 +205,9 @@ public void atualizarEstoque() {
     private void preencherDados() {
             try {
         modelo = visao.getMedicamento();
-
+            if (modelo == null) {
+                throw new MedicamentoException("Selecione um medicamento.");
+            }
         visao.preencheCampos(
                 modelo.getValor(),
                 modelo.getEstoque()

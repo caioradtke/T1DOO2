@@ -40,7 +40,8 @@ public class ManterMedicamentoControlador implements ControladorPaineis {
         new EditarMedicamentoControlador(
                 editarVisao,
                 medRepo,
-                despesaRepo);
+                despesaRepo,
+                this);
         editarVisao.setLocationRelativeTo(null);
     }
 }

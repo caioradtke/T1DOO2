@@ -41,14 +41,8 @@ public class EditarMedicamentoVisao extends javax.swing.JFrame {
             cbMedicamentos.addItem(med);
         }
     }
-    public Medicamento getMedicamento() throws MedicamentoException{
-        Medicamento medicamento = (Medicamento) cbMedicamentos.getSelectedItem();
-
-        if (medicamento == null) {
-            throw new MedicamentoException("Selecione um medicamento.");
-        }
-
-    return medicamento;        
+    public Medicamento getMedicamento(){
+        return (Medicamento) cbMedicamentos.getSelectedItem();
     }
     
     public double getQuantidade() throws MedicamentoException{
