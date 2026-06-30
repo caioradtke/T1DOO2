@@ -146,7 +146,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
                     p.getAltura(),
                     p.getTelefone(),
                     p.getIdade(),
-                    p.getImc(),
+                    String.format("%.2f", p.getImc()),
             });
         }
     }

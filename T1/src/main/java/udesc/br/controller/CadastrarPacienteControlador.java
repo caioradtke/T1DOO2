@@ -1,6 +1,7 @@
 package udesc.br.controller;
 
 import udesc.br.controller.interfaces.ControladorPaineis;
+import udesc.br.exception.PacienteException;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.paciente.CadastrarPacienteVisao;
@@ -42,9 +43,10 @@ public class CadastrarPacienteControlador implements ControladorPaineis {
     }
 
     //Fluxo principal
-    public void salvarPaciente(){
+    public void salvarPaciente() {
         try {
             System.out.println("Salvando Paciente");
+
             String nome = visao.getPacienteNome().trim();
             String cpf = visao.getPacienteCpf().trim();
             String telefone = visao.getPacienteTelefone().trim();
@@ -60,9 +62,15 @@ public class CadastrarPacienteControlador implements ControladorPaineis {
             visao.apresentarMensagem("Paciente salvo com sucesso");
             visao.limparTela();
 
-        } catch (Exception ex) {
-            System.err.println("Erro ao salvar no banco: " + ex.getMessage());
-            visao.apresentarMensagem(ex.getMessage());
+        } catch (PacienteException e) {
+            visao.apresentarMensagem(e.getMessage());
+
+        } catch (org.hibernate.exception.GenericJDBCException e) {
+            if (e.getMessage().contains("UNIQUE constraint failed")) {
+                visao.apresentarMensagem("Já existe um paciente com esse CPF.");
+            } else {
+                visao.apresentarMensagem("Erro ao salvar o paciente.");
+            }
         }
     }
 }
