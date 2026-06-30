@@ -24,30 +24,17 @@ public class CadastrarMedicamentoVisao extends javax.swing.JPanel {
     public void adicionarAcaoBtnCadastrar(ActionListener acao){
         btnSalvar.addActionListener(acao);
     }
-    
-    public String getMedicamentoNome() throws MedicamentoException{
-        if (txtNome.getText().isEmpty())
-            throw new MedicamentoException("Preencha o nome do Medicamento");
-        return txtNome.getText();
+
+    public String getMedicamentoNome() {
+        return txtNome.getText().trim();
     }
-    public double getMedicamentoValorCompra() throws MedicamentoException{
-         String valorString = txtValorCompra.getText().trim();
-        
-        try {
-            return Double.parseDouble(valorString);
-        } catch (NumberFormatException ex){
-            throw new MedicamentoException("Formato do valor inválido");
-        }
+
+    public String getMedicamentoValorCompra() {
+        return txtValorCompra.getText().trim();
     }
-        
-    public double getMedicamentoEstoque() throws MedicamentoException{
-         String estoqueString = txtEstoque.getText().trim();
-        
-        try {
-            return Double.parseDouble(estoqueString);
-        } catch (NumberFormatException ex){
-            throw new MedicamentoException("Formato do estoque inválido");
-        }
+
+    public String getMedicamentoEstoque() {
+        return txtEstoque.getText().trim();
     }
     public void apresentarMensagem(String msg){
         JOptionPane.showMessageDialog(this.getParent(), msg);

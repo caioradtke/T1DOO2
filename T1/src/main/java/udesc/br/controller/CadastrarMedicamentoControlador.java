@@ -5,6 +5,7 @@
 package udesc.br.controller;
 
 import udesc.br.controller.interfaces.ControladorPaineis;
+import udesc.br.exception.MedicamentoException;
 import udesc.br.model.Medicamento;
 import udesc.br.repository.MedicamentoRepositorio;
 import udesc.br.vision.medicamentos.CadastrarMedicamentoVisao;
@@ -42,18 +43,36 @@ public class CadastrarMedicamentoControlador implements ControladorPaineis {
     private void salvarMedicamento() {
         // pegar informações na tela
         try{
-            String nome = visao.getMedicamentoNome().trim();
-            double valor = visao.getMedicamentoValorCompra();
-            double estoque = visao.getMedicamentoEstoque();
-            
-            modelo = new Medicamento(nome, valor, estoque);
-            
-            medicamentoRepositorio.salvarMedicamento(modelo);
-            visao.apresentarMensagem("Medicamento cadastrado com sucesso!");
+            String nome = visao.getMedicamentoNome();
+            if (nome.isEmpty()) {
+                throw new MedicamentoException("Preencha o nome do medicamento!");
+            }
+
+            double valorCompra;
+            try {
+                valorCompra = Double.parseDouble(visao.getMedicamentoValorCompra());
+            } catch (NumberFormatException e) {
+                throw new MedicamentoException("Formato do valor inválido");
+            }
+            if (valorCompra <=0) {
+                throw new MedicamentoException("Informe um valor de compra positivo!");
+            }
+
+            double estoque;
+            try {
+                estoque = Double.parseDouble(visao.getMedicamentoEstoque());
+            }catch (NumberFormatException e){
+                throw new MedicamentoException("Formato do estoque inválido!");
+            }
+            if (estoque <=0) {
+                throw new MedicamentoException("Informe um estoque positivo!");
+            }
+            Medicamento medicamento = new Medicamento(nome, valorCompra, estoque);
+            medicamentoRepositorio.salvarMedicamento(medicamento);
+            visao.apresentarMensagem("Medicamento salvo com sucesso!");
             visao.limparTela();
-        }catch (Exception ex) {
-            System.err.println("Erro ao salvar no banco: " + ex.getMessage());
-            visao.apresentarMensagem("Erro ao salvar no banco de dados");
+        }catch (MedicamentoException ex) {
+            visao.apresentarMensagem(ex.getMessage());
         }
     }
 }
