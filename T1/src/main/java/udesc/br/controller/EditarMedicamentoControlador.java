@@ -102,25 +102,12 @@ public void atualizarEstoque() {
         if (!sucesso) {
             throw new MedicamentoException("Quantidade inválida!");
         }
-
-        System.out.println("1 - Estoque atualizado");
-
         medRepositorio.salvarMedicamento(modelo);
-
-        System.out.println("2 - Medicamento salvo");
-
         Despesa despesa = gerarDespesa(modelo, quantidade);
-
-        System.out.println("3 - Despesa gerada");
-
         despesaRepositorio.salvarMovimentacaoFinanceira(despesa);
-
-        System.out.println("4 - Despesa salva");
-
         visao.apresentarMensagem("Estoque atualizado com sucesso!");
-
-        atualizarTela();
         manterMedicamentoControlador.atualizarTela();
+        visao.dispose();
     } catch (MedicamentoException ex) {
         ex.printStackTrace();
         visao.apresentarMensagem(ex.getMessage());
@@ -148,8 +135,8 @@ public void atualizarEstoque() {
             visao.apresentarMensagem(
                     "Medicamento atualizado com sucesso!");
 
-            atualizarTela();
             manterMedicamentoControlador.atualizarTela();
+            visao.dispose();
 
         } catch (MedicamentoException ex) {
             visao.apresentarMensagem(
@@ -188,8 +175,8 @@ public void atualizarEstoque() {
             visao.apresentarMensagem(
                     "Medicamento excluído com sucesso!");
 
-            atualizarCbMedicamentos();
             manterMedicamentoControlador.atualizarTela();
+            visao.dispose();
 
         } catch (MedicamentoException ex) {
             visao.apresentarMensagem(
