@@ -215,24 +215,28 @@ public class ManterAgendaControlador implements ControladorPaineis, ConsultaRepo
             for (Consulta consulta : consultas) {
                 System.out.println("Adicionando Consulta " + dia);
                 JButton consultaButton = new JButton();
+                try {
 
-                String nomePaciente = consulta.getPaciente().getNome();
-                if (nomePaciente.length() > 3) {
-                    nomePaciente = nomePaciente.substring(0, 12);
+                    String nomePaciente = consulta.getPaciente().getNome();
+                    if (nomePaciente.length() > 12) {
+                        nomePaciente = nomePaciente.substring(0, 12);
+                    }
+                    String text = nomePaciente;
+
+                    consultaButton.setText( "<html><u>"+ text + "</u></html>");
+                    consultaButton.setFont(new Font("Arial", Font.PLAIN, 12));
+                    consultaButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+                    consultaButton.setBorderPainted(false);
+                    consultaButton.setContentAreaFilled(false);
+                    consultaButton.setFocusPainted(false);
+                    consultaButton.setOpaque(false);
+                    consultaButton.addActionListener(e -> acaoAbrirConsulta(consulta));
+                    consultaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+                    diaPainel.add(consultaButton);
+                } catch (Exception e) {
+                    System.err.println(e);
                 }
-                String text = nomePaciente;
-
-                consultaButton.setText( "<html><u>"+ text + "</u></html>");
-                consultaButton.setFont(new Font("Arial", Font.PLAIN, 12));
-                consultaButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-                consultaButton.setBorderPainted(false);
-                consultaButton.setContentAreaFilled(false);
-                consultaButton.setFocusPainted(false);
-                consultaButton.setOpaque(false);
-                consultaButton.addActionListener(e -> acaoAbrirConsulta(consulta));
-                consultaButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-                diaPainel.add(consultaButton);
             }
 
             div.add(diaPainel, BorderLayout.LINE_START);
