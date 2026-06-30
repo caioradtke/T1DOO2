@@ -123,7 +123,7 @@ public class CadastrarPacienteVisao extends javax.swing.JPanel {
     }
 
 
-     public String getPacienteObservacao() {
+    public String getPacienteObservacao() {
         return txtObservacao.getText();
     }
 

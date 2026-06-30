@@ -12,31 +12,17 @@ public class Entrada extends MovimentacaoFinanceira {
     @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 
-    @ManyToOne
-    @JoinColumn(name = "aplicacao_id", nullable = false)
-    private Aplicacao aplicacao;
-
-    @Column(nullable = false)
-    private double valor;
-
-    public Entrada(String descricao, LocalDate data,double valor, Paciente paciente, Aplicacao aplicacao) {
+    public Entrada(String descricao, LocalDate data, double valor, Paciente paciente) {
         super(descricao, data, valor);
         this.paciente = paciente;
-        this.aplicacao = aplicacao;
-        this.valor = aplicacao.getPreco();
     }
 
     // JPA exige construtor vazio
     public Entrada() {
     }
 
-    public double getValor() {return valor;}
-
     public Paciente getPaciente() {
         return paciente;
-    }
-    public Aplicacao getAplicacao(){
-        return aplicacao;
     }
 
     @Override
@@ -44,7 +30,7 @@ public class Entrada extends MovimentacaoFinanceira {
         return "Entrada{" +
                 "id='" + getId() + '\'' +
                 ", paciente=" + paciente.getNome() +
-                ", valor=" + valor +
+                ", valor=" + getValor() +
                 '}';
     }
 

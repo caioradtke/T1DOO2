@@ -8,6 +8,13 @@ import udesc.br.exception.ConsultaException;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import udesc.br.exception.MedicamentoException;
+import udesc.br.model.Medicamento;
 
 /**
  *
@@ -28,8 +35,57 @@ public class FinalizarConsultaVisao extends javax.swing.JFrame {
         btnFinalizarConsulta.addActionListener(acao);
     }
 
+    public void initCbMedicamentos(Set<Medicamento> lista){
+        cbMedicamentos.removeAllItems();
+
+        List<Medicamento> medicamentos =
+                new ArrayList<>(lista);
+
+        Collections.sort(
+                medicamentos,
+                (m1, m2) -> Double.compare(m2.getEstoque(),(m1.getEstoque()))
+        );
+
+        for (Medicamento med : medicamentos) {
+            cbMedicamentos.addItem(med);
+        }
+    }
+
+    public Medicamento getMedicamento() throws ConsultaException {
+        Medicamento medicamento = (Medicamento) cbMedicamentos.getSelectedItem();
+
+        if (medicamento == null) {
+            throw new ConsultaException("Selecione um medicamento.");
+        }
+
+        return medicamento;
+    }
+
+    public int getQuantidade() throws ConsultaException {
+        int quantidade = (int) campoQuantidade.getValue();
+
+        if (quantidade <= 0) {
+            throw new ConsultaException("Quantidade do medicamento deve ser positiva");
+        }
+
+        return quantidade;
+    }
+
+    public double getValorConsulta() throws ConsultaException {
+        String txt = campoValor.getText().trim().replace(',', '.');;
+
+        if (txt.isEmpty()) {
+            throw new ConsultaException("Informe o valor da consulta");
+        }
+        try {
+            return Double.parseDouble(txt);
+        } catch (NumberFormatException e) {
+            throw new ConsultaException("Valor da consulta inválido");
+        }
+    }
+
     public double getPesoPaciente() throws ConsultaException {
-        String txt = campoPesoConsulta.getText().trim();
+        String txt = campoPesoConsulta.getText().trim().replace(',', '.');;
 
         if (txt.isEmpty()) {
             throw new ConsultaException("Informe o peso do paciente");
@@ -42,7 +98,7 @@ public class FinalizarConsultaVisao extends javax.swing.JFrame {
     }
 
     public double getPressao() throws ConsultaException {
-        String txt = campoPressao.getText().trim();
+        String txt = campoPressao.getText().trim().replace(',', '.');;
 
         if (txt.isEmpty()) {
             throw new ConsultaException("Informe a pressão do paciente");
@@ -70,9 +126,15 @@ public class FinalizarConsultaVisao extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        campoPesoConsulta = new javax.swing.JFormattedTextField();
-        campoPressao = new javax.swing.JFormattedTextField();
         btnFinalizarConsulta = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        cbMedicamentos = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        campoQuantidade = new javax.swing.JSpinner();
+        campoPesoConsulta = new javax.swing.JTextField();
+        campoPressao = new javax.swing.JTextField();
+        campoValor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Finalizar Consulta");
@@ -84,30 +146,46 @@ public class FinalizarConsultaVisao extends javax.swing.JFrame {
 
         jLabel1.setText("Peso do Paciente");
 
-        campoPesoConsulta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.##"))));
-
-        campoPressao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("###0.##"))));
-
         btnFinalizarConsulta.setText("Finalizar Consulta");
+
+        jLabel7.setText("Valor da Consulta");
+
+        jLabel2.setText("Medicamento Usado");
+
+        jLabel8.setText("Quantidade (mg)");
+
+        campoQuantidade.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnFinalizarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoPesoConsulta)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jLabel2)
+                            .addComponent(cbMedicamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoPressao)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(24, 24, 24))
+                            .addComponent(campoQuantidade)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(campoPesoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(campoPressao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnFinalizarConsulta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,13 +193,23 @@ public class FinalizarConsultaVisao extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(campoPesoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoPressao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoPesoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(campoValor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbMedicamentos, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                    .addComponent(campoQuantidade))
                 .addGap(18, 18, 18)
                 .addComponent(btnFinalizarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -136,10 +224,16 @@ public class FinalizarConsultaVisao extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFinalizarConsulta;
-    private javax.swing.JFormattedTextField campoPesoConsulta;
-    private javax.swing.JFormattedTextField campoPressao;
+    private javax.swing.JTextField campoPesoConsulta;
+    private javax.swing.JTextField campoPressao;
+    private javax.swing.JSpinner campoQuantidade;
+    private javax.swing.JTextField campoValor;
+    private javax.swing.JComboBox<Medicamento> cbMedicamentos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     // End of variables declaration//GEN-END:variables
 }

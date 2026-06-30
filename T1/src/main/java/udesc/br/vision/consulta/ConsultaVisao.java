@@ -20,8 +20,6 @@ import java.util.Map;
  * @author andre
  */
 public class ConsultaVisao extends javax.swing.JFrame {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ConsultaVisao.class.getName());
 
     /**
      * Creates new form ConsultaVisao
@@ -32,20 +30,26 @@ public class ConsultaVisao extends javax.swing.JFrame {
     }
 
     public void modoEdicao(boolean modo) {
-        if (modo != true) {
+        if (!modo) {
             btnEditar.setText("Salvar Consulta");
         } else {
             btnEditar.setText("Editar Consulta");
         }
         btnExcluir.setVisible(modo);
-        btnFinalizar.setVisible(modo);
+        btnFinalizar.setVisible(false);
 
         cbStatus.setEnabled(!modo);
         cbPacientes.setVisible(!modo);
+
         txtHorario.setEditable(!modo);
         txtHorario.setFocusable(!modo);
+
         txtData.setEditable(!modo);
         txtData.setFocusable(!modo);
+
+        txtPesoConsulta.setEditable(!modo);
+        txtPressao.setEditable(!modo);
+
         txtObservacao.setEditable(!modo);
     }
 
@@ -57,7 +61,7 @@ public class ConsultaVisao extends javax.swing.JFrame {
         }
     }
 
-    public void carregarConsulta(Consulta consulta) {
+    public void carregarConsulta(Consulta consulta, boolean modoEdicao) {
         System.out.println("Carregando Consulta...");
 
         Paciente paciente = consulta.getPaciente();
@@ -77,18 +81,18 @@ public class ConsultaVisao extends javax.swing.JFrame {
         txtHorario.setText(consulta.getHorario());
         txtObservacao.setText(consulta.getObservacao());
 
+        txtPesoConsulta.setText(Double.toString(consulta.getPesoPaciente()));
+        txtPressao.setText(Double.toString(consulta.getPressaoPaciente()));
+        cbPacientes.setSelectedItem(paciente);
+
+        if (modoEdicao) { return;}
         if (consulta.getStatus().equals("CONCLUIDA")) {
             painelDadosConsulta.setVisible(true);
-            txtPesoConsulta.setText(Double.toString(consulta.getPesoPaciente()));
-            txtPressao.setText(Double.toString(consulta.getPressaoPaciente()));
-
-            btnFinalizar.setVisible(false);
+            if (btnFinalizar.isVisible()) {btnFinalizar.setVisible(false);}
         } else {
             painelDadosConsulta.setVisible(false);
-            btnFinalizar.setVisible(true);
+            if (!btnFinalizar.isVisible()) {btnFinalizar.setVisible(true);}
         }
-
-        cbPacientes.setSelectedItem(paciente);
     }
 
     public void adicionarAcaoEditar(ActionListener acao) {
@@ -101,6 +105,22 @@ public class ConsultaVisao extends javax.swing.JFrame {
 
     public void adicionarAcaoAbrirTelaFinalizar(ActionListener acao) {
         btnFinalizar.addActionListener(acao);
+    }
+
+    public Double getPesoConsulta() throws ConsultaException {
+        try {
+            return Double.parseDouble(txtPesoConsulta.getText());
+        } catch (NumberFormatException e) {
+            throw new ConsultaException("Peso inválido, digite apenas números");
+        }
+    }
+
+    public Double getPressao() throws ConsultaException {
+        try {
+            return Double.parseDouble(txtPressao.getText());
+        } catch (NumberFormatException e) {
+            throw new ConsultaException("Pressão invalida, digite apenas números");
+        }
     }
 
     public LocalDate getData() {
@@ -447,7 +467,6 @@ public class ConsultaVisao extends javax.swing.JFrame {
         );
 
         txtPressao.setEditable(false);
-        txtPressao.setBorder(null);
 
         jLabel19.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel19.setText("Pressão");
@@ -477,7 +496,6 @@ public class ConsultaVisao extends javax.swing.JFrame {
         jLabel3.setText("Dados da Consulta");
 
         txtPesoConsulta.setEditable(false);
-        txtPesoConsulta.setBorder(null);
         txtPesoConsulta.addActionListener(this::txtPesoConsultaActionPerformed);
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N

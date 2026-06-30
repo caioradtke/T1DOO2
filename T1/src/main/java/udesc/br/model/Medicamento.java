@@ -37,7 +37,7 @@ public class Medicamento {
         return true;
     }
     public boolean removerEstoque(double quantidade){
-        if (estoque <= 0){
+        if (estoque < quantidade){
             return false;
         }
         this.estoque -= quantidade;
