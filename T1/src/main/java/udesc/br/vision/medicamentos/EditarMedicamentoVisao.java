@@ -47,6 +47,9 @@ public class EditarMedicamentoVisao extends javax.swing.JFrame {
     
     public double getQuantidade() throws MedicamentoException{
         try{
+            if (txtQuantidade.getText().isEmpty()){
+                throw new MedicamentoException("Insira uma valor para acrescentar ao estoque!");
+            }
             double quantidade = Double.parseDouble(txtQuantidade.getText());
         if (quantidade <= 0){
             throw new MedicamentoException("Insira um valor válido!");
