@@ -3,6 +3,7 @@ package udesc.br.controller;
 import java.util.Map;
 
 import udesc.br.controller.interfaces.ControladorPaineis;
+import udesc.br.exception.PacienteException;
 import udesc.br.model.Paciente;
 import udesc.br.repository.PacienteRepositorio;
 import udesc.br.vision.paciente.ManterPacienteVisao;
@@ -50,22 +51,27 @@ public class ManterPacienteControlador implements ControladorPaineis {
     
     public void alterarPaciente() {
         try{
-        pacienteModelo.setNome(visao.getPacienteNome());
-        pacienteModelo.setPeso(visao.getPacientePeso());
-        pacienteModelo.setAltura(visao.getPacienteAltura());
-        pacienteModelo.setTelefone(visao.getPacienteTelefone());
-        pacienteModelo.setCpf(visao.getPacienteCpf());
-        pacienteModelo.setIdade((visao.getPacienteIdade()));
-        pacienteModelo.setImc(visao.getPacientePeso(), (visao.getPacienteAltura()));
-        pacienteModelo.setObservacao(visao.getPacienteObservacao());
-        repositorio.salvarPaciente(pacienteModelo);
-        visao.apresentarMensagem(pacienteModelo.toString() + " Alterações salvas com sucesso");
-        visao.limparTela();
+            pacienteModelo.setNome(visao.getPacienteNome());
+            pacienteModelo.setPeso(visao.getPacientePeso());
+            pacienteModelo.setAltura(visao.getPacienteAltura());
+            pacienteModelo.setTelefone(visao.getPacienteTelefone());
+            pacienteModelo.setCpf(visao.getPacienteCpf());
+            pacienteModelo.setIdade((visao.getPacienteIdade()));
+            pacienteModelo.setImc(visao.getPacientePeso(), (visao.getPacienteAltura()));
+            pacienteModelo.setObservacao(visao.getPacienteObservacao());
+            repositorio.salvarPaciente(pacienteModelo);
+            visao.apresentarMensagem(pacienteModelo.toString() + " Alterações salvas com sucesso");
+            visao.limparTela();
         }
+        catch (PacienteException ex){
+            visao.apresentarMensagem(ex.getMessage());
+        }
+
         catch(Exception ex){
             System.err.println("Erro ao salvar no banco: " + ex.getMessage());
             visao.apresentarMensagem("Erro ao salvar no banco de dados");
         }
+
     }
     
     public void excluirPaciente() {
