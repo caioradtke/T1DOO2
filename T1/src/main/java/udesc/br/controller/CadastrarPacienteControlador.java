@@ -19,12 +19,6 @@ public class CadastrarPacienteControlador implements ControladorPaineis {
         initTela();
     }
 
-    public CadastrarPacienteControlador(PacienteRepositorio pacienteRepositorio){
-        this.visao = new CadastrarPacienteVisao();
-        this.pacienteRepositorio = pacienteRepositorio;
-        initTela();
-    }
-
     @Override
     public void initTela(){
         adicionarAcoes();
